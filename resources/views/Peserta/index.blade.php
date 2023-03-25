@@ -15,7 +15,7 @@
             <div class="table-responsive text-nowrap">
                 <table class="table">
                     <caption class="ms-4">
-                        List of Projects
+                        List of Projects Test
                     </caption>
                     <thead>
                         <tr>

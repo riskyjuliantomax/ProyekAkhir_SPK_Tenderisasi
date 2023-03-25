@@ -12,7 +12,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view ('Dashboard/index',['title' => 'Dashboard SPK Tenderisasi']);
+        return view ('Dashboard/index',['title' => 'Dashboard SPK Tenderisasi',]);
     }
 
     /**

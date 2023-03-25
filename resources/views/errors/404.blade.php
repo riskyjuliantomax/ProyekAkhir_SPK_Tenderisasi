@@ -23,19 +23,25 @@
     <link rel="stylesheet" href="{!! asset('assets/vendor/css/core.css') !!}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{!! asset('assets/vendor/css/theme-default.css') !!}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{!! asset('assets/css/demo.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('assets/vendor/css/pages/page-misc.css') !!}" />
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{!! asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('assets/vendor/libs/apex-charts/apex-charts.css') !!}" />
 </head>
 
 <body>
-    <div class=" mt-5 pt-5">
-        <div class="text-center">
-            <h2 class="display-1" style="color:#f1828d">404</h2>
-            <p class="display-5">Oops! Something is wrong.</p>
-            <a href="{{ url('Dashboard') }}" class="btn btn-danger">Kembali Dashboard</a>
+    <div class="container-xxl container-p-y">
+        <div class="misc-wrapper">
+            <h2 class="mb-2 mx-2">Halaman Tidak Ditemukan :(</h2>
+            <p class="mb-4 mx-2">Oops! 😖 URL yang diminta tidak ditemukan di server ini.</p>
+            <a href="{{url('/Dashboard')}}" class="btn btn-primary">Kembali Dashboard</a>
+            <div class="mt-3">
+                <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light"
+                    width="500" class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
+                    data-app-light-img="illustrations/page-misc-error-light.png" />
+            </div>
         </div>
     </div>
+
+
 </body>
 
 </html>

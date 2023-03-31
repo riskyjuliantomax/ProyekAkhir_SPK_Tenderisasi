@@ -65,11 +65,29 @@
             </a>
         </li>
 
-        <li class="menu-item {{ request()->Is('Peserta') ? 'active' : '' }}">
-            <a href="{{ url('Peserta') }}" class="menu-link">
+        <li
+            class="menu-item
+            {{ request()->Is('PengadaanBarang') ? 'active' : '' }}
+            {{ request()->Is('Peserta') ? 'active' : '' }}
+            {{ request()->Is('Peserta') ? 'open' : '' }}
+            ">
+            <a href="{{ url('PengadaanBarang') }}"
+                class="menu-link
+                {{ request()->Is('Peserta') ? 'menu-toggle' : '' }}">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Peserta</div>
+                <div data-i18n="Pengadaan Barang">Pengadaan Barang</div>
             </a>
+            @php
+                if (request()->Is('Peserta'));
+            @endphp
+            <ul class="menu-sub">
+                <li class="menu-item active">
+                    <a href="{{ url('Peserta') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Without menu">Peserta</div>
+                    </a>
+                </li>
+            </ul>
         </li>
         <!-- Layouts -->
         <li class="menu-item">

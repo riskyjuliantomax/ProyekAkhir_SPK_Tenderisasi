@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\PengadaanBarangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,7 @@ Route::get('/Dashboard', [DashboardController::class, 'index'])-> name('Dashboar
 //Peserta
 Route::get('/Peserta', [PesertaController::class, 'index'])-> name('Peserta.index');
 Route::post('/Peserta', [PesertaController::class, 'store']);
+//Pengadaan Barang
+Route::get('/PengadaanBarang', [PengadaanBarangController::class, 'index'])-> name('PengadaanBarang.index');
 
 Route::get('/Perusahaan', [PerusahaanController::class, 'index']);

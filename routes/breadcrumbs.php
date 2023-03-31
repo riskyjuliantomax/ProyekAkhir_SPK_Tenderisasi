@@ -13,5 +13,11 @@ Breadcrumbs::for('dashboard', function ($trail) {
 
 //Peserta
 Breadcrumbs::for('peserta', function ($trail){
+    $trail->parent('PengadaanBarang');
     $trail->push('Peserta', route('Peserta.index'));
+});
+
+//PengadaanBarang
+Breadcrumbs::for('PengadaanBarang', function ($trail){
+    $trail->push('Pengadaan Barang', route('PengadaanBarang.index'));
 });

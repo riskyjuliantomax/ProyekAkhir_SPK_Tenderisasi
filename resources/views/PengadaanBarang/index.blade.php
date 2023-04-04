@@ -1,6 +1,6 @@
 @extends('template.master')
 @section('content')
-    {{ Breadcrumbs::render('PengadaanBarang') }}
+    {{ Breadcrumbs::render('pengadaanBarang') }}
     <div class="card">
         <div class="ms-4 mt-3 mb-2">
             <a href='#' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Tambah

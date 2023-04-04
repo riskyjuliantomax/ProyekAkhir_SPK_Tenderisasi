@@ -11,9 +11,9 @@ class PengadaanBarangController extends Controller
         return view('PengadaanBarang.index',
         ['title' => 'Pengadaan Barang'],
     );
-    
+
     }
     public function store(Request $request){
-
+        
     }
 }

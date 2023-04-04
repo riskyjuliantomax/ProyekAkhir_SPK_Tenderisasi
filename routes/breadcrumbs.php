@@ -13,11 +13,16 @@ Breadcrumbs::for('dashboard', function ($trail) {
 
 //Peserta
 Breadcrumbs::for('peserta', function ($trail){
-    $trail->parent('PengadaanBarang');
+    $trail->parent('pengadaanBarang');
     $trail->push('Peserta', route('Peserta.index'));
 });
 
 //PengadaanBarang
-Breadcrumbs::for('PengadaanBarang', function ($trail){
+Breadcrumbs::for('pengadaanBarang', function ($trail){
     $trail->push('Pengadaan Barang', route('PengadaanBarang.index'));
+});
+
+//Kriteria
+Breadcrumbs::for('kriteria', function ($trail){
+    $trail->push('Kriteria', route('Kriteria.index'));
 });

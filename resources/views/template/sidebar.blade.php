@@ -60,7 +60,7 @@
         <!-- Dashboard -->
         <li class="menu-item {{ request()->Is('Dashboard') ? 'active' : '' }}">
             <a href="{{ url('Dashboard') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class='menu-icon bx bx-doughnut-chart'></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
@@ -74,20 +74,26 @@
             <a href="{{ url('PengadaanBarang') }}"
                 class="menu-link
                 {{ request()->Is('Peserta') ? 'menu-toggle' : '' }}">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon tf-icons bx bx-package"></i>
                 <div data-i18n="Pengadaan Barang">Pengadaan Barang</div>
             </a>
-            @php
-                if (request()->Is('Peserta'));
-            @endphp
-            <ul class="menu-sub">
-                <li class="menu-item active">
-                    <a href="{{ url('Peserta') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                        <div data-i18n="Without menu">Peserta</div>
-                    </a>
-                </li>
-            </ul>
+            @if (request()->Is('Peserta'))
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->Is('Peserta') ? 'active' : '' }}">
+                        <a href="{{ url('Peserta') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                            <div data-i18n="Without menu">Peserta</div>
+                        </a>
+                    </li>
+                </ul>
+            @endif
+        </li>
+
+        <li class="menu-item {{ request()->Is('Kriteria') ? 'active' : '' }}">
+            <a href="{{ url('Kriteria') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-check"></i>
+                <div data-i18n="Analytics">Kriteria</div>
+            </a>
         </li>
         <!-- Layouts -->
         <li class="menu-item">
@@ -104,6 +110,7 @@
                 </li>
             </ul>
         </li>
+
 
     </ul>
 </aside>

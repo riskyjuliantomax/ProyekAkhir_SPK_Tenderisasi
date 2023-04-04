@@ -32,7 +32,7 @@
         <div class="misc-wrapper">
             <h2 class="mb-2 mx-2">Halaman Tidak Ditemukan :(</h2>
             <p class="mb-4 mx-2">Oops! 😖 URL yang diminta tidak ditemukan di server ini.</p>
-            <a href="{{url('/Dashboard')}}" class="btn btn-primary">Kembali Dashboard</a>
+            <a href="{{ url('/Dashboard') }}" class="btn btn-primary">Kembali Dashboard</a>
             <div class="mt-3">
                 <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light"
                     width="500" class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"

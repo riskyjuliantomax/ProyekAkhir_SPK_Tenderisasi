@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>{{ $title = isset($title) ? $title : '' }}</title>
     <!-- Favicon -->
     {{-- <link rel="icon" type="image/x-icon" href="{!! asset('assets/img/favicon/favicon.ico') !!}" /> --}}
@@ -32,13 +33,16 @@
 
     <!-- Helpers -->
     <script src="{!! asset('assets/vendor/js/helpers.js') !!}"></script>
+
 </head>
 
 <body>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Layout wrapper -->
+
+
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-
             @include('template.sidebar')
 
             <!-- Layout container -->
@@ -94,8 +98,7 @@
         <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-
-    <!-- Core JS -->
+    <!-- Sweet Alert-->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{!! asset('assets/vendor/libs/jquery/jquery.js') !!}"></script>
     <script src="{!! asset('assets/vendor/libs/popper/popper.js') !!}"></script>
@@ -110,6 +113,9 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 </body>
 
 </html>

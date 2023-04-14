@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col mb-3">
-                        <label for="nameBackdrop" class="form-label">Nama Pengadaan</label>
+                        <label for="nameBackdrop" class="form-label">Nama Kriteria</label>
                         <input type="text" id="nama_kriteria" name="nama_kriteria" class="form-control"
                             value="{{ old('nama_kriteria') }}" />
                     </div>
@@ -36,8 +36,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="reset" class="btn btn-outline-danger">
+                {{-- <button type="reset" class="btn btn-outline-danger">
                     Reset
+                </button> --}}
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
                 </button>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
@@ -61,7 +64,7 @@
                     <input type="hidden" name="id_kriteria" value="{{ $data->id_kriteria }}" />
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="nameBackdrop" class="form-label">Nama Pengadaan</label>
+                            <label for="nameBackdrop" class="form-label">Nama Kriteria</label>
                             <input type="text" id="nama_kriteria" name="nama_kriteria" class="form-control"
                                 value="{{ $data->nama_kriteria }}" />
                         </div>

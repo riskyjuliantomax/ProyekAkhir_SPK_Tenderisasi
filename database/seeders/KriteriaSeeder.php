@@ -12,6 +12,6 @@ class KriteriaSeeder extends Seeder
      */
     public function run(): void
     {
-
+        // \App\Models\Kriteria::factory(10)->create();
     }
 }

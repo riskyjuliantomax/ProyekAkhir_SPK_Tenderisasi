@@ -55,6 +55,11 @@ class KriteriaController extends Controller
         }
     }
 
+    public function edit(Request $request){
+        $data = Kriteria::findOrFail($request->get('id_kriteria'));
+        echo json_encode($data);
+    }
+
     public function update(Request $request){
         $this->validate($request, [
             'nama_kriteria' => ['required', 'min:3'],

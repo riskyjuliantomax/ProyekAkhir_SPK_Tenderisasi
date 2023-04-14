@@ -30,8 +30,8 @@
 <body>
     <div class="container-xxl container-p-y">
         <div class="misc-wrapper">
-            <h2 class="mb-2 mx-2">Halaman Tidak Ditemukan :(</h2>
-            <p class="mb-4 mx-2">Oops! 😖 URL yang diminta tidak ditemukan di server ini.</p>
+            <h2 class="mb-2 mx-2">Halaman Tidak Ditemukan :( </h2>
+            <p class="mb-4 mx-2">Oops! URL yang diminta tidak ketemu</p>
             <a href="{{ url('/Dashboard') }}" class="btn btn-primary">Kembali Dashboard</a>
             <div class="mt-3">
                 <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light"

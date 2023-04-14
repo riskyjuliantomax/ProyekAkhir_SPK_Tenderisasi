@@ -7,22 +7,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\UserAlamat;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+    protected $table = "users";
+    protected $primaryKey = "id_users";
     protected $fillable = [
-        'name',
+        'nama',
         'email',
-        'password',
-    ];
+        'tgl_lahir',
+        'tempat_lahir',
+        'img_profile',
+        'role',
+        'no_hp',
+        'tentang',
+        'created_at',
+        'updated_at',
 
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -30,7 +38,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -38,7 +45,8 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function userAlamat(){
+        return $this->belongsTo(UserAlamat::class, 'id_users', 'id_users');
+    }
+
 }

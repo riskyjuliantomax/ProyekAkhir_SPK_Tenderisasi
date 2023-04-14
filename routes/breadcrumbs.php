@@ -26,3 +26,8 @@ Breadcrumbs::for('pengadaanBarang', function ($trail){
 Breadcrumbs::for('kriteria', function ($trail){
     $trail->push('Kriteria', route('Kriteria.index'));
 });
+
+//User
+Breadcrumbs::for('user', function ($trail){
+    $trail->push('User', route('User.index'));
+});

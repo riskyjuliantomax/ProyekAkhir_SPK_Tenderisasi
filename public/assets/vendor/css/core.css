@@ -16009,7 +16009,7 @@ html:not(.layout-footer-fixed) .content-wrapper {
     body:not(.modal-open)
     .layout-content-navbar
     .layout-navbar {
-    z-index: 0;
+    z-index: 1000;
 }
 
 .layout-footer-fixed .content-footer {

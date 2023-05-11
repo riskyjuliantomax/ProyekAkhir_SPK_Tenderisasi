@@ -65,30 +65,6 @@
             </a>
         </li>
 
-        <li
-            class="menu-item
-            {{ request()->Is('PengadaanBarang') ? 'active' : '' }}
-            {{ request()->Is('Peserta') ? 'active' : '' }}
-            {{ request()->Is('Peserta') ? 'open' : '' }}
-            ">
-            <a href="{{ url('PengadaanBarang') }}"
-                class="menu-link
-                {{ request()->Is('Peserta') ? 'menu-toggle' : '' }}">
-                <i class="menu-icon tf-icons bx bx-package"></i>
-                <div data-i18n="Pengadaan Barang">Pengadaan Barang</div>
-            </a>
-            @if (request()->Is('Peserta'))
-                <ul class="menu-sub">
-                    <li class="menu-item {{ request()->Is('Peserta') ? 'active' : '' }}">
-                        <a href="{{ url('Peserta') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-user-detail"></i>
-                            <div data-i18n="Without menu">Peserta</div>
-                        </a>
-                    </li>
-                </ul>
-            @endif
-        </li>
-
         <li class="menu-item {{ request()->Is('Kriteria') ? 'active' : '' }}">
             <a href="{{ url('Kriteria') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-list-check"></i>
@@ -99,6 +75,18 @@
             <a href="{{ url('User') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Analytics">User</div>
+            </a>
+        </li>
+        <li class="menu-item {{ request()->Is('Perusahaan') ? 'active' : '' }}">
+            <a href="{{ url('Perusahaan') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-building"></i>
+                <div data-i18n="Analytics">Perusahaan</div>
+            </a>
+        </li>
+        <li class="menu-item {{ request()->Is('Penilaian') ? 'active' : '' }}">
+            <a href="{{ url('Penilaian') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-building"></i>
+                <div data-i18n="Analytics">Penilaian</div>
             </a>
         </li>
         <!-- Layouts -->

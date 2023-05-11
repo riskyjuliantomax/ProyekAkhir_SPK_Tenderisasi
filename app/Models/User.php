@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserAlamat;
+
 class User extends Authenticatable
 {
 
@@ -31,6 +32,7 @@ class User extends Authenticatable
         'updated_at',
 
     ];
+    public $sortable = ['id_users', 'nama', 'email', 'role'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -45,8 +47,8 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    public function userAlamat(){
+    public function userAlamat()
+    {
         return $this->belongsTo(UserAlamat::class, 'id_users', 'id_users');
     }
-
 }

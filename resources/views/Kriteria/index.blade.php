@@ -61,7 +61,7 @@
                                 <td>{{ ucfirst($data->nama_kriteria) }}
                                 </td>
                                 <td>{{ ucfirst($data->attribut) }}</td>
-                                <td>{{ $data->bobot }}</td>
+                                <td>{{ $data->bobot * 100 }}%</td>
                                 <td style="width:13%">
                                     <button type="button" class="btn btn-icon btn-primary" data-toggle="modal"
                                         data-target="#modalFormEdit{{ $data->id_kriteria }}">

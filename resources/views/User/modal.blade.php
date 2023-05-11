@@ -34,6 +34,13 @@
                             </div>
                             <div class="row">
                                 <div class="col mb-3">
+                                    <label for="nameBackdrop" class="form-label">NIP *)</label>
+                                    <input type="text" id="nip" name="nip" class="form-control"
+                                        placeholder="xxxxxxx" value="{{ old('nip') }}" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col mb-3">
                                     <label for="emailBackdrop" class="form-label">Email *)</label>
                                     <input type="email" id="email" name="email" class="form-control"
                                         placeholder="****@gmail.com" value="{{ old('email') }}" />
@@ -46,27 +53,27 @@
                             </div>
                             <div class="row">
                                 <div class="col mb-3">
-                                    <label for="emailBackdrop" class="form-label">Tanggal Lahir *)
-                                        <span class="badge badge-center rounded-pill bg-primary ms-1"
+                                    <label for="emailBackdrop" class="form-label">Tanggal Lahir
+                                        {{-- <span class="badge badge-center rounded-pill bg-primary ms-1"
                                             data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                             data-bs-html="true" title=""
                                             data-bs-original-title="<span>Perusahaan diisi tanggal berdirinya</span>"><i
                                                 class='bx bx-question-mark'>
                                             </i>
-                                        </span>
+                                        </span> --}}
                                     </label>
                                     <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control"
                                         value="{{ old('tanggal_lahir') }}" />
                                 </div>
                                 <div class="col mb-33">
-                                    <label for="emailBackdrop" class="form-label">Tempat Lahir *)
-                                        <span class="badge badge-center rounded-pill bg-primary ms-1"
+                                    <label for="emailBackdrop" class="form-label">Tempat Lahir
+                                        {{-- <span class="badge badge-center rounded-pill bg-primary ms-1"
                                             data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                             data-bs-html="true" title=""
                                             data-bs-original-title="<span>Perusahaan diisi tempat berdirinya</span>"><i
                                                 class='bx bx-question-mark'>
                                             </i>
-                                        </span>
+                                        </span> --}}
                                     </label>
                                     <input type="text" id="tempat_lahir" name="tempat_lahir" class="form-control"
                                         placeholder="Sesuai KTP" value="{{ old('tempat_lahir') }}" />
@@ -74,19 +81,20 @@
                             </div>
                             <div class="row">
                                 <div class="col mb-3">
-                                    <label for="emailBackdrop" class="form-label">No Handphone *)</label>
+                                    <label for="emailBackdrop" class="form-label">No Handphone</label>
                                     <input type="number" id="no_hp" name="no_hp" class="form-control"
                                         placeholder="08********" value="{{ old('no_hp') }}" />
                                 </div>
                                 <div class="col mb-3">
-                                    <label for="dobBackdrop" class="form-label">Kelamin <span
-                                            class="badge badge-center rounded-pill bg-primary ms-1"
+                                    <label for="dobBackdrop" class="form-label">Kelamin
+                                        {{-- <span class="badge badge-center rounded-pill bg-primary ms-1"
                                             data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                             data-bs-html="true" title=""
                                             data-bs-original-title="<span>Kosongi Jika Perusahaan</span>"><i
                                                 class='bx bx-question-mark'>
                                             </i>
-                                        </span></label>
+                                        </span> --}}
+                                    </label>
                                     <select id="kelamin" name="kelamin" class="form-select">
                                         <option value="" {{ old('kelamin') == '' ? 'selected' : '' }}>
                                             --- Pilih Jenis Kelamin ---
@@ -126,47 +134,47 @@
                             <p> Alamat Perusahaan atau Personal
                             <div class="row">
                                 <div class="col mb-3">
-                                    <label for="nameBackdrop" class="form-label">Kenegaraan *)</label>
+                                    <label for="nameBackdrop" class="form-label">Kenegaraan </label>
                                     <input type="text" id="kenegaraan" name="kenegaraan" class="form-control"
                                         placeholder="Indonesia" value="{{ old('kenegaraan') }}" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col mb-3">
-                                    <label for="nameBackdrop" class="form-label">Provinsi *)</label>
+                                    <label for="nameBackdrop" class="form-label">Provinsi </label>
                                     <input type="text" id="provinsi" name="provinsi" class="form-control"
                                         value="{{ old('provinsi') }}" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col mb-3">
-                                    <label for="nameBackdrop" class="form-label">Kabupaten *)</label>
+                                    <label for="nameBackdrop" class="form-label">Kabupaten </label>
                                     <input type="text" id="kabupaten" name="kabupaten" class="form-control"
                                         value="{{ old('kabupaten') }}" />
                                 </div>
                                 <div class="col mb-3">
-                                    <label for="nameBackdrop" class="form-label">Kecamatan *)</label>
+                                    <label for="nameBackdrop" class="form-label">Kecamatan </label>
                                     <input type="text" id="kecamatan" name="kecamatan" class="form-control"
                                         value="{{ old('kecamatan') }}" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col mb-3">
-                                    <label for="nameBackdrop" class="form-label">Kota *)</label>
+                                    <label for="nameBackdrop" class="form-label">Kota </label>
                                     <input type="text" id="kota" name="kota" class="form-control"
                                         value="{{ old('kota') }}" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col mb-3">
-                                    <label for="nameBackdrop" class="form-label">Kodepos *)</label>
+                                    <label for="nameBackdrop" class="form-label">Kodepos </label>
                                     <input type="number" id="kodepos" name="kodepos" class="form-control"
                                         value="{{ old('kodepos') }}" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col mb-3">
-                                    <label for="nameBackdrop" class="form-label">Alamat *)</label>
+                                    <label for="nameBackdrop" class="form-label">Alamat</label>
                                     <textarea class="form-control" id="alamat" name="alamat" rows="3">{{ old('alamat') }}</textarea>
                                 </div>
                             </div>
@@ -230,6 +238,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
+                                        <label for="nameBackdrop" class="form-label">NIP *)</label>
+                                        <input type="text" id="nip" name="nip" class="form-control"
+                                            placeholder="xxxxxx" value="{{ $data->nip }}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-3">
                                         <label for="emailBackdrop" class="form-label">Email *)</label>
                                         <input type="email" id="email" name="email" class="form-control"
                                             placeholder="****@gmail.com" value="{{ $data->email }}" />
@@ -242,7 +257,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
-                                        <label for="emailBackdrop" class="form-label">Tanggal Lahir *)
+                                        <label for="emailBackdrop" class="form-label">Tanggal Lahir
                                             <span class="badge badge-center rounded-pill bg-primary ms-1"
                                                 data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                                 data-bs-html="true" title=""
@@ -255,7 +270,7 @@
                                             class="form-control" value="{{ $data->tgl_lahir }}" />
                                     </div>
                                     <div class="col mb-33">
-                                        <label for="emailBackdrop" class="form-label">Tempat Lahir *)
+                                        <label for="emailBackdrop" class="form-label">Tempat Lahir
                                             <span class="badge badge-center rounded-pill bg-primary ms-1"
                                                 data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                                 data-bs-html="true" title=""
@@ -271,7 +286,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
-                                        <label for="emailBackdrop" class="form-label">No Handphone *)</label>
+                                        <label for="emailBackdrop" class="form-label">No Handphone </label>
                                         <input type="number" id="no_hp" name="no_hp" class="form-control"
                                             placeholder="08********" value="{{ $data->no_hp }}" />
                                     </div>
@@ -299,7 +314,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
-                                        <label for="dobBackdrop" class="form-label">Role *)</label>
+                                        <label for="dobBackdrop" class="form-label">Role </label>
                                         <select id="role" name="role" class="form-select">
                                             <option value="user" {{ $data->role == 'user' ? 'selected' : '' }}>
                                                 User
@@ -321,47 +336,47 @@
                                 <p> Alamat Perusahaan atau Personal
                                 <div class="row">
                                     <div class="col mb-3">
-                                        <label for="nameBackdrop" class="form-label">Kenegaraan *)</label>
+                                        <label for="nameBackdrop" class="form-label">Kenegaraan </label>
                                         <input type="text" id="kenegaraan" name="kenegaraan" class="form-control"
                                             placeholder="Indonesia" value="{{ $data->userAlamat->kenegaraan }}" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
-                                        <label for="nameBackdrop" class="form-label">Provinsi *)</label>
+                                        <label for="nameBackdrop" class="form-label">Provinsi </label>
                                         <input type="text" id="provinsi" name="provinsi" class="form-control"
                                             value="{{ $data->userAlamat->provinsi }}" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
-                                        <label for="nameBackdrop" class="form-label">Kabupaten *)</label>
+                                        <label for="nameBackdrop" class="form-label">Kabupaten </label>
                                         <input type="text" id="kabupaten" name="kabupaten" class="form-control"
                                             value="{{ $data->userAlamat->kabupaten }}" />
                                     </div>
                                     <div class="col mb-3">
-                                        <label for="nameBackdrop" class="form-label">Kecamatan *)</label>
+                                        <label for="nameBackdrop" class="form-label">Kecamatan </label>
                                         <input type="text" id="kecamatan" name="kecamatan" class="form-control"
                                             value="{{ $data->userAlamat->kecamatan }}" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
-                                        <label for="nameBackdrop" class="form-label">Kota *)</label>
+                                        <label for="nameBackdrop" class="form-label">Kota </label>
                                         <input type="text" id="kota" name="kota" class="form-control"
                                             value="{{ $data->userAlamat->kota }}" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
-                                        <label for="nameBackdrop" class="form-label">Kodepos *)</label>
+                                        <label for="nameBackdrop" class="form-label">Kodepos </label>
                                         <input type="number" id="kodepos" name="kodepos" class="form-control"
                                             value="{{ $data->userAlamat->kodepos }}" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
-                                        <label for="nameBackdrop" class="form-label">Alamat *)</label>
+                                        <label for="nameBackdrop" class="form-label">Alamat </label>
                                         <textarea class="form-control" id="alamat" name="alamat" rows="3">{{ $data->userAlamat->alamat }}</textarea>
                                     </div>
                                 </div>

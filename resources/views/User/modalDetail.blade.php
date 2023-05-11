@@ -129,8 +129,11 @@
                         </div>
                     </div>
                     <div class="col my-3 ">
-                        <img src="{{ asset('storage/photoProfileUser/' . $data->img_profile) }}" width="120"
-                            height="120" class="border border-primary p-2 b">
+                        @if ($data->img_profile_image != '' || $data->img_profile_image != null)
+                            <img src="{{ asset('storage/photoProfileUser/' . $data->img_profile) }}" width="120"
+                                height="120" class="border border-primary p-2 b">
+                        @endif
+
                     </div>
 
                 </div>

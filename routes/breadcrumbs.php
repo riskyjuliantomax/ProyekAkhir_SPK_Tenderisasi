@@ -12,22 +12,27 @@ Breadcrumbs::for('dashboard', function ($trail) {
 });
 
 //Peserta
-Breadcrumbs::for('peserta', function ($trail){
+Breadcrumbs::for('peserta', function ($trail) {
     $trail->parent('pengadaanBarang');
     $trail->push('Peserta', route('Peserta.index'));
 });
 
 //PengadaanBarang
-Breadcrumbs::for('pengadaanBarang', function ($trail){
+Breadcrumbs::for('pengadaanBarang', function ($trail) {
     $trail->push('Pengadaan Barang', route('PengadaanBarang.index'));
 });
 
 //Kriteria
-Breadcrumbs::for('kriteria', function ($trail){
+Breadcrumbs::for('kriteria', function ($trail) {
     $trail->push('Kriteria', route('Kriteria.index'));
 });
 
 //User
-Breadcrumbs::for('user', function ($trail){
+Breadcrumbs::for('user', function ($trail) {
     $trail->push('User', route('User.index'));
+});
+
+//Perusahaan
+Breadcrumbs::for('perusahaan', function ($trail) {
+    $trail->push('Perusahaan', route('Perusahaan.index'));
 });

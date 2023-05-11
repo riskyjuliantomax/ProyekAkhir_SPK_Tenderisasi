@@ -12,30 +12,35 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = User::orderBy('id_users', 'desc')->paginate(10);
+        if ($request->filled('search')) {
+            $user = User::where('nama', 'like', "%" . $request->search . "%")
+                ->orWhere('email', 'like', "%" . $request->search)
+                ->orWhere('role', 'like', "%" . $request->search)
+                ->orWhere('nip', 'like', "%" . $request->search)
+                ->paginate(10);
+        } else {
+            $user = User::orderBy('id_users', 'desc')->paginate(10);
+        }
         return view('User.index', compact('user'))
             ->with(['title' => 'User']);
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nama' => ['required'],
-            'email' => ['required'],
-            'no_hp' => ['required', 'max:13'],
-            'tanggal_lahir' => ['required'],
-            'tempat_lahir' => ['required'],
-            'password' => ['required'],
-            'kenegaraan' => ['required'],
-            'provinsi' => ['required'],
-            'kabupaten' => ['required'],
-            'kecamatan' => ['required'],
-            'kota' => ['required'],
-            'kodepos' => ['required'],
-            'alamat' => ['required']
+        request()->validate([
+            'nama' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'nip' => 'required'
+        ], [
+            'nama.required' => 'Form Nama Harus Diisi',
+            'email.required' => 'Form Email Harus Diisi',
+            'password.required' => 'Form Password Harus Diisi',
+            'nip.required' => 'Form Nip Harus Diisi',
         ]);
+
         try {
             DB::transaction(function () use ($request) {
                 $now =  \Carbon\Carbon::now()->toDateTimeString();
@@ -45,6 +50,7 @@ class UserController extends Controller
                     $userId = User::insertGetId([
                         'nama' => $request->nama,
                         'email' => $request->email,
+                        'nip' => $request->nip,
                         'no_hp' => $request->no_hp,
                         'role' => $request->role,
                         'tgl_lahir' => $request->tanggal_lahir,
@@ -69,6 +75,7 @@ class UserController extends Controller
                     $userId = User::insertGetId([
                         'nama' => $request->nama,
                         'email' => $request->email,
+                        'nip' => $request->nip,
                         'no_hp' => $request->no_hp,
                         'role' => $request->role,
                         'tgl_lahir' => $request->tanggal_lahir,
@@ -101,21 +108,18 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate($request, [
-            'nama' => ['required'],
-            'email' => ['required'],
-            'no_hp' => ['required', 'max:13'],
-            'tanggal_lahir' => ['required'],
-            'tempat_lahir' => ['required'],
-            'password' => ['required'],
-            'kenegaraan' => ['required'],
-            'provinsi' => ['required'],
-            'kabupaten' => ['required'],
-            'kecamatan' => ['required'],
-            'kota' => ['required'],
-            'kodepos' => ['required'],
-            'alamat' => ['required']
+        request()->validate([
+            'nama' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'nip' => 'required'
+        ], [
+            'nama.required' => 'Form Nama Harus Diisi',
+            'email.required' => 'Form Email Harus Diisi',
+            'password.required' => 'Form Password Harus Diisi',
+            'nip.required' => 'Form Nip Harus Diisi',
         ]);
+
         try {
             DB::transaction(function () use ($request) {
                 $timeupdate = \Carbon\Carbon::now()->toDateTimeString();
@@ -124,6 +128,7 @@ class UserController extends Controller
                     $user->update([
                         'nama' => $request->nama,
                         'email' => $request->email,
+                        'nip' => $request->nip,
                         'no_hp' => $request->no_hp,
                         'role' => $request->role,
                         'tgl_lahir' => $request->tanggal_lahir,
@@ -135,6 +140,7 @@ class UserController extends Controller
                     $user->update([
                         'nama' => $request->nama,
                         'email' => $request->email,
+                        'nip' => $request->nip,
                         'no_hp' => $request->no_hp,
                         'password' => $request->password,
                         'role' => $request->role,

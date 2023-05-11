@@ -7,7 +7,7 @@
         });
         $('.btn-delete').click(function(e) {
             e.preventDefault();
-            var delete_id = $(this).closest('tr').find('.id_kriteria').val();
+            var delete_id = $(this).closest('tr').find('.id_perusahaan').val();
             Swal.fire({
                 title: 'Yakin Hapus?',
                 text: "Anda tidak akan dapat mengembalikan ini!",
@@ -24,12 +24,12 @@
                     };
                     $.ajax({
                         type: "delete",
-                        url: "/Kriteria/delete/" + delete_id,
+                        url: "/Perusahaan/delete/" + delete_id,
                         data: data,
                         success: function(response) {
                             Swal.fire(
                                 'Berhasil Hapus!',
-                                'Kriteria telah berhasil dihapus.',
+                                'Perusahaan telah berhasil dihapus.',
                                 'success'
                             )
                             setInterval(() => {
@@ -41,5 +41,6 @@
                 }
             })
         });
+
     });
 </script>

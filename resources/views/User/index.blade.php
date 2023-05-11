@@ -26,9 +26,9 @@
                 <form action="User" method="GET">
                     <div class="input-group input-group-merge">
 
-                        <input type="text" class="form-control" placeholder="Cari Nama User / Email / Role"
+                        <input type="text" class="form-control" placeholder="Cari Nama User / Email / NIP"
                             aria-label="Cari Nama User" aria-describedby="basic-addon-search31" name="search"
-                            style='width:260px'>
+                            id="search" style='width:260px' value="{{ old('search') }}">
                         <button type="Submit" class="btn btn-primary"><i class='bx bx-search-alt-2'></i>
                         </button>
                     </div>
@@ -50,7 +50,7 @@
                             <th style="width:7%">No</th>
                             <th>Nama</th>
                             <th>Email</th>
-                            <th>No Hp</th>
+                            <th>NIP</th>
                             <th>Role</th>
                         </tr>
                     </thead>
@@ -61,7 +61,7 @@
                                 <td> {{ $user->firstItem() + $index }} </td>
                                 <td>{{ ucFirst($data->nama) }}</td>
                                 <td>{{ ucFirst($data->email) }}</td>
-                                <td>{{ ucFirst($data->no_hp) }}</td>
+                                <td>{{ ucFirst($data->nip) }}</td>
                                 <td>{{ ucFirst($data->role) }}</td>
                                 <td style="width:13%">
                                     <button type="button" class="btn btn-icon btn-info" data-toggle="modal"

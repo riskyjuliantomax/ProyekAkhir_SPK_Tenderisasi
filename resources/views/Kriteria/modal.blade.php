@@ -19,8 +19,8 @@
                 </div>
                 <div class="row g-2">
                     <div class="col mb-0">
-                        <label for="emailBackdrop" class="form-label">Bobot</label>
-                        <input type="number" id="bobot" name="bobot" class="form-control" placeholder="1-10"
+                        <label for="emailBackdrop" class="form-label">Bobot (%)</label>
+                        <input type="number" id="bobot" name="bobot" class="form-control" placeholder="1-100"
                             value="{{ old('bobot') }}" />
                     </div>
                     <div class="col mb-0">
@@ -71,9 +71,9 @@
                     </div>
                     <div class="row g-2">
                         <div class="col mb-0">
-                            <label for="emailBackdrop" class="form-label">Bobot</label>
-                            <input type="number" id="bobot" name="bobot" class="form-control" placeholder="1-10"
-                                value="{{ $data->bobot }}" />
+                            <label for="emailBackdrop" class="form-label">Bobot (%)</label>
+                            <input type="number" id="bobot" name="bobot" class="form-control" placeholder="1-100"
+                                value="{{ $data->bobot * 100 }}" />
                         </div>
                         <div class="col mb-0">
                             <label for="dobBackdrop" class="form-label">Attribut</label>

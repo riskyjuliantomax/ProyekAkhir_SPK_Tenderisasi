@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kriteria extends Model
 {
+    use HasFactory;
 
     protected $table = "kriteria";
     protected $primaryKey = "id_kriteria";
     protected $fillable = [
-        'id_kriteria','nama_kriteria','bobot','attribut'
+        'id_kriteria', 'nama_kriteria', 'bobot', 'attribut'
     ];
-
 }

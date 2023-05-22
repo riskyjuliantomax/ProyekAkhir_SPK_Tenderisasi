@@ -6,6 +6,9 @@ use App\Models\Kriteria;
 use Illuminate\Http\Request;
 use Alert;
 use Error;
+use App\Http\Helper\KriteriaHelper;
+use App\Models\KriteriaCost;
+use Illuminate\Support\Facades\DB;
 
 class KriteriaController extends Controller
 {
@@ -30,18 +33,22 @@ class KriteriaController extends Controller
         request()->validate([
             'nama_kriteria' => 'required',
             'bobot' => 'required',
-            'attribut' => 'required',
         ], [
             'nama_kriteria.required' => 'Form Nama Kriteria Harus Diisi',
             'bobot.required' => 'Form Bobot Harus Diisi',
-            'attribut.required' => 'Form Attribut Harus Diisi',
         ]);
 
-        //Cara Penyimpanan Biasa
+        //Checking if Exists DB
+        if (KriteriaCost::where('nama', $request->nama_kriteria)->exists()) {
+            $attribut = "cost";
+        } else {
+            $attribut = "benefit";
+        }
+        // //Cara Penyimpanan Biasa
         $Kriteria = Kriteria::create([
             'nama_kriteria' => $request->nama_kriteria,
             'bobot' => $request->bobot / 100,
-            'attribut' => $request->attribut,
+            'attribut' => $attribut,
         ]);
 
         //Coba Menggunakan Eloquent ORM
@@ -63,21 +70,27 @@ class KriteriaController extends Controller
     // Function Untuk Update
     public function update(Request $request)
     {
+        //Melakukan Validasi
         request()->validate([
             'nama_kriteria' => 'required',
             'bobot' => 'required',
-            'attribut' => 'required',
         ], [
             'nama_kriteria.required' => 'Form Nama Kriteria Harus Diisi',
             'bobot.required' => 'Form Bobot Harus Diisi',
-            'attribut.required' => 'Form Attribut Harus Diisi',
         ]);
+        //Revalue Attribut Variable
+        if (KriteriaCost::where('nama', $request->nama_kriteria)->exists()) {
+            $attribut = "cost";
+        } else {
+            $attribut = "benefit";
+        }
 
         $Kriteria = Kriteria::find($request->id_kriteria);
-        $Kriteria->nama_kriteria = $request->nama_kriteria;
-        $Kriteria->bobot = $request->bobot / 100;
-        $Kriteria->attribut = $request->attribut;
-        $Kriteria->save();
+        $Kriteria->update([
+            'nama_kriteria' => $request->nama_kriteria,
+            'bobot' => $request->bobot / 100,
+            'attribut' => $attribut,
+        ]);
 
         if ($Kriteria) {
             Alert::success('Berhasil Update', 'Data Kriteria Berhasil Update');

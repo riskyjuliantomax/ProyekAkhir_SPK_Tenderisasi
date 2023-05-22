@@ -1,0 +1,6 @@
+<?php
+
+$kriteria_cost = [
+    'modal',
+    'modal2',
+];

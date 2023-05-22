@@ -12,19 +12,19 @@
                     <div class="col mb-3">
                         <label for="nameBackdrop" class="form-label">Nama Perusahaan *)</label>
                         <input type="text" id="nama_perusahaan" name="nama_perusahaan" class="form-control"
-                            placeholder="Enter Name" />
+                            placeholder="Enter Name" value="{{ old('nama_perusahaan') }}" />
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col mb-3">
                         <label for="email" class="form-label">Email Perusahaan *)</label>
                         <input type="text" id="email_perusahaan" name="email_perusahaan" class="form-control"
-                            placeholder="xxxx@xxx.xx" />
+                            placeholder="xxxx@xxx.xx" value="{{ old('email_perusahaan') }}" />
                     </div>
                     <div class="col mb-3">
                         <label for="notelp" class="form-label">No Telp Perusahaan</label>
                         <input type="number" id="telp_perusahaan" name="telp_perusahaan" class="form-control"
-                            placeholder="016xxxx" />
+                            placeholder="016xxxx" value="{{ old('telp_perusahaan') }}" />
                     </div>
                 </div>
                 <div class="row">

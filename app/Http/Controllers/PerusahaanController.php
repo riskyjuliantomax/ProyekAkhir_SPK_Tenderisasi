@@ -30,7 +30,7 @@ class PerusahaanController extends Controller
         //Validasi Form
         request()->validate([
             'nama_perusahaan' => ['required'],
-            'alamat_perusahaan' => ['required']
+            'alamat_perusahaan' => ['required'],
         ], [
             'nama_perusahaan.required' => 'Form Nama Perusahaan Harus Dimasuki',
             'alamat_perusahaan.required' => 'Form Alamat Perusahaan Harus Dimasuki',

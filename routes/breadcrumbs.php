@@ -36,3 +36,8 @@ Breadcrumbs::for('user', function ($trail) {
 Breadcrumbs::for('perusahaan', function ($trail) {
     $trail->push('Perusahaan', route('Perusahaan.index'));
 });
+
+// Penilaian
+Breadcrumbs::for('penilaian', function ($trail) {
+    $trail->push('Penilaian', route('Penilaian.index'));
+});

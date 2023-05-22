@@ -85,7 +85,7 @@
         </li>
         <li class="menu-item {{ request()->Is('Penilaian') ? 'active' : '' }}">
             <a href="{{ url('Penilaian') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-building"></i>
+                <i class='menu-icon bx bx-message-alt-edit'></i>
                 <div data-i18n="Analytics">Penilaian</div>
             </a>
         </li>

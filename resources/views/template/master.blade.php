@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>SPK Tender {{ $title = isset($title) ? $title : '' }}</title>
+    <title>SPK {{ $title = isset($title) ? $title : '' }}</title>
     <!-- Favicon -->
     {{-- <link rel="icon" type="image/x-icon" href="{!! asset('assets/img/favicon/favicon.ico') !!}" /> --}}
     <link rel="icon" type="image/x-icon"
@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="{!! asset('assets/vendor/libs/apex-charts/apex-charts.css') !!}" />
     <!-- Helpers -->
     <script src="{!! asset('assets/vendor/js/helpers.js') !!}"></script>
+    {{-- Select 2 --}}
+    <link rel="stylesheet" href="assets/vendor/libs/select2/select2.css " />
 
 </head>
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PengadaanBarangController;
+use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\SubKriteria;
 use App\Http\Controllers\SubKriteriaController;
 use App\Http\Controllers\UserController;
@@ -40,3 +41,8 @@ Route::get('User', [UserController::class, 'index'])->name('User.index');
 Route::post('User', [UserController::class, 'store'])->name('User.store');
 Route::delete('User/delete/{id_user}', [UserController::class, 'delete']);
 Route::put('User/{id_user}', [UserController::class, 'update'])->name('User.update');
+//Penilaian
+Route::get('Penilaian', [PenilaianController::class, 'index'])->name('Penilaian.index');
+Route::post('Penilaian', [PenilaianController::class, 'store'])->name('Penilaian.store');
+route::put('Penilaian/{id_perusahaan}', [PenilaianController::class, 'update'])->name('Penilaian.update');
+Route::delete('Penilaian/{id_perusahaan}', [PenilaianController::class, 'delete']);

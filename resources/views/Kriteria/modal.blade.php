@@ -23,7 +23,7 @@
                         <input type="number" id="bobot" name="bobot" class="form-control" placeholder="1-100"
                             value="{{ old('bobot') }}" />
                     </div>
-                    <div class="col mb-0">
+                    {{-- <div class="col mb-0">
                         <label for="dobBackdrop" class="form-label">Attribut</label>
                         <select id="attribut" name="attribut" class="form-select">
                             <option value="" {{ old('attribut') == '' ? 'selected' : '' }}>Pilih Attribut
@@ -32,7 +32,7 @@
                             </option>
                             <option value="cost" {{ old('attribut') == 'cost' ? 'selected' : '' }}>Cost</option>
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="modal-footer">
@@ -75,7 +75,7 @@
                             <input type="number" id="bobot" name="bobot" class="form-control" placeholder="1-100"
                                 value="{{ $data->bobot * 100 }}" />
                         </div>
-                        <div class="col mb-0">
+                        {{-- <div class="col mb-0">
                             <label for="dobBackdrop" class="form-label">Attribut</label>
                             <select id="attribut" name="attribut" class="form-select">
                                 <option value="" {{ $data->attribut == '' ? 'selected' : '' }}>Pilih Attribut
@@ -84,7 +84,7 @@
                                 </option>
                                 <option value="cost" {{ $data->attribut == 'cost' ? 'selected' : '' }}>Cost</option>
                             </select>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="modal-footer">

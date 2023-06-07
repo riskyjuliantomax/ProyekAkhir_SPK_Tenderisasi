@@ -26,6 +26,12 @@ Breadcrumbs::for('pengadaanBarang', function ($trail) {
 Breadcrumbs::for('kriteria', function ($trail) {
     $trail->push('Kriteria', route('Kriteria.index'));
 });
+//Crips
+Breadcrumbs::for('crips', function (BreadcrumbTrail $trail) {
+    $trail->parent('kriteria');
+    $trail->push('Crips', url('Crips'));
+});
+
 
 //User
 Breadcrumbs::for('user', function ($trail) {
@@ -40,4 +46,8 @@ Breadcrumbs::for('perusahaan', function ($trail) {
 // Penilaian
 Breadcrumbs::for('penilaian', function ($trail) {
     $trail->push('Penilaian', route('Penilaian.index'));
+});
+//Perhitungan
+Breadcrumbs::for('perhitungan', function ($trail) {
+    $trail->push('Perhitungan', url('Perhitungan'));
 });

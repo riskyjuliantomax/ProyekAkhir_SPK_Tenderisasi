@@ -65,16 +65,14 @@
             </a>
         </li>
 
-        <li class="menu-item {{ request()->Is('Kriteria') ? 'active' : '' }}">
+        <li
+            class="menu-item
+            {{ request()->Is('Kriteria') ? 'active' : '' }}
+            {{ request()->Is('Kriteria/Crips/*') ? 'active' : '' }}
+        ">
             <a href="{{ url('Kriteria') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-list-check"></i>
                 <div data-i18n="Analytics">Kriteria</div>
-            </a>
-        </li>
-        <li class="menu-item {{ request()->Is('User') ? 'active' : '' }}">
-            <a href="{{ url('User') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Analytics">User</div>
             </a>
         </li>
         <li class="menu-item {{ request()->Is('Perusahaan') ? 'active' : '' }}">
@@ -85,17 +83,28 @@
         </li>
         <li class="menu-item {{ request()->Is('Penilaian') ? 'active' : '' }}">
             <a href="{{ url('Penilaian') }}" class="menu-link">
-                <i class='menu-icon bx bx-message-alt-edit'></i>
+                <i class='menu-icon bx bx-file-blank'></i>
                 <div data-i18n="Analytics">Penilaian</div>
             </a>
         </li>
+        <li class="menu-item {{ request()->Is('Perhitungan') ? 'active' : '' }}">
+            <a href="{{ url('Perhitungan') }}" class="menu-link">
+                <i class="menu-icon bx bx-calculator"></i>
+                <div data-i18n="Analytics">Perhitungan</div>
+            </a>
+        </li>
+        <li class="menu-item {{ request()->Is('User') ? 'active' : '' }}">
+            <a href="{{ url('User') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Analytics">User</div>
+            </a>
+        </li>
         <!-- Layouts -->
-        <li class="menu-item">
+        {{-- <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Layouts</div>
             </a>
-
             <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="layouts-without-menu.html" class="menu-link">
@@ -103,7 +112,7 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
 
 
     </ul>

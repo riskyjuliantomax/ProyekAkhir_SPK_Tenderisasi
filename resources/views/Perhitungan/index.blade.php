@@ -1,6 +1,6 @@
 @extends('template.master')
 @section('content')
-    {{ Breadcrumbs::render('penilaian') }}
+    {{ Breadcrumbs::render('perhitungan') }}
     {{-- Check for error and session --}}
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible">
@@ -20,7 +20,6 @@
             <div class="table-responsive  text-nowrap">
                 <table class="table" style="overflow-x:scroll">
                     <form action="{{ url('Penilaian') }}" method="POST" class="ms-4 mt-1">
-                        <input type="submit" value="Simpan" class="btn btn-primary me-3 mb-2 float-end" />
                         <caption>
                             @csrf
                             <label class="ms-3">List {{ $title }}</label>
@@ -40,45 +39,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($perusahaan as $index => $dataPerusahaan)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $dataPerusahaan->nama_perusahaan }}</td>
-                                    @if (count($dataPerusahaan->penilaian) > 0)
-                                        @foreach ($kriteria as $key => $value)
-                                            <td>
-                                                <select name="id_crips[{{ $dataPerusahaan->id_perusahaan }}][]"
-                                                    class="form-select">
-                                                    @foreach ($value->crips as $k_1 => $v_1)
-                                                        <option
-                                                            value="{{ $v_1->id_crips }}"{{ $v_1->id_crips == $dataPerusahaan->penilaian[$key]->id_crips ? 'selected' : '' }}>
-                                                            {{ $v_1->nama_crips }}
-                                                        </option>
-                                                    @endforeach
-
-                                                </select>
-                                            </td>
-                                        @endforeach
-                                    @else
-                                        @foreach ($kriteria as $key => $value)
-                                            <td>
-                                                <select name="id_crips[{{ $dataPerusahaan->id_perusahaan }}][]"
-                                                    class="form-select">
-                                                    @foreach ($value->crips as $k_1 => $v_1)
-                                                        <option value="{{ $v_1->id_crips }}">{{ $v_1->nama_crips }}
-                                                        </option>
-                                                    @endforeach
-
-                                                </select>
-                                            </td>
-                                        @endforeach
-                                    @endif
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td>Tidak ada Data</td>
-                                </tr>
-                            @endforelse
                     </form>
                 </table>
             </div>

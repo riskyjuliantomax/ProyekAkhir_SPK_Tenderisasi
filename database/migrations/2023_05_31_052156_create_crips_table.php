@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penilaian', function (Blueprint $table) {
-            $table->bigIncrements('id_penilaian');
-            $table->unsignedBigInteger('id_perusahaan');
-            $table->unsignedBigInteger('id_crips');
+        Schema::create('crips', function (Blueprint $table) {
+            $table->bigIncrements('id_crips');
+            $table->unsignedBigInteger('id_kriteria');
+            $table->foreign('id_kriteria')->references('id_kriteria')->on('kriteria')->onDelete('cascade');
+            $table->string('nama_crips');
+            $table->float('nilai');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penilaian');
+        Schema::dropIfExists('crips');
     }
 };

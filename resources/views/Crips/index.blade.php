@@ -1,8 +1,10 @@
 @extends('template.master')
 @section('content')
-    {{ Breadcrumbs::render('kriteria') }}
-    {{-- Check for error and session --}}
-    @if ($errors->any())
+    {{ Breadcrumbs::render('crips') }}
+    <a href="{{ url('Kriteria') }}" class="btn btn-primary mb-2">
+        <span class='bx bx-arrow-back'></span>
+        Kembali </a>
+    {{-- Check for error and session --}} @if ($errors->any())
         <div class="alert alert-danger alert-dismissible">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -19,38 +21,26 @@
         <div class="col-4">
             <div class="card">
                 <h5 class="card-header">Tambah {{ $title }}</h5>
-                <form action="{{ url('Kriteria') }}" method="post">
+                <form action="{{ url('Kriteria/Crips') }}" method="post">
                     @csrf
+                    <input type="hidden" value="{{ $data['kriteria']->id_kriteria }}" name="id_kriteria" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col mb-3">
-                                <label for="nameBackdrop" class="form-label">Nama Kriteria</label>
-                                <input type="text" id="nama_kriteria" name="nama_kriteria" class="form-control"
-                                    value="{{ old('nama_kriteria') }}" />
+                                <label for="nameBackdrop" class="form-label">Nama Crips</label>
+                                <input type="text" id="nama_crips" name="nama_crips" class="form-control"
+                                    value="{{ old('nama_crips') }}" />
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-0">
-                                <label for="emailBackdrop" class="form-label">Bobot (%)</label>
-                                <input type="number" id="bobot" name="bobot" class="form-control" placeholder="1-100"
-                                    value="{{ old('bobot') }}" />
+                                <label for="emailBackdrop" class="form-label">Nilai</label>
+                                <input type="number" id="nilai" name="nilai" class="form-control"
+                                    placeholder="Masuki Berupa Angka" value="{{ old('nilai') }}" />
                             </div>
-                            {{-- <div class="col mb-0">
-                        <label for="dobBackdrop" class="form-label">Attribut</label>
-                        <select id="attribut" name="attribut" class="form-select">
-                            <option value="" {{ old('attribut') == '' ? 'selected' : '' }}>Pilih Attribut
-                            </option>
-                            <option value="benefit" {{ old('attribut') == 'benefit' ? 'selected' : '' }}>Benefit
-                            </option>
-                            <option value="cost" {{ old('attribut') == 'cost' ? 'selected' : '' }}>Cost</option>
-                        </select>
-                    </div> --}}
                         </div>
                     </div>
                     <div class="modal-footer">
-                        {{-- <button type="reset" class="btn btn-outline-danger">
-                    Reset
-                </button> --}}
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -71,46 +61,33 @@
                     </form>
                 </div>
             </div>
-            <h5 class="ms-3">{{ $title }}</h5>
+            <h5 class="ms-3">{{ $title }} {{ $data['kriteria']->nama_kriteria }}
+            </h5>
             <div class="table-responsive text-nowrap">
                 <table class="table">
                     <caption class="ms-4 mt-1">
                         List {{ $title }}
                         <div class="float-end me-3">
-                            {{ $kriteria->onEachSide(3)->links() }}
                         </div>
                     </caption>
                     <thead>
                         <tr>
                             <th style="width:7%">No</th>
                             <th>Nama Kriteria</th>
-                            <th>Attribut</th>
-                            <th>Bobot</th>
+                            <th>nilai</th>
                             <th style="width:15%"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kriteria as $index => $data)
+                        @foreach ($data['crips'] as $index => $data)
                             <tr>
-                                <input type="hidden" class="id_kriteria" value="{{ $data->id_kriteria }}" />
-                                <td> {{ $kriteria->firstItem() + $index }} </td>
-                                <td>{{ ucfirst($data->nama_kriteria) }}
+                                <input type="hidden" class="id_crips" value="{{ $data->id_crips }}" />
+                                <td> {{ 1 + $index }} </td>
+                                <td>{{ ucfirst($data->nama_crips) }}
                                 </td>
-                                <td>
-                                    @if ($data->attribut == 'benefit')
-                                        <span class="badge bg-success">{{ $data->attribut }}</span>
-                                    @endif
-                                    @if ($data->attribut == 'cost')
-                                        <span class="badge bg-danger">{{ $data->attribut }}</span>
-                                    @endif
-                                </td>
-                                <td>{{ $data->bobot * 100 }}%</td>
+                                <td>{{ $data->nilai }}</td>
                                 <td style="width:20%">
-                                    <a href="{{ url('Kriteria/Crips/' . $data->id_kriteria) }}"
-                                        class="btn btn-icon btn-info">
-                                        <span class="tf-icons bx bx-book"></span>
-                                    </a>
-                                    <a href="{{ url('Kriteria/edit/' . $data->id_kriteria) }}"
+                                    <a href="{{ url('/Kriteria/Crips/edit/' . $data->id_crips) }}"
                                         class="btn btn-icon btn-primary">
                                         <span class="tf-icons bx bx-edit-alt"></span>
                                     </a>
@@ -140,4 +117,5 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
-@include('Kriteria.js')
+{{-- @include('Crips.modal') --}}
+@include('Crips.js')

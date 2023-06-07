@@ -51,7 +51,7 @@ class PerusahaanController extends Controller
                 return redirect()->route('Perusahaan.index');
             }
         } catch (Exception $e) {
-            Log::error($e);
+            error_log($e);
             Alert::error('Gagal', 'Data Perusahaan Tidak Berhasil Disimpan');
             // return redirect()->route('Perusahaan.index');
         }
@@ -81,7 +81,7 @@ class PerusahaanController extends Controller
                 return redirect()->route('Perusahaan.index');
             }
         } catch (Exception $e) {
-            Log::error($e);
+            error_log($e);
             Alert::error('Gagal', 'Data Gagal Update');
             return redirect()->route('Perusahaan.index');
         }

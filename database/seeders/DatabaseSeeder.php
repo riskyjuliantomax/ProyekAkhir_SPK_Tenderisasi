@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\KriteriaCost;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +32,7 @@ class DatabaseSeeder extends Seeder
         //         'password'=> bcrypt('secret'),
         //     ]
         // );
-        DB::table('kriteria_cost')->insert(
+        $dataKriteriaCost = [
             [
                 'nama' => 'Biaya Perawatan',
             ],
@@ -40,6 +42,8 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Biaya Kerusakan',
             ]
-        );
+        ];
+
+        KriteriaCost::insert($dataKriteriaCost);
     }
 }

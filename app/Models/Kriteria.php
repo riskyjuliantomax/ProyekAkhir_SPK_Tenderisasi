@@ -14,4 +14,9 @@ class Kriteria extends Model
     protected $fillable = [
         'id_kriteria', 'nama_kriteria', 'bobot', 'attribut'
     ];
+
+    public function Crips()
+    {
+        return $this->hasMany(Crips::class, 'id_kriteria', 'id_kriteria');
+    }
 }

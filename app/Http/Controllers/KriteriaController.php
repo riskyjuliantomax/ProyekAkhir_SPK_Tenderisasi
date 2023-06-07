@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Alert;
 use Error;
 use App\Http\Helper\KriteriaHelper;
+use App\Models\Crips;
 use App\Models\KriteriaCost;
 use Illuminate\Support\Facades\DB;
 
@@ -22,48 +23,42 @@ class KriteriaController extends Controller
             $kriteria = Kriteria::orderBy('id_kriteria', 'desc')->paginate(10);
             $title = 'Kriteria';
         }
-
         return view('kriteria/index', compact('kriteria', 'title'));
     }
-
     // Function untuk store ke tabel kriteria
     public function store(Request $request)
     {
         //Validasi Form
         request()->validate([
             'nama_kriteria' => 'required',
-            'bobot' => 'required',
+            'bobot' => 'required|numeric',
         ], [
             'nama_kriteria.required' => 'Form Nama Kriteria Harus Diisi',
             'bobot.required' => 'Form Bobot Harus Diisi',
         ]);
-
-        //Checking if Exists DB
-        if (KriteriaCost::where('nama', $request->nama_kriteria)->exists()) {
-            $attribut = "cost";
-        } else {
-            $attribut = "benefit";
-        }
-        // //Cara Penyimpanan Biasa
-        $Kriteria = Kriteria::create([
-            'nama_kriteria' => $request->nama_kriteria,
-            'bobot' => $request->bobot / 100,
-            'attribut' => $attribut,
-        ]);
-
-        //Coba Menggunakan Eloquent ORM
-        // $Kriteria = new Kriteria;
-        // $Kriteria->nama_kriteria = $request->nama_kriteria;
-        // $Kriteria->bobot = $request->bobot;
-        // $Kriteria->attribut = $request->attribut;
-        // $Kriteria->save();
-
-        if ($Kriteria) {
-            Alert::success('Berhasil', 'Data Kriteria Berhasil Disimpan');
-            return redirect()->route('Kriteria.index');
-        } else {
+        try {
+            //Checking if Exists DB
+            if (KriteriaCost::where('nama', $request->nama_kriteria)->exists()) {
+                $attribut = "cost";
+            } else {
+                $attribut = "benefit";
+            }
+            // // //Cara Penyimpanan Biasa
+            $Kriteria = Kriteria::create([
+                'nama_kriteria' => $request->nama_kriteria,
+                'bobot' => $request->bobot / 100,
+                'attribut' => $attribut,
+            ]);
+            if ($Kriteria) {
+                Alert::success('Berhasil', 'Data Kriteria Berhasil Disimpan');
+                return redirect()->route('Kriteria.index');
+            } else {
+                Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
+                return redirect()->route('Kriteria.index');
+            }
+        } catch (Exception $e) {
+            error_log($e);
             Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
-            return redirect()->route('Kriteria.index');
         }
     }
 
@@ -78,27 +73,43 @@ class KriteriaController extends Controller
             'nama_kriteria.required' => 'Form Nama Kriteria Harus Diisi',
             'bobot.required' => 'Form Bobot Harus Diisi',
         ]);
-        //Revalue Attribut Variable
-        if (KriteriaCost::where('nama', $request->nama_kriteria)->exists()) {
-            $attribut = "cost";
-        } else {
-            $attribut = "benefit";
-        }
+        try {
+            $Kriteria = Kriteria::find($request->id_kriteria);
+            $Kriteria->update([
+                'nama_kriteria' => $request->nama_kriteria,
+                'bobot' => $request->bobot / 100,
+                'attribut' => $request->attribut,
+            ]);
 
-        $Kriteria = Kriteria::find($request->id_kriteria);
-        $Kriteria->update([
-            'nama_kriteria' => $request->nama_kriteria,
-            'bobot' => $request->bobot / 100,
-            'attribut' => $attribut,
+            if ($Kriteria) {
+                Alert::success('Berhasil Update', 'Data Kriteria Berhasil Update');
+                return redirect()->route('Kriteria.index');
+            } else {
+                Alert::error('Gagal Update', 'Data Tidak Berhasil Update');
+                return redirect()->route('Kriteria.index')->with(['gagal' => 'Data Gagal Simpan']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
+        }
+    }
+
+    public function edit($id_kriteria)
+    {
+        $kriteria = Kriteria::find($id_kriteria);
+        // return response()->json($kriteria);
+        return view('Kriteria.update', compact('kriteria'))->with([
+            'title' => 'Edit Kriteria',
         ]);
+    }
 
-        if ($Kriteria) {
-            Alert::success('Berhasil Update', 'Data Kriteria Berhasil Update');
-            return redirect()->route('Kriteria.index');
-        } else {
-            Alert::error('Gagal Update', 'Data Tidak Berhasil Update');
-            return redirect()->route('Kriteria.index')->with(['gagal' => 'Data Gagal Simpan']);
-        }
+    public function show($id_kriteria)
+    {
+        $data['crips'] = Crips::where('id_kriteria', $id_kriteria)->get();
+        $data['kriteria'] = Kriteria::findOrFail($id_kriteria);
+        return view('Crips.index', compact('data'))->with([
+            'title' => 'Crips',
+        ]);
     }
 
     public function delete($id_kriteria)

@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Alert;
+use App\Models\Perusahaan;
+use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\Log;
 
 class PenilaianController extends Controller
 {
@@ -18,18 +21,14 @@ class PenilaianController extends Controller
     public function index()
     {
         // Query Database
-        $kriteria = DB::select('select * from kriteria order by id_kriteria asc');
-        $kriteria_limit3 = DB::select('select nama_kriteria from kriteria order by id_kriteria asc limit 3');
-        $perusahaan_noexists = DB::select('select id_perusahaan, nama_perusahaan from perusahaan where not exists (select id_perusahaan from penilaian where perusahaan.id_perusahaan = penilaian.id_perusahaan)');
-
-        $perusahaan = DB::select('select * from perusahaan where exists (select id_perusahaan from penilaian where perusahaan.id_perusahaan = penilaian.id_perusahaan)');
-        $kriteria_penilaian = DB::select('select * from penilaian where exists (select id_perusahaan from perusahaan where perusahaan.id_perusahaan = penilaian.id_perusahaan)');
-        // $kriteria_penilaians = DB::table();
+        $perusahaan = Perusahaan::with('penilaian.crips')->get();
+        $kriteria = Kriteria::with('Crips')->orderBy('nama_kriteria', 'asc')->get();
+        // return response()->json($perusahaan);
         // Return View
         return view(
             'Penilaian.index',
             // Return Value
-            compact('kriteria', 'perusahaan', 'kriteria_limit3', 'perusahaan_noexists')
+            compact('perusahaan', 'kriteria')
         )->with([
             'title' => 'Penilaian',
         ]);
@@ -40,73 +39,27 @@ class PenilaianController extends Controller
      */
     public function store(Request $request)
     {
-        $countKriteria = DB::select('select nama_kriteria from Kriteria');
-        $request->validate([
-            'id_perusahaan' => 'required|not_in:0',
-        ], [
-            'id_perusahaan.required' => 'Perusahaan Harus Diisi',
-        ]);
         try {
-            //Looping untuk ambil form inputan di modal
-            for ($i = 0; $i < count($countKriteria); $i++) {
-                //inisalisasi untuk form inputan
-                $nilai = $request->input('nilai_' . $i);
-                $id_kriteria = $request->input('id_kriteria_' . $i);
-                $id_perusahaan = $request->id_perusahaan;
-                //Insert ke DB
-                $penilaian = Penilaian::create([
-                    'id_kriteria' => $id_kriteria,
-                    'id_perusahaan' => $id_perusahaan,
-                    'nilai' => $nilai,
-                ]);
+            DB::select("TRUNCATE penilaian");
+            foreach ($request->id_crips as $key => $value) {
+                foreach ($value as $key_1 => $value_1) {
+                    Penilaian::create([
+                        //Id ALternatif
+                        'id_perusahaan' => $key,
+                        'id_crips' => $value_1
+                    ]);
+                }
             }
-            if ($penilaian) {
-                Alert::success('Berhasil', 'Data Penilaian Berhasil Disimpan');
-                return redirect()->route('Penilaian.index');
-            } else {
-                Alert::error('Gagal', 'Data Penilaian Tidak Berhasil Disimpan');
-                return redirect()->route('Penilaian.index');
-            }
+            Alert::success('Berhasil', 'Data Berhasil Disimpan');
+            return redirect()->route('Penilaian.index');
         } catch (Exception $e) {
-            Log::error($e);
-            Alert::error('Gagal', 'Data Penilaian Tidak Berhasil Disimpan');
+            error_log($e);
+            Alert::error('Gagal', 'Data Gagal Menambahkan Data');
+            return redirect()->route('Penilaian.index');
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
-    {
-        try {
-            $countKriteria = DB::select('select nama_kriteria from Kriteria');
-            $penilaian = Penilaian::where('id_perusahaan', $request->id_perusahaan);
-            for ($i = 0; $i < count($countKriteria); $i++) {
-                $nilai = $request->input('nilai_' . $i);
-                $id_perusahaan = $request->id_perusahaan;
-                $penilaian = DB::update(
-                    'update into penilaian(nilai) values (?) where id_perusahaan = ?' .
-                        [$nilai, $id_perusahaan]
-                );
-            }
-            if ($penilaian) {
-                Alert::success('Berhasil', 'Data Penilaian Berhasil Disimpan');
-                return redirect()->route('Penilaian.index');
-            } else {
-                Alert::error('Gagal', 'Data Penilaian Tidak Berhasil Disimpan');
-                return redirect()->route('Penilaian.index');
-            }
-        } catch (Exception $e) {
-            Log::error($e);
-            Alert::error('Gagal', 'Data Penilaian Tidak Berhasil Disimpan');
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function delete($id_penilaian)
-    {
-        //
-    }
 }

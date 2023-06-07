@@ -100,7 +100,7 @@ class UserController extends Controller
             Alert::success('Berhasil', 'Data User Berhasil Disimpan');
             return redirect()->route('User.index');
         } catch (Exception $e) {
-            Log::error($e);
+            error_log($e);
             Alert::error('Gagal', 'Data User Tidak Berhasil Disimpan');
             return redirect()->route('User.index');
         }
@@ -165,7 +165,7 @@ class UserController extends Controller
             Alert::success('Berhasil', 'Data User Berhasil Disimpan');
             return redirect()->route('User.index');
         } catch (Exception $e) {
-            Log::error($e);
+            error_log($e);
             Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
             return redirect()->route('User.index');
         };

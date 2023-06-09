@@ -18,7 +18,7 @@
                 <div class="row g-2">
                     <div class="col mb-3">
                         <label for="email" class="form-label">Email Perusahaan *)</label>
-                        <input type="text" id="email_perusahaan" name="email_perusahaan" class="form-control"
+                        <input type="email" id="email_perusahaan" name="email_perusahaan" class="form-control"
                             placeholder="xxxx@xxx.xx" value="{{ old('email_perusahaan') }}" />
                     </div>
                     <div class="col mb-3">
@@ -67,7 +67,7 @@
                     <div class="row g-2">
                         <div class="col mb-3">
                             <label for="email" class="form-label">Email Perusahaan *)</label>
-                            <input type="text" id="email_perusahaan" name="email_perusahaan" class="form-control"
+                            <input type="email" id="email_perusahaan" name="email_perusahaan" class="form-control"
                                 value="{{ $data->email_perusahaan }}" />
                         </div>
                         <div class="col mb-3">

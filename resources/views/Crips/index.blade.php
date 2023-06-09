@@ -81,7 +81,8 @@
                     <tbody>
                         @foreach ($data['crips'] as $index => $data)
                             <tr>
-                                <input type="hidden" class="id_crips" value="{{ $data->id_crips }}" />
+                                <input type="hidden" id="id_crips" name="id_crips" class="id_crips"
+                                    value="{{ $data->id_crips }}" />
                                 <td> {{ 1 + $index }} </td>
                                 <td>{{ ucfirst($data->nama_crips) }}
                                 </td>

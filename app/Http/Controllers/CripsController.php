@@ -90,6 +90,7 @@ class CripsController extends Controller
     public function delete($id_crips)
     {
         $crips = Crips::Find($id_crips);
+        // return response()->json($crips);
         $crips->delete();
         return response()->json(['status' => 'Berhasil Hapus Kriteria']);
     }

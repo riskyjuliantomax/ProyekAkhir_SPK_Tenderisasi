@@ -40,18 +40,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($perusahaan as $index => $dataPerusahaan)
+                            @forelse ($perusahaan as $index => $valt)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $dataPerusahaan->nama_perusahaan }}</td>
-                                    @if (count($dataPerusahaan->penilaian) > 0)
+                                    <td>{{ $valt->nama_perusahaan }}</td>
+                                    @if (count($valt->penilaian) > 0)
                                         @foreach ($kriteria as $key => $value)
                                             <td>
-                                                <select name="id_crips[{{ $dataPerusahaan->id_perusahaan }}][]"
-                                                    class="form-select">
+                                                <select name="id_crips[{{ $valt->id_perusahaan }}][]" class="form-select">
                                                     @foreach ($value->crips as $k_1 => $v_1)
                                                         <option
-                                                            value="{{ $v_1->id_crips }}"{{ $v_1->id_crips == $dataPerusahaan->penilaian[$key]->id_crips ? 'selected' : '' }}>
+                                                            value="{{ $v_1->id_crips }}"{{ $v_1->id_crips == $valt->penilaian[$key]->id_crips ? 'selected' : '' }}>
                                                             {{ $v_1->nama_crips }}
                                                         </option>
                                                     @endforeach
@@ -62,8 +61,7 @@
                                     @else
                                         @foreach ($kriteria as $key => $value)
                                             <td>
-                                                <select name="id_crips[{{ $dataPerusahaan->id_perusahaan }}][]"
-                                                    class="form-select">
+                                                <select name="id_crips[{{ $valt->id_perusahaan }}][]" class="form-select">
                                                     @foreach ($value->crips as $k_1 => $v_1)
                                                         <option value="{{ $v_1->id_crips }}">{{ $v_1->nama_crips }}
                                                         </option>

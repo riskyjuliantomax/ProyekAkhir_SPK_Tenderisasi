@@ -1,7 +1,7 @@
 @extends('template.master')
 @section('content')
     {{ Breadcrumbs::render('crips') }}
-    <a href="{{ url('Kriteria') }}" class="btn btn-primary mb-2">
+    <a href="{{ url('/Kriteria/Crips/' . $crips->id_kriteria) }}" class="btn btn-primary mb-2">
         <span class='bx bx-arrow-back'></span>
         Back </a>
     {{-- Check for error and session --}} @if ($errors->any())

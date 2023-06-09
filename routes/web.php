@@ -3,14 +3,11 @@
 use App\Http\Controllers\CripsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KriteriaController;
-use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\SubKriteriaController;
 use App\Http\Controllers\UserController;
-use App\Models\Perhitungan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 //DashBoard
 Route::get('Dashboard', [DashboardController::class, 'index'])->name('Dashboard.index');
-//Peserta
-Route::get('Peserta', [PesertaController::class, 'index'])->name('Peserta.index');
-Route::post('Peserta', [PesertaController::class, 'store']);
 //Perusahaan
 Route::get('Perusahaan', [PerusahaanController::class, 'index'])->name('Perusahaan.index');
 Route::post('Perusahaan', [PerusahaanController::class, 'store'])->name('Perusahaan.store');
@@ -51,7 +45,7 @@ Route::get('login', [SessionController::class, 'index'])->name('Login');
 Route::get('Penilaian', [PenilaianController::class, 'index'])->name('Penilaian.index');
 Route::post('Penilaian', [PenilaianController::class, 'store'])->name('Penilaian.store');
 //Perhitungan
-Route::get('Perhitungan', [PerhitunganController::class, 'index']);
+Route::get('Perhitungan', [PerhitunganController::class, 'index'])->name('Perhitungan.index');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

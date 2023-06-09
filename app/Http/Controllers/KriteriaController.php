@@ -93,7 +93,6 @@ class KriteriaController extends Controller
             Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
         }
     }
-
     public function edit($id_kriteria)
     {
         $kriteria = Kriteria::find($id_kriteria);
@@ -102,7 +101,7 @@ class KriteriaController extends Controller
             'title' => 'Edit Kriteria',
         ]);
     }
-
+    // Show untuk Crips Per Kriteria
     public function show($id_kriteria)
     {
         $data['crips'] = Crips::where('id_kriteria', $id_kriteria)->get();
@@ -111,7 +110,7 @@ class KriteriaController extends Controller
             'title' => 'Crips',
         ]);
     }
-
+    // Delete Kriteria By Id
     public function delete($id_kriteria)
     {
         $Kriteria = Kriteria::Find($id_kriteria);

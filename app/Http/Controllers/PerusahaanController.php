@@ -6,6 +6,7 @@ use App\Models\Perusahaan;
 use Exception;
 use Illuminate\Http\Request;
 use Alert;
+use App\Models\Penilaian;
 use Illuminate\Support\Facades\Log;
 
 class PerusahaanController extends Controller
@@ -43,6 +44,7 @@ class PerusahaanController extends Controller
                 'telp_perusahaan' => $request->telp_perusahaan,
                 'email_perusahaan' => $request->email_perusahaan,
             ]);
+            // Penilaian::truncate();
             if ($perusahaan) {
                 Alert::success('Berhasil', 'Data Perusahaan Berhasil Disimpan');
                 return redirect()->route('Perusahaan.index');

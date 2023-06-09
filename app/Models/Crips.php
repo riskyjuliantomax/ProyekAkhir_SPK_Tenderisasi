@@ -10,6 +10,7 @@ class Crips extends Model
     use HasFactory;
 
     protected $table = "crips";
+    protected $primaryKey = "id_crips";
     protected $guarded = [];
 
     public function Kriteria()

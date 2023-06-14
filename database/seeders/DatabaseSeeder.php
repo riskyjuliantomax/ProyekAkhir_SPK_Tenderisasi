@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\KriteriaCost;
+use App\Models\User;
+use App\Models\UserAlamat;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -45,5 +47,30 @@ class DatabaseSeeder extends Seeder
         ];
 
         KriteriaCost::insert($dataKriteriaCost);
+        $now =  \Carbon\Carbon::now()->toDateTimeString();
+        $userId = User::insertGetId([
+            'nama' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'nip' => '00000',
+            'role' => 2,
+            'password' => Hash::make('admin@gmail.com'),
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+        UserAlamat::create([
+            'id_users' => $userId,
+        ]);
+        $userId = User::insertGetId([
+            'nama' => 'Pokja',
+            'email' => 'pokja@gmail.com',
+            'nip' => '000001',
+            'role' => 2,
+            'password' => Hash::make('pokja@gmail.com'),
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+        UserAlamat::create([
+            'id_users' => $userId,
+        ]);
     }
 }

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->bigIncrements('id_useralamat');
             $table->unsignedBigInteger('id_users');
             $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade');
-            $table->string('kenegaraan')->nullable();
             $table->string('provinsi')->nullable();
             $table->string('kabupaten')->nullable();
             $table->string('kecamatan')->nullable();

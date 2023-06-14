@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserAlamat;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -30,6 +31,8 @@ class User extends Authenticatable
         'tentang',
         'created_at',
         'updated_at',
+        'last_login',
+        'last_logout'
 
     ];
     public $sortable = ['id_users', 'nama', 'email', 'role'];
@@ -50,5 +53,12 @@ class User extends Authenticatable
     public function userAlamat()
     {
         return $this->belongsTo(UserAlamat::class, 'id_users', 'id_users');
+    }
+
+    protected function role(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) =>  ["user", "pokja", "admin"][$value],
+        );
     }
 }

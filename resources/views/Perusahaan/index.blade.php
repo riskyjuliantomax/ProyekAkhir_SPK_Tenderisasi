@@ -19,7 +19,7 @@
         <div class="ms-4 mt-3 mb-1">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">
-                Tambah Perusahaan
+                Tambah {{ $title }}
             </button>
             <div class="float-end me-4">
                 <form action="Perusahaan" method="GET">
@@ -39,7 +39,7 @@
             <div class="table-responsive text-nowrap">
                 <table class="table">
                     <caption class="ms-4 mt-1">
-                        {{ $title }}
+                        List {{ $title }}
                         <div class="float-end me-3">
                             {{ $perusahaan->onEachSide(3)->links() }}
                         </div>
@@ -47,7 +47,7 @@
                     <thead>
                         <tr>
                             <th style="width:7%">No</th>
-                            <th>Nama Perusahaan</th>
+                            <th>Nama Peserta</th>
                             <th>Email</th>
                             <th>No Hp</th>
                             <th>Alamat</th>

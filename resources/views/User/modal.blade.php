@@ -35,7 +35,7 @@
                             <div class="row">
                                 <div class="col mb-3">
                                     <label for="nameBackdrop" class="form-label">NIP *)</label>
-                                    <input type="text" id="nip" name="nip" class="form-control"
+                                    <input type="number" id="nip" name="nip" class="form-control"
                                         placeholder="xxxxxxx" value="{{ old('nip') }}" />
                                 </div>
                             </div>
@@ -102,8 +102,8 @@
                                         <option value="laki-laki"
                                             {{ old('kelamin') == 'laki-laki' ? 'selected' : '' }}>Laki - Laki
                                         </option>
-                                        <option value="perampuan"
-                                            {{ old('kelamin') == 'perampuan' ? 'selected' : '' }}>Perampuan</option>
+                                        <option value="perempuan"
+                                            {{ old('kelamin') == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
                                         Kelainan</option>
                                     </select>
                                 </div>
@@ -112,12 +112,12 @@
                                 <div class="col mb-3">
                                     <label for="dobBackdrop" class="form-label">Role *)</label>
                                     <select id="role" name="role" class="form-select">
-                                        <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>
+                                        <option value="0" {{ old('role') == 'user' ? 'selected' : '' }}>
                                             User
                                         </option>
-                                        <option value="pokja" {{ old('role') == 'pokja' ? 'selected' : '' }}>Pokja
+                                        <option value="1" {{ old('role') == 'pokja' ? 'selected' : '' }}>Pokja
                                         </option>
-                                        <option value="admin" {{ old('role') == 'Admin' ? 'selected' : '' }}>
+                                        <option value="2" {{ old('role') == 'Admin' ? 'selected' : '' }}>
                                             Admin</option>
                                     </select>
                                 </div>
@@ -132,13 +132,6 @@
                         </div>
                         <div class="tab-pane fade" id="navs-pills-alamat" role="tabpanel">
                             <p> Alamat Perusahaan atau Personal
-                            <div class="row">
-                                <div class="col mb-3">
-                                    <label for="nameBackdrop" class="form-label">Kenegaraan </label>
-                                    <input type="text" id="kenegaraan" name="kenegaraan" class="form-control"
-                                        placeholder="Indonesia" value="{{ old('kenegaraan') }}" />
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col mb-3">
                                     <label for="nameBackdrop" class="form-label">Provinsi </label>
@@ -203,7 +196,8 @@
 @foreach ($user as $data)
     <div id="modalFormEdit{{ $data->id_users }}" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-lg">
-            <form action="{{ url('User/' . $data->id_users) }}" class="modal-content" method="post">
+            <form action="{{ url('User/' . $data->id_users) }}" enctype="multipart/form-data" class="modal-content"
+                method="post">
                 @method('PUT')
                 @csrf
                 <input type="hidden" name="id" value="{{ $data->id_users }}" />
@@ -239,7 +233,7 @@
                                 <div class="row">
                                     <div class="col mb-3">
                                         <label for="nameBackdrop" class="form-label">NIP *)</label>
-                                        <input type="text" id="nip" name="nip" class="form-control"
+                                        <input type="number" id="nip" name="nip" class="form-control"
                                             placeholder="xxxxxx" value="{{ $data->nip }}" />
                                     </div>
                                 </div>
@@ -306,8 +300,8 @@
                                             <option value="laki-laki"
                                                 {{ $data->kelamin == 'laki-laki' ? 'selected' : '' }}>Laki - Laki
                                             </option>
-                                            <option value="perampuan"
-                                                {{ $data->kelamin == 'perampuan' ? 'selected' : '' }}>Perampuan
+                                            <option value="perempuan"
+                                                {{ $data->kelamin == 'perempuan' ? 'selected' : '' }}>Perampuan
                                             </option>
                                         </select>
                                     </div>
@@ -316,15 +310,22 @@
                                     <div class="col mb-3">
                                         <label for="dobBackdrop" class="form-label">Role </label>
                                         <select id="role" name="role" class="form-select">
-                                            <option value="user" {{ $data->role == 'user' ? 'selected' : '' }}>
+                                            <option value="0" {{ $data->role == 'user' ? 'selected' : '' }}>
                                                 User
                                             </option>
-                                            <option value="pokja" {{ $data->role == 'pokja' ? 'selected' : '' }}>
+                                            <option value="1" {{ $data->role == 'pokja' ? 'selected' : '' }}>
                                                 Pokja
                                             </option>
-                                            <option value="admin" {{ $data->role == 'Admin' ? 'selected' : '' }}>
+                                            <option value="2" {{ $data->role == 'admin' ? 'selected' : '' }}>
                                                 Admin</option>
                                         </select>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Photo Profil</label>
+                                            <input class="form-control" id="photoFile" name="photoFile"
+                                                type="file">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -334,13 +335,6 @@
                                 <input type="hidden" name="id_useralamat"
                                     value="{{ $data->userAlamat->id_useralamat }}" />
                                 <p> Alamat Perusahaan atau Personal
-                                <div class="row">
-                                    <div class="col mb-3">
-                                        <label for="nameBackdrop" class="form-label">Kenegaraan </label>
-                                        <input type="text" id="kenegaraan" name="kenegaraan" class="form-control"
-                                            placeholder="Indonesia" value="{{ $data->userAlamat->kenegaraan }}" />
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col mb-3">
                                         <label for="nameBackdrop" class="form-label">Provinsi </label>

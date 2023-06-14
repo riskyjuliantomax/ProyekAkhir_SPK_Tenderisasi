@@ -22,7 +22,7 @@ class PerusahaanController extends Controller
             $perusahaan = Perusahaan::orderBy('id_perusahaan', 'desc')->paginate(10);
         }
         return view('Perusahaan.index', compact('perusahaan'))->with([
-            'title' => 'List Perusahaan',
+            'title' => 'Peserta Tender',
         ]);
     }
 

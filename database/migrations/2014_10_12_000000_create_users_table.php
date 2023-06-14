@@ -22,8 +22,11 @@ return new class extends Migration
             $table->date('tgl_lahir')->format('d/m/Y')->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->string('img_profile')->nullable();
-            $table->enum('kelamin', ['', 'laki-laki', 'perampuan'])->nullable();
-            $table->enum('role', ['user', 'pokja', 'admin'])->default('user');
+            $table->enum('kelamin', ['', 'laki-laki', 'perempuan'])->nullable();
+            $table->tinyInteger('role')->default(0);
+            $table->dateTime('last_login')->nullable();
+            $table->dateTime('last_logout')->nullable();
+            //Role 0 = User, 1 = Pokja, 2 = Admin
             $table->rememberToken();
             $table->timestamps();
         });

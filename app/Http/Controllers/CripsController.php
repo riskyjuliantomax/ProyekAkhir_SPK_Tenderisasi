@@ -38,10 +38,14 @@ class CripsController extends Controller
             if ($crips) {
                 Alert::success('Berhasil Tambah', 'Data Crips Berhasil Update');
                 return Redirect::back();
+            } else {
+                Alert::success('Berhasil Tambah', 'Data Crips Berhasil Update');
+                return Redirect::back();
             }
         } catch (Exception $e) {
             error_log($e);
             Alert::error('Gagal', 'Data Crips Tidak Berhasil Disimpan');
+            return Redirect::back();
         }
     }
     public function edit($id_crips)

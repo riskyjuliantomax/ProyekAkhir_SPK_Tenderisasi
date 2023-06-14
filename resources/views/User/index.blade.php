@@ -52,6 +52,8 @@
                             <th>Email</th>
                             <th>NIP</th>
                             <th>Role</th>
+                            <th>Terakhir Login</th>
+                            <th>Terakhir Logout</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +65,21 @@
                                 <td>{{ ucFirst($data->email) }}</td>
                                 <td>{{ ucFirst($data->nip) }}</td>
                                 <td>{{ ucFirst($data->role) }}</td>
+
+                                <td>
+                                    @if ($data->last_login != null)
+                                        {{ \Carbon\Carbon::parse($data->last_login)->diffForHumans() }}
+                                    @else
+                                        -- --
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($data->last_logout != null)
+                                        {{ \Carbon\Carbon::parse($data->last_logout)->diffForHumans() }}
+                                    @else
+                                        -- --
+                                    @endif
+                                </td>
                                 <td style="width:13%">
                                     <button type="button" class="btn btn-icon btn-info" data-toggle="modal"
                                         data-target="#modalDetail{{ $data->id_users }}">

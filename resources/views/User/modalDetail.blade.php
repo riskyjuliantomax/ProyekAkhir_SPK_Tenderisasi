@@ -72,6 +72,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Terakhir
+                                Login</label>
+                            <div>
+                                <label>{{ ucFirst($data->last_login) }}<br>
+                                    {{ \Carbon\Carbon::parse($data->last_login)->diffForHumans() }}</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Terakhir
+                                Logout</label>
+                            <div>
+                                <label>{{ $data->last_logout }} <br>
+                                    {{ \Carbon\Carbon::parse($data->last_logout)->diffForHumans() }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     <hr />
                     <h5 class="modal-title mb-3" id="modalTitle">Detail Alamat User</h5>
                     </label>

@@ -11,17 +11,6 @@ Breadcrumbs::for('dashboard', function ($trail) {
     $trail->push('Dashboard', route('Dashboard.index'));
 });
 
-//Peserta
-Breadcrumbs::for('peserta', function ($trail) {
-    $trail->parent('pengadaanBarang');
-    $trail->push('Peserta', route('Peserta.index'));
-});
-
-//PengadaanBarang
-Breadcrumbs::for('pengadaanBarang', function ($trail) {
-    $trail->push('Pengadaan Barang', route('PengadaanBarang.index'));
-});
-
 //Kriteria
 Breadcrumbs::for('kriteria', function ($trail) {
     $trail->push('Kriteria', route('Kriteria.index'));
@@ -32,7 +21,6 @@ Breadcrumbs::for('crips', function (BreadcrumbTrail $trail) {
     $trail->push('Crips', url('Crips'));
 });
 
-
 //User
 Breadcrumbs::for('user', function ($trail) {
     $trail->push('User', route('User.index'));
@@ -40,7 +28,7 @@ Breadcrumbs::for('user', function ($trail) {
 
 //Perusahaan
 Breadcrumbs::for('perusahaan', function ($trail) {
-    $trail->push('Perusahaan', route('Perusahaan.index'));
+    $trail->push('Peserta', route('Perusahaan.index'));
 });
 
 // Penilaian

@@ -3,10 +3,11 @@
 use App\Http\Controllers\CripsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InfoTenderController;
 use App\Http\Controllers\KriteriaController;
-use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PerhitunganController;
+use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.user');
 Route::middleware(['auth', 'user_role:user'])->group(function () {
 });
 Route::middleware(['auth', 'user_role:pokja'])->group(function () {
+    //Info
+    Route::get('InfoTender', [InfoTenderController::class, 'index'])->name('InfoTender.index');
+    Route::post('InfoTender', [InfoTenderController::class, 'store'])->name('InfoTender.store');
+    Route::put('InfoTender/Update', [InfoTenderController::class, 'store'])->name('InfoTender.update');
     //Perusahaan
     Route::get('Perusahaan', [PerusahaanController::class, 'index'])->name('Perusahaan.index');
     Route::post('Perusahaan', [PerusahaanController::class, 'store'])->name('Perusahaan.store');
@@ -65,6 +70,7 @@ Route::middleware(['auth', 'user_role:admin'])->group(function () {
 Route::get('/405', [DashboardController::class, 'Error405'])->name('Dashboard.Error405');
 
 //Proteksi profile menggunakan Middleware Auth
-Route::group(['middleware' =>  'auth'], function () {
-    Route::get('Profile/{email}', [UserController::class, 'profile'])->name('User.profile');
+Route::group(['middleware' =>  'auth',], function () {
+    Route::get('Profile', [UserController::class, 'profile'])->name('User.profile');
+    Route::post('/Profile/Update', [UserController::class, 'profile_update'])->name('Profile.update');
 });

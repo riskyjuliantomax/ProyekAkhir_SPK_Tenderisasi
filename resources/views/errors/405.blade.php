@@ -31,7 +31,7 @@
     <div class="container-xxl container-p-y">
         <div class="misc-wrapper">
             <h2 class="mb-2 mx-2">Halaman Tidak Dapat Di Akses </h2>
-            <p class="mb-4 mx-2">Anda Tidak Memiliki Hak Untuk Akses Halaman Ini</p>
+            <p class="mb-4 mx-2">Anda Tidak Memiliki Hak Untuk Akses ke Halaman Ini</p>
             <a href="{{ url('/Dashboard') }}" class="btn btn-primary">Kembali Dashboard</a>
 
         </div>

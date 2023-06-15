@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perhitungan', function (Blueprint $table) {
-            $table->id();
+        Schema::create('info_tenders', function (Blueprint $table) {
+            $table->bigIncrements('id_infoTender');
+            $table->string('nama_infoTender');
+            $table->bigInteger('harga_infoTender');
+            $table->longText('syarat_infoTender');
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perhitungan');
+        Schema::dropIfExists('info_tenders');
     }
 };

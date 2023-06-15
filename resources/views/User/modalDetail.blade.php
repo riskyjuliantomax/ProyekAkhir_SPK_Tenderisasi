@@ -9,6 +9,12 @@
                         <h5 class="modal-title mb-3" id="modalTitle">Detail {{ $title }}</h5>
                         <label class="modal-title" id="modalTitle">Role : {{ ucFirst($data->role) }}</label>
                     </div>
+                    <div class="col my-3 float">
+                        @if ($data->img_profile != '' || $data->img_profile != null)
+                            <img src="{{ asset('storage/photoProfileUser/' . $data->img_profile) }}" width="120"
+                                height="120" class=" rounded-circle p-2 b float-end">
+                        @endif
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div class="row mb-2">
@@ -146,13 +152,6 @@
                             <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Alamat</label>
                             <textarea class="form-control bg-white" rows="3" disabled>{{ $data->userAlamat->alamat }} </textarea>
                         </div>
-                    </div>
-                    <div class="col my-3 ">
-                        @if ($data->img_profile_image != '' || $data->img_profile_image != null)
-                            <img src="{{ asset('storage/photoProfileUser/' . $data->img_profile) }}" width="120"
-                                height="120" class="border border-primary p-2 b">
-                        @endif
-
                     </div>
 
                 </div>

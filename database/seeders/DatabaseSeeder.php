@@ -64,8 +64,20 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Pokja',
             'email' => 'pokja@gmail.com',
             'nip' => '000001',
-            'role' => 2,
+            'role' => 1,
             'password' => Hash::make('pokja@gmail.com'),
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+        UserAlamat::create([
+            'id_users' => $userId,
+        ]);
+        $userId = User::insertGetId([
+            'nama' => 'User',
+            'email' => 'user@gmail.com',
+            'nip' => '000012',
+            'role' => 1,
+            'password' => Hash::make('user@gmail.com'),
             'created_at' => $now,
             'updated_at' => $now
         ]);

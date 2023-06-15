@@ -39,6 +39,12 @@
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css">
 
+    <!-- include libraries(jQuery, bootstrap) -->
+
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -89,7 +95,6 @@
 
     <!-- Main JS -->
     <script src="{!! asset('assets/js/main.js') !!}"></script>
-
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
@@ -99,11 +104,33 @@
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
-    @if (Session::has('login_success'))
+
+    {{-- Summer Note JS --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    @if (Session::has('sukses'))
         <script>
-            toastr.success('{{ session('login_success') }}')
+            toastr.success('{{ session('sukses') }}')
+        </script>
+    @endif
+    @if (Session::has('gagal'))
+        <script>
+            toastr.error('{{ session('gagal') }}')
         </script>
     @endif
 </body>
+<script>
+    var loadFile = function(event) {
+        var image = document.getElementById('img_profile');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    $('#summernote').summernote({
+        placeholder: 'Masuk Syarat Tender',
+        tabsize: 2,
+        height: 300
+    });
+</script>
 
 </html>

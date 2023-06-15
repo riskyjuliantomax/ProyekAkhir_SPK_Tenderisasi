@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('penilaian', function (Blueprint $table) {
             $table->bigIncrements('id_penilaian');
-            $table->unsignedBigInteger('id_perusahaan');
-            $table->unsignedBigInteger('id_crips');
+            $table->unsignedBigInteger('id_perusahaan')->nullable();
+            $table->unsignedBigInteger('id_crips')->nullable();
             $table->timestamps();
+            $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan');
+            $table->foreign('id_crips')->references('id_crips')->on('crips');
         });
     }
 

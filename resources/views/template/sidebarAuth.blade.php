@@ -1,4 +1,10 @@
 @if (Auth()->user()->role == 'pokja')
+    <li class="menu-item {{ request()->Is('InfoTender') ? 'active' : '' }}">
+        <a href="{{ url('InfoTender') }}" class="menu-link">
+            <i class='menu-icon bx bx-info-circle'></i>
+            <div data-i18n="Analytics">Info Tender</div>
+        </a>
+    </li>
     <li
         class="menu-item
             {{ request()->Is('Kriteria') ? 'active' : '' }}
@@ -33,6 +39,15 @@
         <a href="{{ url('User') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-user"></i>
             <div data-i18n="Analytics">User</div>
+        </a>
+    </li>
+@endif
+
+@if (Auth()->user()->role == 'user')
+    <li class="menu-item {{ request()->Is('PermohonanPeserta') ? 'active' : '' }}">
+        <a href="{{ url('PermohonanPeserta') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-user"></i>
+            <div data-i18n="Analytics"></div>
         </a>
     </li>
 @endif

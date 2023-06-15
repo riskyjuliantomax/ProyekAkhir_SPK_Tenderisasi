@@ -36,7 +36,7 @@ class SessionController extends Controller
 
     public function login(Request $request)
     {
-        Session::flash('email', $request->email);
+        // Session::flash('email', $request->email);
         $request->validate([
             'email' => 'required',
             'password' => 'required'
@@ -59,13 +59,9 @@ class SessionController extends Controller
                         'last_login' => \Carbon\Carbon::now()->toDateTimeString(),
                     ]
                 );
-                if (auth()->user()->role == 'user') {
+                if (Auth::check()) {
                     // return redirect('Dashboard');
-                    return redirect('Dashboard')->with('login_success', 'Berhasil Login!');
-                } else if (auth()->user()->role == 'pokja') {
-                    return redirect('Dashboard')->with(["login_success" => "Berhasil Login"]);
-                } else if (auth()->user()->role == 'admin') {
-                    return redirect('Dashboard')->with(["login_success" => "Berhasil Login"]);
+                    return redirect('Dashboard')->with('sukses', 'Berhasil Login!');
                 }
             } else {
                 return redirect('login')->with(["login_gagal" => "Email Dan Password Salah"]);

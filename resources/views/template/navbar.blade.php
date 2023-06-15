@@ -12,7 +12,7 @@
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- User -->
             <div class="me-2">
-                Selamat Datang, <b> {{ Auth()->user()->nama }} </b>
+                Selamat Datang, <b> {{ Str::limit(Auth()->user()->nama, 30) }} </b>
             </div>
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -28,7 +28,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" href="{{ url('Profile/' . Auth()->user()->email) }}">
+                        <a class="dropdown-item" href="{{ url('Profile') }}">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">{{ Auth()->user()->nama }}</span>
+                                    <span class="fw-semibold d-block">{{ Str::limit(Auth()->user()->nama, 15) }}</span>
                                     <small class="text-muted">{{ ucFirst(Auth()->user()->role) }}</small>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                         </a>
                     </li> --}}
                     <li>
-                        <a class="dropdown-item" href="{{ url('Profile/' . Auth()->user()->email) }}">
+                        <a class="dropdown-item" href="{{ url('Profile') }}">
                             <i class="bx bx-cog me-2"></i>
                             <span class="align-middle">Pengaturan</span>
                         </a>

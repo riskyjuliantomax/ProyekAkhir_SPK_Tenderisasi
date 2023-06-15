@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request)
     {
         if ($request->filled('search')) {
@@ -124,10 +129,6 @@ class UserController extends Controller
             if ($request->id != null || $request->id != '') {
                 $user = User::find($request->id);
             }
-            //Cari user berdasarkan auth
-            if ($request->email_auth != null || $request->email_auth  != '') {
-                $user = User::where('email', $request->email_auth)->get();
-            }
             //Apakah user input password
             if ($request->password != null || $request->password != '') {
                 $user->password = Hash::make($request->password);
@@ -173,13 +174,6 @@ class UserController extends Controller
             Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
             return redirect()->route('User.index');
         };
-        // if($User && $UserAlamat){
-        //     Alert::success('Berhasil', 'Data User Berhasil Disimpan');
-        //     return redirect()->route('User.index');
-        // }else {
-        //     Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
-        //     return redirect()->route('User.index');
-        // }
     }
 
     public function delete($id_user)
@@ -189,11 +183,66 @@ class UserController extends Controller
         return response()->json(['status' => 'Berhasil Hapus Kriteria']);
     }
 
-    public function profile($email)
+    public function profile()
     {
-        $user = User::where('email', $email)->get();
+        $user = User::where('email', Auth()->user()->email)->get();
         // return response()->json($user);
         return view('User.profile', compact('user'))
             ->with(['title' => 'User']);
+    }
+
+    public function profile_update(Request $request)
+    {
+        // return response()->json($request);
+        request()->validate([
+            'nama' => 'required',
+        ], [
+            'nama.required' => 'Form Nama Harus Diisi',
+        ]);
+
+        try {
+            $timeupdate = \Carbon\Carbon::now()->toDateTimeString();
+            //Cari user berdasarkan auth
+            $user = User::find(Auth()->user()->id_users);
+            // Apakah user input password
+            if ($request->password != null || $request->password != '') {
+                $user->password = Hash::make($request->password);
+            }
+            // Apakah user upload gambar profile
+            if ($request->file('photoFile') != "" || $request->file('photoFile') != null) {
+                $photoProfile = $request->file('photoFile');
+                $photoProfile->storeAs('public/photoProfileUser', $photoProfile->hashName());
+                $user->img_profile = $photoProfile->hashName();
+            }
+            // melakukan update
+            $user->nama = $request->nama;
+            $user->email = $request->email;
+            $user->nip = $request->nip;
+            $user->tentang = $request->tentang;
+            $user->no_hp = $request->no_hp;
+            $user->tgl_lahir = $request->tanggal_lahir;
+            $user->tempat_lahir = $request->tempat_lahir;
+            $user->kelamin = $request->kelamin;
+            $user->updated_at = $timeupdate;
+            $user->save();
+
+            $userAlamat = UserAlamat::where('id_users', Auth()->user()->id_users);
+            // return response()->json($userAlamat);
+            $userAlamat->update([
+                'provinsi' => $request->provinsi,
+                'kabupaten' => $request->kabupaten,
+                'kecamatan' => $request->kecamatan,
+                'kota' => $request->kota,
+                'kodepos' => $request->kodepos,
+                'alamat' => $request->alamat
+            ]);
+
+            Alert::success('Berhasil', 'Data Profile Berhasil Update');
+            return redirect()->route('User.profile');
+        } catch (Exception $e) {
+            error_log($e);
+            Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
+            return redirect()->route('User.profile');
+        };
     }
 }

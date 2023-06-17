@@ -89,7 +89,7 @@
     <script src="{!! asset('assets/vendor/libs/popper/popper.js') !!}"></script>
     <script src="{!! asset('assets/vendor/js/bootstrap.js') !!}"></script>
     <script src="{!! asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') !!}"></script>
-
+    <script src="{!! asset('assets/js/extended-ui-perfect-scrollbar.js') !!}"></script>
     <script src="{!! asset('assets/vendor/js/menu.js') !!}"></script>
     <!-- endbuild -->
 
@@ -109,6 +109,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    @yield('scripts')
 
     @if (Session::has('sukses'))
         <script>
@@ -131,6 +132,8 @@
         tabsize: 2,
         height: 300
     });
+
+    window.myinput = new AutoNumeric('#hargaPenawaran', 1450000);
 </script>
 
 </html>

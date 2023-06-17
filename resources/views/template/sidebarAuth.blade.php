@@ -44,10 +44,10 @@
 @endif
 
 @if (Auth()->user()->role == 'user')
-    <li class="menu-item {{ request()->Is('PermohonanPeserta') ? 'active' : '' }}">
-        <a href="{{ url('PermohonanPeserta') }}" class="menu-link">
+    <li class="menu-item {{ request()->Is('PendaftaranPeserta') ? 'active' : '' }}">
+        <a href="{{ url('PendaftaranPeserta') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-user"></i>
-            <div data-i18n="Analytics"></div>
+            <div data-i18n="Analytics">Daftar Sebagai Peserta</div>
         </a>
     </li>
 @endif

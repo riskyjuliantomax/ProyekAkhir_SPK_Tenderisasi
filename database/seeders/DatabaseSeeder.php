@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
             'nama' => 'User',
             'email' => 'user@gmail.com',
             'nip' => '000012',
-            'role' => 1,
+            'role' => 0,
             'password' => Hash::make('user@gmail.com'),
             'created_at' => $now,
             'updated_at' => $now

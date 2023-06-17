@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoTenderController;
 use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\PendaftaranPesertaController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\PerusahaanController;
@@ -30,6 +31,9 @@ Route::get('Dashboard', [DashboardController::class, 'index'])->name('Dashboard.
 Route::get('/home', [HomeController::class, 'index'])->name('home.user');
 
 Route::middleware(['auth', 'user_role:user'])->group(function () {
+    Route::get('PendaftaranPeserta', [PendaftaranPesertaController::class, 'index']);
+    Route::post('PendaftaranPeserta', [PendaftaranPesertaController::class, 'store']);
+    Route::put('PendaftaranPeserta/Update', [PendaftaranPesertaController::class, 'update']);
 });
 Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     //Info

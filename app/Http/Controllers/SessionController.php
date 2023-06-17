@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RiwayatAktivitas;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
@@ -59,6 +60,13 @@ class SessionController extends Controller
                         'last_login' => \Carbon\Carbon::now()->toDateTimeString(),
                     ]
                 );
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => ucFirst(auth()->user()->role) . ' Login',
+                    'deskripsi2' => ucFirst(auth()->user()->role) . ' User Telah Melakukan Login',
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                ]);
+
                 if (Auth::check()) {
                     // return redirect('Dashboard');
                     return redirect('Dashboard')->with('sukses', 'Berhasil Login!');
@@ -80,6 +88,12 @@ class SessionController extends Controller
                 'last_logout' => \Carbon\Carbon::now()->toDateTimeString(),
             ]
         );
+        RiwayatAktivitas::create([
+            'id_users' => auth()->user()->id_users,
+            'deskripsi' => ucFirst(auth()->user()->role) . ' Logout',
+            'deskripsi2' => ucFirst(auth()->user()->role) . ' User Telah Melakukan Logout',
+            'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
         Auth::logout();
         return redirect('login')->with(["logout" => "Berhasil Logout"]);
     }

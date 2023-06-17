@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Alert;
 use App\Models\Perusahaan;
+use App\Models\RiwayatAktivitas;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\Log;
 
@@ -50,6 +51,13 @@ class PenilaianController extends Controller
                     ]);
                 }
             }
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => ucFirst(auth()->user()->role) . 'Update Penilaian',
+                'deskripsi2' => ucFirst(auth()->user()->role) . ' Telah Melakukan Update Penilaian',
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+            ]);
+
             Alert::success('Berhasil', 'Data Berhasil Disimpan');
             return redirect()->route('Penilaian.index');
         } catch (Exception $e) {

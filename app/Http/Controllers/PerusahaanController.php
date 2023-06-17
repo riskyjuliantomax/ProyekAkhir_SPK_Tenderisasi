@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Alert;
 use App\Models\Penilaian;
+use App\Models\RiwayatAktivitas;
 use Illuminate\Support\Facades\Log;
 
 class PerusahaanController extends Controller
@@ -46,6 +47,13 @@ class PerusahaanController extends Controller
             ]);
             // Penilaian::truncate();
             if ($perusahaan) {
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah Perusahaan ',
+                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Tambah Perusahaan ' . $request->nama_perusahaan,
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                ]);
+
                 Alert::success('Berhasil', 'Data Perusahaan Berhasil Disimpan');
                 return redirect()->route('Perusahaan.index');
             } else {
@@ -79,6 +87,12 @@ class PerusahaanController extends Controller
                 'telp_perusahaan' => $request->telp_perusahaan,
             ]);
             if ($perusahaan) {
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => ucFirst(auth()->user()->role) . ' Update Perusahaan ',
+                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Perusahaan ' . $request->nama_perusahaan,
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                ]);
                 Alert::success('Berhasil', 'Data Perusahaan Berhasil Disimpan');
                 return redirect()->route('Perusahaan.index');
             }
@@ -92,6 +106,14 @@ class PerusahaanController extends Controller
     public function delete($id_perusahaan)
     {
         $perusahaan = Perusahaan::Find($id_perusahaan);
+        if ($perusahaan) {
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => ucFirst(auth()->user()->role) . ' Hapus Perusahaan ',
+                'deskripsi2' => ucFirst(auth()->user()->role) . ' Hapus Perusahaan ' . $perusahaan->nama_perusahaan,
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+            ]);
+        }
         $perusahaan->delete();
         return response()->json(['status' => 'Berhasil Hapus Perusahaan']);
     }

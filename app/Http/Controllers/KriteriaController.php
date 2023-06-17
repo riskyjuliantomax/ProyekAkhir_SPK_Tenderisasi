@@ -9,6 +9,7 @@ use Error;
 use App\Http\Helper\KriteriaHelper;
 use App\Models\Crips;
 use App\Models\KriteriaCost;
+use App\Models\RiwayatAktivitas;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -51,6 +52,13 @@ class KriteriaController extends Controller
                 'attribut' => $attribut,
             ]);
             if ($Kriteria) {
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah Kriteria ',
+                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Menambahkan Kriteria ' . $request->nama_kriteria,
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                ]);
+
                 Alert::success('Berhasil', 'Data Kriteria Berhasil Disimpan');
                 return redirect()->route('Kriteria.index');
             } else {
@@ -75,14 +83,21 @@ class KriteriaController extends Controller
             'bobot.required' => 'Form Bobot Harus Diisi',
         ]);
         try {
+            // $oldKriteria = Kriteria::find($request->id_kriteria);
             $Kriteria = Kriteria::find($request->id_kriteria);
             $Kriteria->update([
                 'nama_kriteria' => $request->nama_kriteria,
                 'bobot' => $request->bobot / 100,
                 'attribut' => $request->attribut,
             ]);
-
             if ($Kriteria) {
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => ucFirst(auth()->user()->role) . ' Update Kriteria ',
+                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Kriteria ' . $request->nama_kriteria,
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                ]);
+
                 Alert::success('Berhasil Update', 'Data Kriteria Berhasil Update');
                 return redirect()->route('Kriteria.index');
             } else {
@@ -115,6 +130,14 @@ class KriteriaController extends Controller
     public function delete($id_kriteria)
     {
         $Kriteria = Kriteria::Find($id_kriteria);
+        if ($Kriteria) {
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => ucFirst(auth()->user()->role) . ' Hapus Kriteria ',
+                'deskripsi2' => ucFirst(auth()->user()->role) . ' Hapus Kriteria ' . $Kriteria->nama_kriteria,
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+            ]);
+        }
         $Kriteria->delete();
         return response()->json(['status' => 'Berhasil Hapus Kriteria']);
     }

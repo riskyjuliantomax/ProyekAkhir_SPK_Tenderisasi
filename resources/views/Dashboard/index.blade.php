@@ -33,7 +33,7 @@
             {{-- Ranking --}}
             <div class="card">
                 <div class="card">
-                    <h5 class="card-header">Tahap Ranking </h5>
+                    <h5 class="card-header">{{ $title = isset($title) ? $title : '' }} </h5>
                     <div class="table-responsive   text-nowrap">
                         <table class="table table-bordered" style="overflow-x:scroll">
                             <form class="ms-4 mt-1">
@@ -45,47 +45,9 @@
                                     </div>
                                 </caption>
                                 @if (count($penilaian) > 0)
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 30%"></th>
-                                            @foreach ($kriteria as $dataKriteria)
-                                                <th>
-                                                    {{ $dataKriteria->nama_kriteria }}
-                                                </th>
-                                            @endforeach
-                                            <th rowspan="2"
-                                                style="text-align: center; padding-bottom: 30px; width:100px">
-                                                Total
-                                            </th>
-                                            <th rowspan="2" style="text-align: center; padding-bottom: 30px; width:50px">
-                                                Rank
-                                            </th>
-                                        </tr>
-                                        <th>Bobot</th>
-                                        @foreach ($kriteria as $dataKriteria)
-                                            <th>
-                                                {{ $dataKriteria->bobot * 100 }}%
-                                            </th>
-                                        @endforeach
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                            $no = 1;
-                                        @endphp
-                                        @foreach ($ranking as $key => $value)
-                                            <tr>
-                                                <td>{{ $key }}</td>
-                                                @foreach ($value as $key_1 => $value_1)
-                                                    <td>
-                                                        {{ number_format($value_1, 2) }}
-                                                    </td>
-                                                @endforeach
-                                                <td>{{ $no++ }}</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <label class="ms-3">Tidak Ada Pengumuman </label>
+                                    @include('Dashboard.ranking')
+                                @else
+                                    <label class="ms-3">Tidak Ada Pengumuman </label>
                                 @endif
                             </form>
                         </table>
@@ -96,120 +58,36 @@
         </div>
         <!--/ Order Statistics -->
 
-
-        <!-- Log -->
-        <div class="col-md-6 col-lg-4 order-2 mb-4">
-            <div class="card h-100">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="card-title m-0 me-2">Transactions</h5>
-                    <div class="dropdown">
-                        <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-                            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-                        </div>
+        @if (Auth::check())
+            <!-- Log -->
+            <div class="col-md-6 col-lg-4 order-2 mb-4 ">
+                <div class="card h-100 overflow-hidden">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="card-title m-0 me-2">Riwayat Aktivitas</h5>
+                    </div>
+                    <div class="card-body" id="vertical-example">
+                        <ul class="p-0 m-0 ">
+                            @foreach ($riwayat_aktivitas as $riwayat)
+                                <li class="d-flex mb-2 card p-3" style="border-left: 3px solid blue;">
+                                    <div
+                                        class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2 mb-1 ">
+                                        <h6 class="mb-0">{{ $riwayat->deskripsi }}</h6>
+                                        <small
+                                            class="mb-0 text-muted">{{ \Carbon\Carbon::parse($riwayat->waktu)->diffForHumans() }}</small>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <span class="text-muted">{{ $riwayat->deskripsi2 }}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                            <div class="ps__rail-y" style="top: 0px; height: 232px; right: 0px;">
+                                <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 45px;"></div>
+                            </div>
+                        </ul>
                     </div>
                 </div>
-                <div class="card-body">
-                    <ul class="p-0 m-0">
-                        <li class="d-flex mb-4 pb-1">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <img src="../assets/img/icons/unicons/paypal.png" alt="User" class="rounded" />
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <small class="text-muted d-block mb-1">Paypal</small>
-                                    <h6 class="mb-0">Send money</h6>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0">+82.6</h6>
-                                    <span class="text-muted">USD</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <small class="text-muted d-block mb-1">Wallet</small>
-                                    <h6 class="mb-0">Mac'D</h6>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0">+270.69</h6>
-                                    <span class="text-muted">USD</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <img src="../assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <small class="text-muted d-block mb-1">Transfer</small>
-                                    <h6 class="mb-0">Refund</h6>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0">+637.91</h6>
-                                    <span class="text-muted">USD</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <small class="text-muted d-block mb-1">Credit Card</small>
-                                    <h6 class="mb-0">Ordered Food</h6>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0">-838.71</h6>
-                                    <span class="text-muted">USD</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <small class="text-muted d-block mb-1">Wallet</small>
-                                    <h6 class="mb-0">Starbucks</h6>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0">+203.33</h6>
-                                    <span class="text-muted">USD</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <img src="../assets/img/icons/unicons/cc-warning.png" alt="User" class="rounded" />
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <small class="text-muted d-block mb-1">Mastercard</small>
-                                    <h6 class="mb-0">Ordered Food</h6>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0">-92.45</h6>
-                                    <span class="text-muted">USD</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </div>
+        @endif
         <!--/ Transactions -->
     </div>
 @endsection

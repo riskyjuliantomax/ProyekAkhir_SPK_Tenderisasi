@@ -23,7 +23,11 @@ class DashboardController extends Controller
         $penilaian = Penilaian::with('crips', 'alternatif')->get();
 
         if (Auth::check()) {
-            $riwayat_aktivitas = RiwayatAktivitas::where('id_users', auth()->user()->id_users)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->get();
+            if (Auth()->user()->role == 'pokja' || Auth()->user()->role == 'admin') {
+                $riwayat_aktivitas = RiwayatAktivitas::where('role', auth()->user()->role)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->get();
+            } else {
+                $riwayat_aktivitas = RiwayatAktivitas::where('id_users', auth()->user()->id_users)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->get();
+            }
         }
 
         if (count($penilaian) > 0) {

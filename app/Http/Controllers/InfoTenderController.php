@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Alert;
 use App\Models\InfoTender;
+use App\Models\RiwayatAktivitas;
 use Exception;
 
 class InfoTenderController extends Controller
@@ -24,8 +25,22 @@ class InfoTenderController extends Controller
             $TenderId = InfoTender::orderBy('id_infoTender', 'DESC')->limit(1)->get();
             if (count($TenderId) > 0) {
                 $infoTender = InfoTender::find($request->id_infoTender);
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => ucFirst(auth()->user()->role) . ' Update Info Tender ',
+                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Info Tender ' . $request->nama,
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
+                ]);
             }
             if (count($TenderId) <= 0) {
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah Info Tender ',
+                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Tambah Info Tender ' . $request->nama,
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
+                ]);
                 $infoTender = new InfoTender();
             }
             $infoTender->nama_infoTender = $request->nama;

@@ -61,7 +61,7 @@
         @if (Auth::check())
             <!-- Log -->
             <div class="col-md-6 col-lg-4 order-2 mb-4 ">
-                <div class="card h-100 overflow-hidden">
+                <div class="card h-75 overflow-hidden">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5 class="card-title m-0 me-2">Riwayat Aktivitas</h5>
                     </div>
@@ -71,11 +71,19 @@
                                 <li class="d-flex mb-2 card p-3" style="border-left: 3px solid blue;">
                                     <div
                                         class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2 mb-1 ">
-                                        <h6 class="mb-0">{{ $riwayat->deskripsi }}</h6>
-                                        <small
-                                            class="mb-0 text-muted">{{ \Carbon\Carbon::parse($riwayat->waktu)->diffForHumans() }}</small>
-                                        <div class="user-progress d-flex align-items-center gap-1">
-                                            <span class="text-muted">{{ $riwayat->deskripsi2 }}</span>
+                                        @if (Auth()->user()->role == 'pokja' || Auth()->user()->role == 'admin')
+                                            <div class="row">
+                                                <h6 class="mb-0">{{ $riwayat->User->nama }} Melakukan Aktivitas</h6>
+                                            </div>
+                                        @endif
+                                        <div class="row mt-2">
+                                            <br />
+                                            <h6 class="mb-0 text-bold">{{ $riwayat->deskripsi }}</h6>
+                                            <div class="user-progress d-flex align-items-center gap-1">
+                                                <span class="text-muted">{{ $riwayat->deskripsi2 }}</span>
+                                            </div>
+                                            <small
+                                                class="mb-0 text-muted">{{ \Carbon\Carbon::parse($riwayat->waktu)->diffForHumans() }}</small>
                                         </div>
                                     </div>
                                 </li>

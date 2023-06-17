@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Alert;
+use App\Models\RiwayatAktivitas;
 use App\Models\UserAlamat;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -102,6 +103,15 @@ class UserController extends Controller
                     ]);
                 }
             });
+
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah User ',
+                'deskripsi2' => ucFirst(auth()->user()->role) . ' Tambah User ' . $request->nama,
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
+            ]);
+
             Alert::success('Berhasil', 'Data User Berhasil Disimpan');
             return redirect()->route('User.index');
         } catch (Exception $e) {
@@ -160,15 +170,16 @@ class UserController extends Controller
                 'kodepos' => $request->kodepos,
                 'alamat' => $request->alamat
             ]);
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => ucFirst(auth()->user()->role) . ' Update User ',
+                'deskripsi2' => ucFirst(auth()->user()->role) . ' Update User ' . $request->nama_perusahaan,
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
+            ]);
 
-            if ($request->id != null || $request->id != '') {
-                Alert::success('Berhasil', 'Data User Berhasil Update');
-                return redirect()->route('User.index');
-            }
-            if ($request->email_auth != null || $request->email_auth  != '') {
-                Alert::success('Berhasil', 'Data Profile Berhasil Update');
-                return redirect()->route('User.profile');
-            }
+            Alert::success('Berhasil', 'Data User Berhasil Update');
+            return redirect()->route('User.index');
         } catch (Exception $e) {
             error_log($e);
             Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
@@ -179,6 +190,13 @@ class UserController extends Controller
     public function delete($id_user)
     {
         $user = User::Find($id_user);
+        RiwayatAktivitas::create([
+            'id_users' => auth()->user()->id_users,
+            'deskripsi' => ucFirst(auth()->user()->role) . ' Hapus User ',
+            'deskripsi2' => ucFirst(auth()->user()->role) . ' Hapus User ' . $user->nama,
+            'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+            'role' => auth()->user()->role,
+        ]);
         $user->delete();
         return response()->json(['status' => 'Berhasil Hapus Kriteria']);
     }
@@ -235,6 +253,14 @@ class UserController extends Controller
                 'kota' => $request->kota,
                 'kodepos' => $request->kodepos,
                 'alamat' => $request->alamat
+            ]);
+
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => ucFirst(auth()->user()->role) . ' Update Profile ',
+                'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Profile ' . Auth()->user()->nama,
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
             ]);
 
             Alert::success('Berhasil', 'Data Profile Berhasil Update');

@@ -65,6 +65,7 @@ class SessionController extends Controller
                     'deskripsi' => ucFirst(auth()->user()->role) . ' Login',
                     'deskripsi2' => ucFirst(auth()->user()->role) . ' User Telah Melakukan Login',
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
                 ]);
 
                 if (Auth::check()) {
@@ -93,6 +94,7 @@ class SessionController extends Controller
             'deskripsi' => ucFirst(auth()->user()->role) . ' Logout',
             'deskripsi2' => ucFirst(auth()->user()->role) . ' User Telah Melakukan Logout',
             'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+            'role' => auth()->user()->role,
         ]);
         Auth::logout();
         return redirect('login')->with(["logout" => "Berhasil Logout"]);

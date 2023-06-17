@@ -52,6 +52,7 @@ class PerusahaanController extends Controller
                     'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah Perusahaan ',
                     'deskripsi2' => ucFirst(auth()->user()->role) . ' Tambah Perusahaan ' . $request->nama_perusahaan,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
                 ]);
 
                 Alert::success('Berhasil', 'Data Perusahaan Berhasil Disimpan');
@@ -92,6 +93,7 @@ class PerusahaanController extends Controller
                     'deskripsi' => ucFirst(auth()->user()->role) . ' Update Perusahaan ',
                     'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Perusahaan ' . $request->nama_perusahaan,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
                 ]);
                 Alert::success('Berhasil', 'Data Perusahaan Berhasil Disimpan');
                 return redirect()->route('Perusahaan.index');
@@ -112,6 +114,7 @@ class PerusahaanController extends Controller
                 'deskripsi' => ucFirst(auth()->user()->role) . ' Hapus Perusahaan ',
                 'deskripsi2' => ucFirst(auth()->user()->role) . ' Hapus Perusahaan ' . $perusahaan->nama_perusahaan,
                 'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
             ]);
         }
         $perusahaan->delete();

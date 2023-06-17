@@ -56,6 +56,7 @@ class PenilaianController extends Controller
                 'deskripsi' => ucFirst(auth()->user()->role) . 'Update Penilaian',
                 'deskripsi2' => ucFirst(auth()->user()->role) . ' Telah Melakukan Update Penilaian',
                 'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
             ]);
 
             Alert::success('Berhasil', 'Data Berhasil Disimpan');

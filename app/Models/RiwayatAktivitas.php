@@ -12,11 +12,11 @@ class RiwayatAktivitas extends Model
     protected $table = "riwayat_aktivitas";
     protected $primaryKey = "id_riwayat_aktivitas";
     protected $fillable = [
-        'id_riwayat_aktivitas', 'id_users', 'deskripsi', 'deskripsi2', 'deskripsi3', 'waktu'
+        'id_riwayat_aktivitas', 'id_users', 'deskripsi', 'deskripsi2', 'deskripsi3', 'waktu', 'role'
     ];
 
     public function User()
     {
-        return $this->hasMany(User::class, 'id_users', 'id_users');
+        return $this->belongsTo(User::class, 'id_users', 'id_users');
     }
 }

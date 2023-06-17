@@ -57,6 +57,7 @@ class KriteriaController extends Controller
                     'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah Kriteria ',
                     'deskripsi2' => ucFirst(auth()->user()->role) . ' Menambahkan Kriteria ' . $request->nama_kriteria,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
                 ]);
 
                 Alert::success('Berhasil', 'Data Kriteria Berhasil Disimpan');
@@ -96,6 +97,7 @@ class KriteriaController extends Controller
                     'deskripsi' => ucFirst(auth()->user()->role) . ' Update Kriteria ',
                     'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Kriteria ' . $request->nama_kriteria,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
                 ]);
 
                 Alert::success('Berhasil Update', 'Data Kriteria Berhasil Update');
@@ -136,6 +138,7 @@ class KriteriaController extends Controller
                 'deskripsi' => ucFirst(auth()->user()->role) . ' Hapus Kriteria ',
                 'deskripsi2' => ucFirst(auth()->user()->role) . ' Hapus Kriteria ' . $Kriteria->nama_kriteria,
                 'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
             ]);
         }
         $Kriteria->delete();

@@ -33,7 +33,7 @@
             {{-- Ranking --}}
             <div class="card">
                 <div class="card">
-                    <h5 class="card-header">{{ $title = isset($title) ? $title : '' }} </h5>
+                    <h5 class="card-header">Perangkingan Tender </h5>
                     <div class="table-responsive   text-nowrap">
                         <table class="table table-bordered" style="overflow-x:scroll">
                             <form class="ms-4 mt-1">
@@ -61,21 +61,28 @@
         @if (Auth::check())
             <!-- Log -->
             <div class="col-md-6 col-lg-4 order-2 mb-4 ">
-                <div class="card h-75 overflow-hidden">
+                <div class="card h-100 overflow-hidden" style="max-height: 500px">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5 class="card-title m-0 me-2">Riwayat Aktivitas</h5>
                     </div>
                     <div class="card-body" id="vertical-example">
                         <ul class="p-0 m-0 ">
                             @foreach ($riwayat_aktivitas as $riwayat)
-                                <li class="d-flex mb-2 card p-3" style="border-left: 3px solid blue;">
+                                <li class="d-flex mb-2 card p-3 mt-2"
+                                    @if (auth()->user()->id_users == $riwayat->id_users) style="border-left: 3px solid blue; background-color: #f5f6ff;"
+                                @else
+                                style="border-left: 2px solid black;" @endif>
                                     <div
                                         class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2 mb-1 ">
-                                        @if (Auth()->user()->role == 'pokja' || Auth()->user()->role == 'admin')
-                                            <div class="row">
+
+                                        <div class="row">
+                                            @if (auth()->user()->id_users == $riwayat->id_users)
+                                                <h6 class="mb-0">Anda Melakukan Aktivitas</h6>
+                                            @else
                                                 <h6 class="mb-0">{{ $riwayat->User->nama }} Melakukan Aktivitas</h6>
-                                            </div>
-                                        @endif
+                                            @endif
+                                        </div>
+
                                         <div class="row mt-2">
                                             <br />
                                             <h6 class="mb-0 text-bold">{{ $riwayat->deskripsi }}</h6>
@@ -98,4 +105,6 @@
         @endif
         <!--/ Transactions -->
     </div>
+@endsection
+@section('script')
 @endsection

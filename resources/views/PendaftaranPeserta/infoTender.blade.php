@@ -17,12 +17,13 @@
     </div>
     <!-- Syarat Tender -->
     <div class="mb-3 col-md-12">
-        <p class="text-base mb-0">Syarat</p>
+        <p class="text-base mb-0 ">Syarat</p>
         @foreach ($infoTender as $data)
             {{-- Print Langsung tanpa Summernote --}}
-            <div class="form-control">
+            <div class="form-control overflow-auto">
                 {!! $data->syarat_infoTender !!}
             </div>
         @endforeach
     </div>
 </div>
+

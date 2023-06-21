@@ -24,9 +24,10 @@ class DashboardController extends Controller
 
         if (Auth::check()) {
             if (Auth()->user()->role == 'pokja' || Auth()->user()->role == 'admin') {
-                $riwayat_aktivitas = RiwayatAktivitas::where('role', auth()->user()->role)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->get();
-            } else {
-                $riwayat_aktivitas = RiwayatAktivitas::where('id_users', auth()->user()->id_users)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->get();
+                $riwayat_aktivitas = RiwayatAktivitas::where('role', auth()->user()->role)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->limit(20)->get();
+            }
+            if (Auth()->user()->role == 'user') {
+                $riwayat_aktivitas = RiwayatAktivitas::where('id_users', auth()->user()->id_users)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->limit(20)->get();
             }
         }
 

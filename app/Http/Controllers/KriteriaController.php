@@ -54,8 +54,8 @@ class KriteriaController extends Controller
             if ($Kriteria) {
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
-                    'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah Kriteria ',
-                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Menambahkan Kriteria ' . $request->nama_kriteria,
+                    'deskripsi' => ' Menambahkan Kriteria ',
+                    'deskripsi2' => ' Menambahkan Kriteria ' . $request->nama_kriteria,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
@@ -94,8 +94,8 @@ class KriteriaController extends Controller
             if ($Kriteria) {
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
-                    'deskripsi' => ucFirst(auth()->user()->role) . ' Update Kriteria ',
-                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Kriteria ' . $request->nama_kriteria,
+                    'deskripsi' => ' Update Kriteria ',
+                    'deskripsi2' => ' Update Kriteria ' . $request->nama_kriteria,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
@@ -135,8 +135,8 @@ class KriteriaController extends Controller
         if ($Kriteria) {
             RiwayatAktivitas::create([
                 'id_users' => auth()->user()->id_users,
-                'deskripsi' => ucFirst(auth()->user()->role) . ' Hapus Kriteria ',
-                'deskripsi2' => ucFirst(auth()->user()->role) . ' Hapus Kriteria ' . $Kriteria->nama_kriteria,
+                'deskripsi' =>  ' Hapus Kriteria ',
+                'deskripsi2' =>  ' Hapus Kriteria ' . $Kriteria->nama_kriteria,
                 'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                 'role' => auth()->user()->role,
             ]);

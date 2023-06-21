@@ -62,8 +62,8 @@ class SessionController extends Controller
                 );
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
-                    'deskripsi' => ucFirst(auth()->user()->role) . ' Login',
-                    'deskripsi2' => ucFirst(auth()->user()->role) . ' User Telah Melakukan Login',
+                    'deskripsi' => ' Login',
+                    'deskripsi2' =>  ' Telah Melakukan Login',
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
@@ -91,8 +91,8 @@ class SessionController extends Controller
         );
         RiwayatAktivitas::create([
             'id_users' => auth()->user()->id_users,
-            'deskripsi' => ucFirst(auth()->user()->role) . ' Logout',
-            'deskripsi2' => ucFirst(auth()->user()->role) . ' User Telah Melakukan Logout',
+            'deskripsi' => ' Logout',
+            'deskripsi2' => ' User Telah Melakukan Logout',
             'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
             'role' => auth()->user()->role,
         ]);

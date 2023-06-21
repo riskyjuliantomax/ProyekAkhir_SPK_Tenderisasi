@@ -1,6 +1,6 @@
 @extends('template.master')
 @section('content')
-    {{ Breadcrumbs::render('user') }}
+    {{-- {{ Breadcrumbs::render('perusahaan') }} --}}
     {{-- Check for error and session --}}
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible">
@@ -14,21 +14,20 @@
         </div>
     @endif
     {{-- End Check --}}
-    <!-- Form controls -->
     <div class="card">
         <!-- Button trigger modal -->
         <div class="ms-4 mt-3 mb-1">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">
-                Tambah User
+                Tambah {{ $title }}
             </button>
             <div class="float-end me-4">
-                <form action="User" method="GET">
+                <form action="Perusahaan" method="GET">
                     <div class="input-group input-group-merge">
 
-                        <input type="text" class="form-control" placeholder="Cari Nama User / Email / NIP"
+                        <input type="text" class="form-control" placeholder="Cari Nama Perusahaan"
                             aria-label="Cari Nama User" aria-describedby="basic-addon-search31" name="search"
-                            id="search" style='width:260px' value="{{ old('search') }}">
+                            style='width:260px'>
                         <button type="Submit" class="btn btn-primary"><i class='bx bx-search-alt-2'></i>
                         </button>
                     </div>
@@ -42,54 +41,37 @@
                     <caption class="ms-4 mt-1">
                         List {{ $title }}
                         <div class="float-end me-3">
-                            {{ $user->onEachSide(3)->links() }}
+                            {{ $pendaftaranUser->onEachSide(3)->links() }}
                         </div>
                     </caption>
                     <thead>
                         <tr>
                             <th style="width:7%">No</th>
-                            <th>Nama</th>
+                            <th>Nama Peserta</th>
                             <th>Email</th>
-                            <th>NIP</th>
-                            <th>Role</th>
-                            <th>Terakhir Login</th>
-                            <th>Terakhir Logout</th>
+                            <th>No Hp</th>
+                            <th>Alamat</th>
+                            <th>Approve</th>
+                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($user as $index => $data)
+                        @foreach ($pendaftaranUser as $index => $data)
                             <tr>
-                                <input type="hidden" class="id_user" value="{{ $data->id_users }}" />
-                                <td> {{ $user->firstItem() + $index }} </td>
-                                <td>{{ ucFirst($data->nama) }}</td>
-                                <td>{{ ucFirst($data->email) }}</td>
-                                <td>{{ ucFirst($data->nip) }}</td>
-                                <td>{{ ucFirst($data->role) }}</td>
+                                <input type="hidden" class="id_pendaftaran_users"
+                                    value="{{ $data->id_pendaftaran_users }}" />
+                                <td> {{ $pendaftaranUser->firstItem() + $index }} </td>
+                                <td>{{ ucFirst($data->nama_perusahaan) }}</td>
+                                <td>{{ $data->email_perusahaan }}</td>
+                                <td>{{ ucFirst($data->telp_perusahaan) }}</td>
+                                <td>{{ ucFirst($data->alamat_perusahaan) }}</td>
                                 <td>
-                                    @if ($data->last_login != null)
-                                        {{ \Carbon\Carbon::parse($data->last_login)->diffForHumans() }}
-                                    @else
-                                        -- --
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($data->last_logout != null)
-                                        {{ \Carbon\Carbon::parse($data->last_logout)->diffForHumans() }}
-                                    @else
-                                        -- --
-                                    @endif
+
                                 </td>
                                 <td style="width:13%">
                                     <button type="button" class="btn btn-icon btn-info" data-toggle="modal"
-                                        data-target="#modalDetail{{ $data->id_users }}">
+                                        data-target="#modalDetail{{ $data->id_pendaftaran_users }}">
                                         <span class="tf-icons bx bx-detail"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-icon btn-primary" data-toggle="modal"
-                                        data-target="#modalFormEdit{{ $data->id_users }}">
-                                        <span class="tf-icons bx bx-edit-alt"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-icon btn-danger btn-delete">
-                                        <span class="tf-icons bx bx-trash-alt"></span>
                                     </button>
                                 </td>
                             </tr>
@@ -112,6 +94,4 @@
 </script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-@include('User.modal')
-@include('User.modalDetail')
-@include('User.js')
+@include('PermintaanPeserta.modal')

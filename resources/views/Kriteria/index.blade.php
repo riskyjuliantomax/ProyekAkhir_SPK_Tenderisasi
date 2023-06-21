@@ -17,7 +17,7 @@
     <!-- Form controls -->
     <div class="row">
         <div class="col-4">
-            <div class="card">
+            <div class="card ">
                 <h5 class="card-header">Tambah {{ $title }}</h5>
                 <form action="{{ url('Kriteria') }}" method="post">
                     @csrf

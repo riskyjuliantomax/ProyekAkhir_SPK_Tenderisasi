@@ -11,7 +11,6 @@
     {{-- <link rel="icon" type="image/x-icon" href="{!! asset('assets/img/favicon/favicon.ico') !!}" /> --}}
     <link rel="icon" type="image/x-icon"
         href="https://cdn.dribbble.com/users/228301/screenshots/1964269/tender_script.jpg">
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,7 +19,6 @@
         rel="stylesheet" />
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="{!! asset('assets/vendor/fonts/boxicons.css') !!}" />
-
     <!-- Core CSS -->
     <link rel="stylesheet" href="{!! asset('assets/vendor/css/core.css') !!}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{!! asset('assets/vendor/css/theme-default.css') !!}" class="template-customizer-theme-css" />
@@ -38,33 +36,21 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css">
-
-    <!-- include libraries(jQuery, bootstrap) -->
-
-
     <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-
 </head>
 
 <body>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Layout wrapper -->
-
-
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             @include('template.sidebar')
-
             <!-- Layout container -->
             <div class="layout-page">
                 @if (Auth::check())
                     @include('template.navbar')
                 @endif
-
-                <!-- Navbar -->
-                <!-- / Navbar -->
-
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
@@ -78,11 +64,9 @@
             </div>
             <!-- / Layout page -->
         </div>
-
         <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-
     <!-- Sweet Alert-->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{!! asset('assets/vendor/libs/jquery/jquery.js') !!}"></script>
@@ -104,7 +88,6 @@
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
-
     {{-- Summer Note JS --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -121,19 +104,12 @@
             toastr.error('{{ session('gagal') }}')
         </script>
     @endif
+    <script>
+        var loadFile = function(event) {
+            var image = document.getElementById('img_profile');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
 </body>
-<script>
-    var loadFile = function(event) {
-        var image = document.getElementById('img_profile');
-        image.src = URL.createObjectURL(event.target.files[0]);
-    };
-    $('#summernote').summernote({
-        placeholder: 'Masuk Syarat Tender',
-        tabsize: 2,
-        height: 300
-    });
-
-    window.myinput = new AutoNumeric('#hargaPenawaran', 1450000);
-</script>
 
 </html>

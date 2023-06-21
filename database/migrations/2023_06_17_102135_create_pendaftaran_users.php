@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('alamat_perusahaan');
             $table->date('tahun_berdiri');
             $table->string('nama_kontak');
-            $table->integer('harga_penawaran');
-            $table->string('dokumen_perusahaan');
+            $table->bigInteger('harga_penawaran');
+            $table->string('dokumen_perusahaan')->nullable();
             $table->string('telp_perusahaan')->nullable();
-            $table->string('email_perusahaan');
-            $table->boolean('approve');
+            $table->string('email_perusahaan')->nullable();
+            $table->smallInteger('approve')->default(0);
             $table->timestamps();
         });
     }

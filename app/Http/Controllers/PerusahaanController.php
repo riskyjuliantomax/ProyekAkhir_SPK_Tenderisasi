@@ -49,8 +49,8 @@ class PerusahaanController extends Controller
             if ($perusahaan) {
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
-                    'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah Perusahaan ',
-                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Tambah Perusahaan ' . $request->nama_perusahaan,
+                    'deskripsi' =>  ' Tambah Perusahaan ',
+                    'deskripsi2' =>  ' Tambah Perusahaan ' . $request->nama_perusahaan,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
@@ -90,8 +90,8 @@ class PerusahaanController extends Controller
             if ($perusahaan) {
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
-                    'deskripsi' => ucFirst(auth()->user()->role) . ' Update Perusahaan ',
-                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Perusahaan ' . $request->nama_perusahaan,
+                    'deskripsi' => ' Update Perusahaan ',
+                    'deskripsi2' => ' Update Perusahaan ' . $request->nama_perusahaan,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
@@ -111,8 +111,8 @@ class PerusahaanController extends Controller
         if ($perusahaan) {
             RiwayatAktivitas::create([
                 'id_users' => auth()->user()->id_users,
-                'deskripsi' => ucFirst(auth()->user()->role) . ' Hapus Perusahaan ',
-                'deskripsi2' => ucFirst(auth()->user()->role) . ' Hapus Perusahaan ' . $perusahaan->nama_perusahaan,
+                'deskripsi' => ' Hapus Perusahaan ',
+                'deskripsi2' => ' Hapus Perusahaan ' . $perusahaan->nama_perusahaan,
                 'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                 'role' => auth()->user()->role,
             ]);

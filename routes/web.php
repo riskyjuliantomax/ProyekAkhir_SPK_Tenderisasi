@@ -40,7 +40,9 @@ Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     Route::get('InfoTender', [InfoTenderController::class, 'index'])->name('InfoTender.index');
     Route::post('InfoTender', [InfoTenderController::class, 'store'])->name('InfoTender.store');
     Route::put('InfoTender/Update', [InfoTenderController::class, 'store'])->name('InfoTender.update');
-    //Perusahaan
+    // PermintaanPeserta
+    Route::get('PermintaanPeserta', [PendaftaranPesertaController::class, 'userView']);
+    //Peserta
     Route::get('Perusahaan', [PerusahaanController::class, 'index'])->name('Perusahaan.index');
     Route::post('Perusahaan', [PerusahaanController::class, 'store'])->name('Perusahaan.store');
     Route::put('Perusahaan/{id_perusahaan}', [PerusahaanController::class, 'update'])->name('Perusahaan.update');

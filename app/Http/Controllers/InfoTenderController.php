@@ -27,8 +27,8 @@ class InfoTenderController extends Controller
                 $infoTender = InfoTender::find($request->id_infoTender);
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
-                    'deskripsi' => ucFirst(auth()->user()->role) . ' Update Info Tender ',
-                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Info Tender ' . $request->nama,
+                    'deskripsi' => ' Update Info Tender ',
+                    'deskripsi2' => ' Update Info Tender ' . $request->nama,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
@@ -36,8 +36,8 @@ class InfoTenderController extends Controller
             if (count($TenderId) <= 0) {
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
-                    'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah Info Tender ',
-                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Tambah Info Tender ' . $request->nama,
+                    'deskripsi' => ' Tambah Info Tender ',
+                    'deskripsi2' => ' Tambah Info Tender ' . $request->nama,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);

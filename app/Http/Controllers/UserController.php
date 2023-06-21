@@ -106,8 +106,8 @@ class UserController extends Controller
 
             RiwayatAktivitas::create([
                 'id_users' => auth()->user()->id_users,
-                'deskripsi' => ucFirst(auth()->user()->role) . ' Tambah User ',
-                'deskripsi2' => ucFirst(auth()->user()->role) . ' Tambah User ' . $request->nama,
+                'deskripsi' => ' Tambah User ',
+                'deskripsi2' => ' Tambah User ' . $request->nama,
                 'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                 'role' => auth()->user()->role,
             ]);
@@ -172,8 +172,8 @@ class UserController extends Controller
             ]);
             RiwayatAktivitas::create([
                 'id_users' => auth()->user()->id_users,
-                'deskripsi' => ucFirst(auth()->user()->role) . ' Update User ',
-                'deskripsi2' => ucFirst(auth()->user()->role) . ' Update User ' . $request->nama_perusahaan,
+                'deskripsi' =>  ' Update User ',
+                'deskripsi2' =>  ' Update User ' . $request->nama_perusahaan,
                 'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                 'role' => auth()->user()->role,
             ]);
@@ -192,8 +192,8 @@ class UserController extends Controller
         $user = User::Find($id_user);
         RiwayatAktivitas::create([
             'id_users' => auth()->user()->id_users,
-            'deskripsi' => ucFirst(auth()->user()->role) . ' Hapus User ',
-            'deskripsi2' => ucFirst(auth()->user()->role) . ' Hapus User ' . $user->nama,
+            'deskripsi' => ' Hapus User ',
+            'deskripsi2' => ' Hapus User ' . $user->nama,
             'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
             'role' => auth()->user()->role,
         ]);

@@ -1,3 +1,4 @@
+{{-- Role Pokja --}}
 @if (Auth()->user()->role == 'pokja')
     <li class="menu-item {{ request()->Is('InfoTender') ? 'active' : '' }}">
         <a href="{{ url('InfoTender') }}" class="menu-link">
@@ -13,6 +14,12 @@
         <a href="{{ url('Kriteria') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-list-check"></i>
             <div data-i18n="Analytics">Kriteria</div>
+        </a>
+    </li>
+    <li class="menu-item {{ request()->Is('PermintaanPeserta') ? 'active' : '' }}">
+        <a href="{{ url('PermintaanPeserta') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-user"></i>
+            <div data-i18n="Analytics">Permintaaan Peserta </div>
         </a>
     </li>
     <li class="menu-item {{ request()->Is('Perusahaan') ? 'active' : '' }}">
@@ -34,6 +41,7 @@
         </a>
     </li>
 @endif
+{{-- Role Admin --}}
 @if (Auth()->user()->role == 'admin')
     <li class="menu-item {{ request()->Is('User') ? 'active' : '' }}">
         <a href="{{ url('User') }}" class="menu-link">
@@ -42,7 +50,7 @@
         </a>
     </li>
 @endif
-
+{{-- Role User --}}
 @if (Auth()->user()->role == 'user')
     <li class="menu-item {{ request()->Is('PendaftaranPeserta') ? 'active' : '' }}">
         <a href="{{ url('PendaftaranPeserta') }}" class="menu-link">

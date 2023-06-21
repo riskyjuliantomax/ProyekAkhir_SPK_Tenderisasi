@@ -67,3 +67,13 @@
         </form>
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Masuk Syarat Tender',
+            tabsize: 2,
+            height: 600
+        });
+    </script>
+@endsection

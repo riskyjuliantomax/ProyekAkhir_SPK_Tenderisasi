@@ -53,8 +53,8 @@ class PenilaianController extends Controller
             }
             RiwayatAktivitas::create([
                 'id_users' => auth()->user()->id_users,
-                'deskripsi' => ucFirst(auth()->user()->role) . 'Update Penilaian',
-                'deskripsi2' => ucFirst(auth()->user()->role) . ' Telah Melakukan Update Penilaian',
+                'deskripsi' => 'Update Penilaian',
+                'deskripsi2' => ' Telah Melakukan Update Penilaian',
                 'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                 'role' => auth()->user()->role,
             ]);

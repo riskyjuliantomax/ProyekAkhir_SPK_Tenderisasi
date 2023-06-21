@@ -42,8 +42,8 @@ class CripsController extends Controller
             if ($crips) {
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
-                    'deskripsi' => ucFirst(auth()->user()->role) . ' Menambahkan Crips ',
-                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Menambahkan Crips ' . $request->nama_crips . ' Dari Kriteria ' . $kriteria->nama_kriteria,
+                    'deskripsi' => ' Menambahkan Crips ',
+                    'deskripsi2' => ' Menambahkan Crips ' . $request->nama_crips . ' Dari Kriteria ' . $kriteria->nama_kriteria,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
@@ -91,8 +91,8 @@ class CripsController extends Controller
             if ($crips) {
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
-                    'deskripsi' => ucFirst(auth()->user()->role) . ' Update Crips ',
-                    'deskripsi2' => ucFirst(auth()->user()->role) . ' Update Crips ' . $request->nama_crips . ' Dari Kriteria ' . $kriteria->nama_kriteria,
+                    'deskripsi' => ' Update Crips ',
+                    'deskripsi2' => ' Update Crips ' . $request->nama_crips . ' Dari Kriteria ' . $kriteria->nama_kriteria,
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
@@ -119,8 +119,8 @@ class CripsController extends Controller
         $kriteria = Kriteria::find($crips->id_kriteria);
         RiwayatAktivitas::create([
             'id_users' => auth()->user()->id_users,
-            'deskripsi' => ucFirst(auth()->user()->role) . ' Hapus Crips ',
-            'deskripsi2' => ucFirst(auth()->user()->role) . ' Hapus Crips ' . $crips->nama_crips . ' Dari Kriteria ' . $kriteria->nama_kriteria,
+            'deskripsi' => ' Hapus Crips ',
+            'deskripsi2' => ' Hapus Crips ' . $crips->nama_crips . ' Dari Kriteria ' . $kriteria->nama_kriteria,
             'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
             'role' => auth()->user()->role,
         ]);

@@ -7,6 +7,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Alert;
 use App\Models\PendaftaranUser;
+use App\Models\Perusahaan;
+use App\Models\RiwayatAktivitas;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class PendaftaranPesertaController extends Controller
@@ -29,8 +32,22 @@ class PendaftaranPesertaController extends Controller
             $dataPendaftaran = PendaftaranUser::with('user')->where('id_users', Auth()->user()->id_users)->get();
             if (count($dataPendaftaran) > 0) {
                 $pendaftaran = PendaftaranUser::find($request->id_pendaftaran_user);
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => 'Update Dokumen',
+                    'deskripsi2' => ' Telah Melakukan Update Dokumen Perusahaan',
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
+                ]);
             } else {
                 $pendaftaran = new PendaftaranUser();
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => 'Upload Dokumen',
+                    'deskripsi2' => ' Telah Melakukan Tambah Dokumen',
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
+                ]);
             }
             $pendaftaran->id_users = Auth()->user()->id_users;
             $pendaftaran->nama_perusahaan = $request->nama_perusahaan;
@@ -61,13 +78,92 @@ class PendaftaranPesertaController extends Controller
         }
     }
 
-    public function userView()
+    public function userView(Request $request)
     {
-
-        $pendaftaranUser = PendaftaranUser::orderBy('id_pendaftaran_users', 'DESC')->paginate(10);
-        // return response()->json($approveUser);
+        if ($request->filled('search')) {
+            $pendaftaranUser = PendaftaranUser::with('user')->where('nama_perusahaan', 'like', "%" . $request->search . "%")
+                ->orWhere('nama_kontak', 'like', "%" . $request->search . "%")
+                ->orWhere('email_perusahaan', 'like', "%" . $request->search . "%")
+                ->paginate(10);
+        } else {
+            $pendaftaranUser = PendaftaranUser::with('user')->orderBy('id_pendaftaran_users', 'DESC')->paginate(10);
+            // return response()->json($approveUser);
+        }
         return view('PermintaanPeserta.index', compact('pendaftaranUser'))->with([
             'title' => 'List Peserta',
         ]);
+    }
+    public function updateApprove(Request $request)
+    {
+        try {
+            // $daftar = PendaftaranUser::find($request->id_pendaftaran_users);
+            // $perusahaan = Perusahaan::where('id_users', $daftar->id_users)->get();
+            // return response()->json($perusahaan);
+            DB::transaction(function () use ($request) {
+                $daftar = PendaftaranUser::find($request->id_pendaftaran_users);
+                $daftar->approve = $request->approve;
+                $daftar->save();
+
+                $perusahaan = Perusahaan::where('id_users', $daftar->id_users)->first();
+                if ($request->approve == 2) {
+                    if ($perusahaan) {
+                        $dataPerusahaan = Perusahaan::where('id_users', $request->id_users)->update([
+                            'nama_perusahaan' => $daftar->nama_perusahaan,
+                            'alamat_perusahaan' => $daftar->alamat_perusahaan,
+                            'tahun_berdiri' => $daftar->tahun_berdiri,
+                            'nama_kontak' => $daftar->nama_kontak,
+                            'harga_penawaran' => $daftar->harga_penawaran,
+                            'dokumen_perusahaan' => $daftar->dokumen_penawaran,
+                            'telp_perusahaan' => $daftar->telp_perusahaan,
+                            'email_perusahaan' => $daftar->email_perusahaan,
+                        ]);
+                        RiwayatAktivitas::create([
+                            'id_users' => auth()->user()->id_users,
+                            'deskripsi' => 'Update Peserta',
+                            'deskripsi2' => ' Telah Melakukan Update Peserta',
+                            'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                            'role' => auth()->user()->role,
+                        ]);
+                    } else {
+                        $dataPerusahaan = Perusahaan::create([
+                            'id_users' => $daftar->id_users,
+                            'nama_perusahaan' => $daftar->nama_perusahaan,
+                            'alamat_perusahaan' => $daftar->alamat_perusahaan,
+                            'tahun_berdiri' => $daftar->tahun_berdiri,
+                            'nama_kontak' => $daftar->nama_kontak,
+                            'harga_penawaran' => $daftar->harga_penawaran,
+                            'dokumen_perusahaan' => $daftar->dokumen_penawaran,
+                            'telp_perusahaan' => $daftar->telp_perusahaan,
+                            'email_perusahaan' => $daftar->email_perusahaan,
+                        ]);
+                        RiwayatAktivitas::create([
+                            'id_users' => auth()->user()->id_users,
+                            'deskripsi' => 'Tambah Peserta',
+                            'deskripsi2' => ' Telah Melakukan Tambah Peserta',
+                            'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                            'role' => auth()->user()->role,
+                        ]);
+                    }
+                }
+                if ($request->approve == 1 || $request->approve == 0) {
+                    if ($perusahaan) {
+                        $perusahaan->delete();
+                        RiwayatAktivitas::create([
+                            'id_users' => auth()->user()->id_users,
+                            'deskripsi' => 'Update Peserta',
+                            'deskripsi2' => ' Telah Melakukan Update Peserta',
+                            'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                            'role' => auth()->user()->role,
+                        ]);
+                    }
+                }
+            });
+            Alert::success('Berhasil', 'Data Berhasil Di Update');
+            return redirect()->route('permintaanPeserta.index');
+        } catch (Exception $e) {
+            error_log($e);
+            Alert::error('Gagal', 'Data Gagal Di Update');
+            return redirect()->route('permintaanPeserta.index');
+        }
     }
 }

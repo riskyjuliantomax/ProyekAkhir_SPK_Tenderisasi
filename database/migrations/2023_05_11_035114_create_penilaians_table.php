@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_perusahaan')->nullable();
             $table->unsignedBigInteger('id_crips')->nullable();
             $table->timestamps();
-            $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan');
-            $table->foreign('id_crips')->references('id_crips')->on('crips');
+            $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->onDelete('cascade');
+            $table->foreign('id_crips')->references('id_crips')->on('crips')->onDelete('cascade');
         });
     }
 

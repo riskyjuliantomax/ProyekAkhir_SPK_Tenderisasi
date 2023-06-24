@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoTenderController;
 use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PendaftaranPesertaController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PerhitunganController;
@@ -38,10 +39,14 @@ Route::middleware(['auth', 'user_role:user'])->group(function () {
 Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     //Info
     Route::get('InfoTender', [InfoTenderController::class, 'index'])->name('InfoTender.index');
-    Route::post('InfoTender', [InfoTenderController::class, 'store'])->name('InfoTender.store');
-    Route::put('InfoTender/Update', [InfoTenderController::class, 'store'])->name('InfoTender.update');
+    Route::get('InfoTender/create', [InfoTenderController::class, 'create'])->name('InfoTender.create');
+    Route::post('InfoTender/store', [InfoTenderController::class, 'store'])->name('InfoTender.store');
+    Route::get('InfoTender/show/{id_infoTender}', [InfoTenderController::class, 'show'])->name('infoTender.show');
+    Route::put('InfoTender/update/{id_infoTender}', [InfoTenderController::class, 'update'])->name('InfoTender.update');
+    Route::delete('InfoTender/delete/{id_infoTender}', [InfoTenderController::class, 'delete'])->name('InfoTender.delete');
     // PermintaanPeserta
-    Route::get('PermintaanPeserta', [PendaftaranPesertaController::class, 'userView']);
+    Route::get('PermintaanPeserta', [PendaftaranPesertaController::class, 'userView'])->name('permintaanPeserta.index');
+    Route::post('PermintaanPeserta', [PendaftaranPesertaController::class, 'updateApprove']);
     //Peserta
     Route::get('Perusahaan', [PerusahaanController::class, 'index'])->name('Perusahaan.index');
     Route::post('Perusahaan', [PerusahaanController::class, 'store'])->name('Perusahaan.store');
@@ -64,6 +69,8 @@ Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     Route::post('Penilaian', [PenilaianController::class, 'store'])->name('Penilaian.store');
     //Perhitungan
     Route::get('Perhitungan', [PerhitunganController::class, 'index'])->name('Perhitungan.index');
+    // View PDF
+    Route::get('ViewPDF/{id}', [PageController::class, 'viewDokumenPerusahaan']);
 });
 
 Route::middleware(['auth', 'user_role:admin'])->group(function () {

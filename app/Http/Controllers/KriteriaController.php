@@ -120,8 +120,9 @@ class KriteriaController extends Controller
         ]);
     }
     // Show untuk Crips Per Kriteria
-    public function show($id_kriteria)
+    public function show($id_kriteria, Request $request)
     {
+
         $data['crips'] = Crips::where('id_kriteria', $id_kriteria)->get();
         $data['kriteria'] = Kriteria::findOrFail($id_kriteria);
         return view('Crips.index', compact('data'))->with([

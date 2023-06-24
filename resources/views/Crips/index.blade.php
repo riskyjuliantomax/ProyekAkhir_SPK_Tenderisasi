@@ -52,10 +52,10 @@
                 <div class="float-end me-3">
                     <form action="Kriteria" method="GET">
                         <div class="input-group input-group-merge">
-                            <input type="text" class="form-control" placeholder="Cari Nama Kriteria"
+                            {{-- <input type="text" class="form-control" placeholder="Cari Nama Kriteria"
                                 aria-label="Cari Nama Kriteria" aria-describedby="basic-addon-search31" name="search"
                                 style='width:260px'>
-                            <button type="Submit" class="btn btn-primary"><i class='bx bx-search-alt-2'></i>
+                            <button type="Submit" class="btn btn-primary"><i class='bx bx-search-alt-2'></i> --}}
                             </button>
                         </div>
                     </form>

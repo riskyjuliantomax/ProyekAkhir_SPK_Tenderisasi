@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_infoTender');
             $table->bigInteger('harga_infoTender');
             $table->longText('syarat_infoTender');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

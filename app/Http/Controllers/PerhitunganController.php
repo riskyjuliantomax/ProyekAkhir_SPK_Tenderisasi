@@ -54,7 +54,7 @@ class PerhitunganController extends Controller
         }
         $ranking = $normalisasi;
         arsort($ranking);
-        // return response()->json($penilaian);
+        // return response()->json($ranking);
         //Return view dengan passing data
         return view('Perhitungan.index', compact('kriteria', 'alternatif', 'normalisasi', 'ranking'))->with([
             'title' => 'Perhitungan'

@@ -18,9 +18,9 @@
         <!-- Button trigger modal -->
         <div class="ms-4 mt-3 mb-1">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">
+            {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">
                 Tambah {{ $title }}
-            </button>
+            </button> --}}
             <div class="float-end me-4">
                 <form action="Perusahaan" method="GET">
                     <div class="input-group input-group-merge">
@@ -63,10 +63,10 @@
                                 <td>{{ ucFirst($data->telp_perusahaan) }}</td>
                                 <td>{{ ucFirst($data->alamat_perusahaan) }}</td>
                                 <td style="width:13%">
-                                    <button type="button" class="btn btn-icon btn-primary" data-toggle="modal"
+                                    {{-- <button type="button" class="btn btn-icon btn-primary" data-toggle="modal"
                                         data-target="#modalFormEdit{{ $data->id_perusahaan }}">
                                         <span class="tf-icons bx bx-edit-alt"></span>
-                                    </button>
+                                    </button> --}}
                                     <button type="button" class="btn btn-icon btn-danger btn-delete">
                                         <span class="tf-icons bx bx-trash-alt"></span>
                                     </button>
@@ -81,6 +81,7 @@
     </div>
 
 @endsection
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
 </script>

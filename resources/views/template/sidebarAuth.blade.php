@@ -1,6 +1,9 @@
 {{-- Role Pokja --}}
 @if (Auth()->user()->role == 'pokja')
-    <li class="menu-item {{ request()->Is('InfoTender') ? 'active' : '' }}">
+    <li
+        class="menu-item {{ request()->Is('InfoTender') ? 'active' : '' }}
+        {{ request()->Is('InfoTender/*') ? 'active' : '' }}
+        ">
         <a href="{{ url('InfoTender') }}" class="menu-link">
             <i class='menu-icon bx bx-info-circle'></i>
             <div data-i18n="Analytics">Info Tender</div>

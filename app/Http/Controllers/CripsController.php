@@ -115,18 +115,22 @@ class CripsController extends Controller
      */
     public function delete($id_crips)
     {
-        $crips = Crips::Find($id_crips);
-        $kriteria = Kriteria::find($crips->id_kriteria);
-        RiwayatAktivitas::create([
-            'id_users' => auth()->user()->id_users,
-            'deskripsi' => ' Hapus Crips ',
-            'deskripsi2' => ' Hapus Crips ' . $crips->nama_crips . ' Dari Kriteria ' . $kriteria->nama_kriteria,
-            'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
-            'role' => auth()->user()->role,
-        ]);
+        try {
+            $crips = Crips::Find($id_crips);
+            $kriteria = Kriteria::find($crips->id_kriteria);
+            $crips->delete();
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => ' Hapus Crips ',
+                'deskripsi2' => ' Hapus Crips ' . $crips->nama_crips . ' Dari Kriteria ' . $kriteria->nama_kriteria,
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
+            ]);
 
-        // return response()->json($crips);
-        $crips->delete();
-        return response()->json(['status' => 'Berhasil Hapus Kriteria']);
+
+            return response()->json(['status' => 'Berhasil Hapus Kriteria']);
+        } catch (Exception $e) {
+            error_log($e);
+        }
     }
 }

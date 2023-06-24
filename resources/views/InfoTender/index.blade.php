@@ -1,6 +1,7 @@
 @extends('template.master')
 @section('content')
-    {{ Breadcrumbs::render('user') }}
+    {{-- {{ Breadcrumbs::render('perusahaan') }} --}}
+    InfoTender
     {{-- Check for error and session --}}
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible">
@@ -14,21 +15,20 @@
         </div>
     @endif
     {{-- End Check --}}
-    <!-- Form controls -->
     <div class="card">
         <!-- Button trigger modal -->
         <div class="ms-4 mt-3 mb-1">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">
-                Tambah User
-            </button>
+            <a href="{{ url('InfoTender/create') }}" class="btn btn-primary">
+                Tambah {{ $title }}
+            </a>
             <div class="float-end me-4">
-                <form action="User" method="GET">
+                <form action="Perusahaan" method="GET">
                     <div class="input-group input-group-merge">
 
-                        <input type="text" class="form-control" placeholder="Cari Nama User / Email / NIP"
+                        <input type="text" class="form-control" placeholder="Cari Nama Perusahaan"
                             aria-label="Cari Nama User" aria-describedby="basic-addon-search31" name="search"
-                            id="search" style='width:260px' value="{{ old('search') }}">
+                            style='width:260px'>
                         <button type="Submit" class="btn btn-primary"><i class='bx bx-search-alt-2'></i>
                         </button>
                     </div>
@@ -42,52 +42,50 @@
                     <caption class="ms-4 mt-1">
                         List {{ $title }}
                         <div class="float-end me-3">
-                            {{ $user->onEachSide(3)->links() }}
+                            {{ $infoTender->onEachSide(3)->links() }}
                         </div>
                     </caption>
                     <thead>
                         <tr>
                             <th style="width:7%">No</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>NIP</th>
-                            <th>Role</th>
-                            <th>Terakhir Login</th>
-                            <th>Terakhir Logout</th>
+                            <th>Nama Pengadaan</th>
+                            <th>Harga</th>
+                            <th>Status</th>
+                            <th>Tanggal/Waktu<br /> Update</th>
+                            <th>Tanggal/Waktu<br /> DiBuat</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($user as $index => $data)
+                        @foreach ($infoTender as $index => $data)
                             <tr>
-                                <input type="hidden" class="id_user" value="{{ $data->id_users }}" />
-                                <td> {{ $user->firstItem() + $index }} </td>
-                                <td>{{ ucFirst($data->nama) }}</td>
-                                <td>{{ $data->email }}</td>
-                                <td>{{ ucFirst($data->nip) }}</td>
-                                <td>{{ ucFirst($data->role) }}</td>
+                                <input type="hidden" class="id_infoTender" value="{{ $data->id_infoTender }}" />
+                                <td> {{ $infoTender->firstItem() + $index }} </td>
+                                <td>{{ ucFirst($data->nama_infoTender) }}</td>
+                                <td>{{ number_format($data->harga_infoTender) }}</td>
                                 <td>
-                                    @if ($data->last_login != null)
-                                        {{ \Carbon\Carbon::parse($data->last_login)->diffForHumans() }}
-                                    @else
-                                        -- --
+                                    @if ($data->approve == 0)
+                                        <small><span class="ms-2 badge bg-info">Lagi Proses</span></small>
+                                    @endif
+                                    @if ($data->approve == 1)
+                                        <small><span class="ms-2 badge bg-danger">Gagal</span></small>
+                                    @endif
+                                    @if ($data->approve == 2)
+                                        <small><span class="ms-2 badge bg-success">Selesai</span></small>
                                     @endif
                                 </td>
-                                <td>
-                                    @if ($data->last_logout != null)
-                                        {{ \Carbon\Carbon::parse($data->last_logout)->diffForHumans() }}
-                                    @else
-                                        -- --
-                                    @endif
+                                <td>{{ $data->updated_at->format('d/m/Y') }}
+                                    <br />
+                                    Jam : {{ $data->updated_at->format('h.i') }}
+                                </td>
+                                <td>{{ $data->created_at->format('d/m/Y') }}
+                                    <br />
+                                    Jam : {{ $data->created_at->format('h.i') }}
                                 </td>
                                 <td style="width:13%">
-                                    <button type="button" class="btn btn-icon btn-info" data-toggle="modal"
-                                        data-target="#modalDetail{{ $data->id_users }}">
-                                        <span class="tf-icons bx bx-detail"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-icon btn-primary" data-toggle="modal"
-                                        data-target="#modalFormEdit{{ $data->id_users }}">
+                                    <a href="{{ url('InfoTender/show/' . $data->id_infoTender) }}"
+                                        class="btn btn-icon btn-primary btn-update">
                                         <span class="tf-icons bx bx-edit-alt"></span>
-                                    </button>
+                                    </a>
                                     <button type="button" class="btn btn-icon btn-danger btn-delete">
                                         <span class="tf-icons bx bx-trash-alt"></span>
                                     </button>
@@ -100,6 +98,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -112,6 +111,15 @@
 </script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-@include('User.modal')
-@include('User.modalDetail')
-@include('User.js')
+@section('scripts')
+    <script>
+        $('#summernote').summernote({
+            tabsize: 2,
+            height: 400
+        });
+    </script>
+@endsection
+@include('InfoTender.modal')
+@include('InfoTender.modalUpdate')
+
+@include('InfoTender.js')

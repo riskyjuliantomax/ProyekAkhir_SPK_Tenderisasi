@@ -24,38 +24,22 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="nama" class="form-label">Nama Tender</label>
-                                @if (count($infoTender) > 0)
-                                    @foreach ($infoTender as $data)
-                                        <input class="form-control" type="text" id="nama" name="nama"
-                                            value="{{ $data->nama_infoTender }}">
-                                    @endforeach
-                                @else
-                                    <input class="form-control" type="text" id="nama" name="nama" />
-                                @endif
+
+                                <input class="form-control" type="text" id="nama" name="nama" />
+
                             </div>
                             <div class="mb-3 col-md-12">
                                 <label for="harga" class="form-label">Harga Penawaran</label>
-                                @if (count($infoTender) > 0)
-                                    @foreach ($infoTender as $data)
-                                        <input class="form-control" type="number" id="harga" name="harga"
-                                            value="{{ $data->harga_infoTender }}">
-                                    @endforeach
-                                @else
-                                    <input class="form-control" type="number" id="harga" name="harga">
-                                @endif
+
+                                <input class="form-control" type="number" id="harga" name="harga">
+
                             </div>
                             <!-- Syarat Tender -->
                             <div class="mb-3 col-md-12">
                                 <p class="text-base mb-0">Syarat</p>
-                                @if (count($infoTender) > 0)
-                                    @foreach ($infoTender as $data)
-                                        <textarea id="summernote" name="syarat">{{ $data->syarat_infoTender }}</textarea>
-                                        {{-- Print Langsung tanpa Summernote --}}
-                                        {{-- {!! $data->syarat_infoTender !!} --}}
-                                    @endforeach
-                                @else
-                                    <textarea id="summernote" name="syarat"></textarea>
-                                @endif
+
+                                <textarea id="summernote" name="syarat"></textarea>
+
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary float-end">Simpan</button>

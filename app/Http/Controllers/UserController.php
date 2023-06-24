@@ -189,15 +189,21 @@ class UserController extends Controller
 
     public function delete($id_user)
     {
-        $user = User::Find($id_user);
-        RiwayatAktivitas::create([
-            'id_users' => auth()->user()->id_users,
-            'deskripsi' => ' Hapus User ',
-            'deskripsi2' => ' Hapus User ' . $user->nama,
-            'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
-            'role' => auth()->user()->role,
-        ]);
-        $user->delete();
+        try {
+            $user = User::Find($id_user);
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => ' Hapus User ',
+                'deskripsi2' => ' Hapus User ' . $user->nama,
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
+            ]);
+            $user->delete();
+        } catch (Exception $e) {
+            error_log($e);
+        }
+
+
         return response()->json(['status' => 'Berhasil Hapus Kriteria']);
     }
 

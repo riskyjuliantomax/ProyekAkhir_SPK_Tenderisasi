@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('riwayat_aktivitas', function (Blueprint $table) {
             $table->bigIncrements('id_riwayat_aktivitas');
             $table->unsignedBigInteger('id_users');
-            $table->foreign('id_users')->references('id_users')->on('users');
+            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade');
             $table->longText('deskripsi');
             $table->longText('deskripsi2')->nullable();
             $table->longText('deskripsi3')->nullable();

@@ -17,14 +17,9 @@
     <div class="card">
         <!-- Button trigger modal -->
         <div class="ms-4 mt-3 mb-1">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">
-                Tambah {{ $title }}
-            </button>
             <div class="float-end me-4">
-                <form action="Perusahaan" method="GET">
+                <form action="PermintaanPeserta" method="GET">
                     <div class="input-group input-group-merge">
-
                         <input type="text" class="form-control" placeholder="Cari Nama Perusahaan"
                             aria-label="Cari Nama User" aria-describedby="basic-addon-search31" name="search"
                             style='width:260px'>
@@ -35,51 +30,61 @@
             </div>
         </div>
         <div class="card">
-            <h5 class="card-header">{{ $title }}</h5>
-            <div class="table-responsive text-nowrap">
-                <table class="table">
-                    <caption class="ms-4 mt-1">
-                        List {{ $title }}
-                        <div class="float-end me-3">
-                            {{ $pendaftaranUser->onEachSide(3)->links() }}
-                        </div>
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th style="width:7%">No</th>
-                            <th>Nama Peserta</th>
-                            <th>Email</th>
-                            <th>No Hp</th>
-                            <th>Alamat</th>
-                            <th>Approve</th>
-                            <th>Detail</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($pendaftaranUser as $index => $data)
+            <form action="{{ url('PermintaanPeserta') }}" method="POST">
+                <h5 class="card-header">{{ $title }}</h5>
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
+                        <caption class="ms-4 mt-1">
+                            List {{ $title }}
+                            <div class="float-end me-3">
+                                {{ $pendaftaranUser->onEachSide(3)->links() }}
+                            </div>
+                        </caption>
+                        <thead>
                             <tr>
-                                <input type="hidden" class="id_pendaftaran_users"
-                                    value="{{ $data->id_pendaftaran_users }}" />
-                                <td> {{ $pendaftaranUser->firstItem() + $index }} </td>
-                                <td>{{ ucFirst($data->nama_perusahaan) }}</td>
-                                <td>{{ $data->email_perusahaan }}</td>
-                                <td>{{ ucFirst($data->telp_perusahaan) }}</td>
-                                <td>{{ ucFirst($data->alamat_perusahaan) }}</td>
-                                <td>
-
-                                </td>
-                                <td style="width:13%">
-                                    <button type="button" class="btn btn-icon btn-info" data-toggle="modal"
-                                        data-target="#modalDetail{{ $data->id_pendaftaran_users }}">
-                                        <span class="tf-icons bx bx-detail"></span>
-                                    </button>
-                                </td>
+                                <th style="width:7%">No</th>
+                                <th>Nama Peserta</th>
+                                <th>Nama Kontak</th>
+                                <th>Email</th>
+                                <th>Alamat</th>
+                                <th>Approve</th>
+                                <th>Detail</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($pendaftaranUser as $index => $data)
+                                <tr>
+                                    {{-- <input type="hidden" class="id_pendaftaran_users" name="id_pendaftaran_users[]"
+                                        value="{{ $data->id_pendaftaran_users }}" /> --}}
+                                    <td> {{ $pendaftaranUser->firstItem() + $index }} </td>
+                                    <td>{{ ucFirst($data->nama_perusahaan) }}</td>
+                                    <td>{{ ucFirst($data->nama_kontak) }}</td>
+                                    <td>{{ ucFirst($data->email_perusahaan) }}</td>
+                                    <td>{{ ucFirst($data->alamat_perusahaan) }}</td>
+                                    <td>
+                                        @if ($data->approve == 0)
+                                            Lagi Proses
+                                        @endif
+                                        @if ($data->approve == 1)
+                                            Tidak Terima
+                                        @endif
+                                        @if ($data->approve == 2)
+                                            Di Terima
+                                        @endif
+                                    </td>
+                                    <td style="width:13%">
+                                        <button type="button" class="btn btn-icon btn-info" data-toggle="modal"
+                                            data-target="#modalDetail{{ $data->id_pendaftaran_users }}">
+                                            <span class="tf-icons bx bx-detail"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

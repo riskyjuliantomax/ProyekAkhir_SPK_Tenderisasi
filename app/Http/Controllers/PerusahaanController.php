@@ -107,17 +107,24 @@ class PerusahaanController extends Controller
 
     public function delete($id_perusahaan)
     {
-        $perusahaan = Perusahaan::Find($id_perusahaan);
-        if ($perusahaan) {
-            RiwayatAktivitas::create([
-                'id_users' => auth()->user()->id_users,
-                'deskripsi' => ' Hapus Perusahaan ',
-                'deskripsi2' => ' Hapus Perusahaan ' . $perusahaan->nama_perusahaan,
-                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
-                'role' => auth()->user()->role,
-            ]);
+        try {
+            $perusahaan = Perusahaan::Find($id_perusahaan);
+            // return response()->json($perusahaan);
+            if ($perusahaan) {
+                RiwayatAktivitas::create([
+                    'id_users' => auth()->user()->id_users,
+                    'deskripsi' => ' Hapus Perusahaan ',
+                    'deskripsi2' => ' Hapus Perusahaan ' . $perusahaan->nama_perusahaan,
+                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'role' => auth()->user()->role,
+                ]);
+                $perusahaan->delete();
+            }
+
+
+            return response()->json(['status' => 'Berhasil Hapus Perusahaan']);
+        } catch (Exception $e) {
+            error_log($e);
         }
-        $perusahaan->delete();
-        return response()->json(['status' => 'Berhasil Hapus Perusahaan']);
     }
 }

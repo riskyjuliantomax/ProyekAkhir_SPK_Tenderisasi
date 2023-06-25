@@ -6,7 +6,7 @@
             <span class="app-brand-logo demo">
                 <img src="{{ asset('assets/img/lambang_riau.png') }}" width="35px" />
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">S p k</span>
+            <span class="demo menu-text fw-bolder ms-2">LPSE Provinsi Riau</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">

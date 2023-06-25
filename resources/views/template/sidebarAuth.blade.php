@@ -55,10 +55,22 @@
 @endif
 {{-- Role User --}}
 @if (Auth()->user()->role == 'user')
-    <li class="menu-item {{ request()->Is('PendaftaranPeserta') ? 'active' : '' }}">
-        <a href="{{ url('PendaftaranPeserta') }}" class="menu-link">
+    <li
+        class="menu-item {{ request()->Is('ListPengadaan') ? 'active' : '' }}
+        {{ request()->Is('DetailPengadaan/*') ? 'active' : '' }}
+        {{ request()->Is('PendaftaranPeserta/*') ? 'active' : '' }}
+        ">
+        <a href="{{ url('ListPengadaan') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-user"></i>
-            <div data-i18n="Analytics">Daftar Sebagai Peserta</div>
+            <div data-i18n="Analytics">List Pengadaan</div>
+        </a>
+    </li>
+    <li class="menu-item
+    {{ request()->is('RiwayatPendaftaran') ? 'active' : '' }}
+    ">
+        <a href="{{ url('RiwayatPendaftaran') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-paperclip"></i>
+            <div>Riwayat Pendaftaran</div>
         </a>
     </li>
 @endif

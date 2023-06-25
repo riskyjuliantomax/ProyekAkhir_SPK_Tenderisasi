@@ -16,4 +16,9 @@ class PendaftaranUser extends Model
     {
         return $this->hasOne(User::class, 'id_users', 'id_users');
     }
+
+    public function infoTender()
+    {
+        return $this->hasOne(InfoTender::class, 'id_infoTender', 'id_infoTender');
+    }
 }

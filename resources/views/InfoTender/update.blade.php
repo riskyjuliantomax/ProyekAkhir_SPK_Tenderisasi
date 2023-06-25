@@ -58,11 +58,11 @@
                                 </div>
                                 <div class="mb-3 col-md-12">
                                     <label for="harga" class="form-label">Harga Penawaran</label>
-
                                     <input class="form-control" type="number" id="harga" name="harga"
                                         value="{{ $data->harga_infoTender }}">
-
                                 </div>
+
+
                                 <!-- Syarat Tender -->
                                 <div class="mb-3 col-md-12">
                                     <p class="text-base mb-0">Syarat</p>
@@ -79,9 +79,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modalFormEdit">
-                    Close
-                </button>
+                <a href="{{ url('InfoTender') }}" class="btn btn-secondary my-2">
+                    Kembali
+                </a>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
@@ -104,7 +104,7 @@
     <script>
         $('#summernote').summernote({
             tabsize: 2,
-            height: 400
+            height: 600
         });
     </script>
 @endsection

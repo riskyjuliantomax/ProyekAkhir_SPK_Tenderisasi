@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dashboard;
+use App\Models\InfoTender;
 use App\Models\Kriteria;
 use App\Models\Penilaian;
 use App\Models\Perusahaan;
@@ -18,10 +19,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $title = 'Dashboard Tenderisasi';
         $kriteria = Kriteria::orderBy('nama_kriteria', 'ASC')->get();
         $alternatif = Perusahaan::with('penilaian.crips')->get();
         $penilaian = Penilaian::with('crips', 'alternatif')->get();
-
+        $infoTender = InfoTender::orderBy('status', 'desc')->orderBy('id_infoTender', 'desc')->paginate(5);
         if (Auth::check()) {
             if (Auth()->user()->role == 'pokja' || Auth()->user()->role == 'admin') {
                 $riwayat_aktivitas = RiwayatAktivitas::where('role', auth()->user()->role)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->limit(20)->get();
@@ -67,20 +69,21 @@ class DashboardController extends Controller
             $ranking = $normalisasi;
             arsort($ranking);
 
+
             if (Auth::check()) {
-                return view('Dashboard.index', compact('kriteria', 'alternatif', 'normalisasi', 'ranking', 'penilaian', 'riwayat_aktivitas'))->with([
-                    'title' => 'Hasil Perhitungan Ranking'
+                return view('Dashboard.index', compact('kriteria', 'alternatif', 'normalisasi', 'ranking', 'penilaian', 'riwayat_aktivitas', 'infoTender'))->with([
+                    'title' => $title
                 ]);
             } else {
-                return view('Dashboard.index', compact('kriteria', 'alternatif', 'normalisasi', 'ranking', 'penilaian'))->with([
-                    'title' => 'Hasil Perhitungan Ranking'
+                return view('Dashboard.index', compact('kriteria', 'alternatif', 'normalisasi', 'ranking', 'penilaian', 'infoTender'))->with([
+                    'title' => $title
                 ]);
             }
         } else {
             if (Auth::check()) {
-                return view('Dashboard.index', compact('kriteria', 'penilaian', 'riwayat_aktivitas'))->with(['title' => 'Dashboard SPK Tenderisasi']);
+                return view('Dashboard.index', compact('kriteria', 'penilaian', 'riwayat_aktivitas', 'infoTender'))->with(['title' => $title]);
             } else {
-                return view('Dashboard.index', compact('kriteria', 'penilaian'))->with(['title' => 'Dashboard SPK Tenderisasi']);
+                return view('Dashboard.index', compact('kriteria', 'penilaian', 'infoTender'))->with(['title' => $title]);
             }
         }
     }

@@ -37,30 +37,28 @@
                         <caption class="ms-4 mt-1">
                             List {{ $title }}
                             <div class="float-end me-3">
-                                {{ $pendaftaranUser->onEachSide(3)->links() }}
+                                {{ $infoPengadaan->onEachSide(3)->links() }}
                             </div>
                         </caption>
                         <thead>
                             <tr>
                                 <th style="width:7%">No</th>
-                                <th>Nama Peserta</th>
-                                <th>Nama Kontak</th>
-                                <th>Email</th>
-                                <th>Alamat</th>
-                                <th>Approve</th>
+                                <th>Nama Pengadaan</th>
+                                <th>Harga</th>
+                                <th>Tanggal Buat</th>
+                                <th>Status</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pendaftaranUser as $index => $data)
+                            @foreach ($infoPengadaan as $index => $data)
                                 <tr>
                                     {{-- <input type="hidden" class="id_pendaftaran_users" name="id_pendaftaran_users[]"
                                         value="{{ $data->id_pendaftaran_users }}" /> --}}
-                                    <td> {{ $pendaftaranUser->firstItem() + $index }} </td>
-                                    <td>{{ ucFirst($data->nama_perusahaan) }}</td>
-                                    <td>{{ ucFirst($data->nama_kontak) }}</td>
-                                    <td>{{ ucFirst($data->email_perusahaan) }}</td>
-                                    <td>{{ ucFirst($data->alamat_perusahaan) }}</td>
+                                    <td> {{ $infoPengadaan->firstItem() + $index }} </td>
+                                    <td>{{ ucFirst($data->nama_infoTender) }}</td>
+                                    <td>{{ ucFirst($data->harga_infoTender) }}</td>
+                                    <td>{{ ucFirst($data->created_at) }}</td>
                                     <td>
                                         @if ($data->approve == 0)
                                             Lagi Proses
@@ -73,10 +71,10 @@
                                         @endif
                                     </td>
                                     <td style="width:13%">
-                                        <button type="button" class="btn btn-icon btn-info" data-toggle="modal"
-                                            data-target="#modalDetail{{ $data->id_pendaftaran_users }}">
+                                        <a href="{{ url('PermintaanPeserta/Detail/' . $data->id_infoTender) }}"
+                                            class="btn btn-icon btn-info">
                                             <span class="tf-icons bx bx-detail"></span>
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -99,4 +97,3 @@
 </script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-@include('PermintaanPeserta.modal')

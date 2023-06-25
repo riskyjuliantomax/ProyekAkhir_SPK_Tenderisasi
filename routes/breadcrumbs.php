@@ -39,3 +39,15 @@ Breadcrumbs::for('penilaian', function ($trail) {
 Breadcrumbs::for('perhitungan', function ($trail) {
     $trail->push('Perhitungan', url('Perhitungan'));
 });
+//List Pengadaan
+Breadcrumbs::for('listpengadaan', function ($trail) {
+    $trail->push('List Pengadaan', url('ListPengadaan'));
+});
+Breadcrumbs::for('detailpengadaan', function (BreadcrumbTrail $trail) {
+    $trail->parent('listpengadaan');
+    $trail->push('Detail Pengadaan', url('#'));
+});
+Breadcrumbs::for('pendaftaran', function (BreadcrumbTrail $trail) {
+    $trail->parent('listpengadaan');
+    $trail->push('Pendaftaran', url('PendaftaranPeserta/*'));
+});

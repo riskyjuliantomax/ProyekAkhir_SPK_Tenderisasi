@@ -54,7 +54,10 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    <div
+                        class="
+                    {{ request()->Is('DetailPengadaan/*') ? 'container-fluid' : 'container-xxl' }}
+                    flex-grow-1 container-p-y">
                         @yield('content')
                     </div>
                     <!-- / Content -->
@@ -111,7 +114,6 @@
             var image = document.getElementById('img_profile');
             image.src = URL.createObjectURL(event.target.files[0]);
         };
-
     </script>
 
 

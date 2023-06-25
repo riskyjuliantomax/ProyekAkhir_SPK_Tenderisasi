@@ -33,22 +33,63 @@
             {{-- Ranking --}}
             <div class="card">
                 <div class="card">
-                    <h5 class="card-header">Perangkingan Tender </h5>
-                    <div class="table-responsive   text-nowrap">
-                        <table class="table table-bordered" style="overflow-x:scroll">
+                    <h5 class="card-header">Informasi Pengadaan </h5>
+                    <div class="table-responsive text-wrap">
+                        <table class="table table-bordered ">
                             <form class="ms-4 mt-1">
                                 <caption>
                                     @csrf
-                                    <label class="ms-3">List Ranking </label>
                                     <div class="float-end me-3">
-                                        {{-- {{ $perusahaan->onEachSide(3)->links() }} --}}
+                                        {{ $infoTender->onEachSide(3)->links() }}
                                     </div>
                                 </caption>
-                                @if (count($penilaian) > 0)
-                                    @include('Dashboard.ranking')
-                                @else
-                                    <label class="ms-3">Tidak Ada Pengumuman </label>
-                                @endif
+                                <thead>
+                                    <tr>
+                                        <th style="width:5%">No</th>
+                                        <th style="width:75%">Nama Pengadaan</th>
+                                        <th>Harga</th>
+                                        <th>Status</th>
+                                        <th>Tanggal Buat</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($infoTender as $index => $data)
+                                        <tr>
+                                            <input type="hidden" class="id_infoTender"
+                                                value="{{ $data->id_infoTender }}" />
+                                            <td> {{ $infoTender->firstItem() + $index }} </td>
+                                            <td>
+                                                {{ ucFirst($data->nama_infoTender) }}</td>
+                                            <td>{{ number_format($data->harga_infoTender) }}</td>
+                                            <td>
+                                                @if ($data->approve == 0)
+                                                    <small><span class="ms-2 badge bg-info">Lagi Proses</span></small>
+                                                @endif
+                                                @if ($data->approve == 1)
+                                                    <small><span class="ms-2 badge bg-danger">Gagal</span></small>
+                                                @endif
+                                                @if ($data->approve == 2)
+                                                    <small><span class="ms-2 badge bg-success">Selesai</span></small>
+                                                @endif
+                                            </td>
+                                            <td>{{ $data->created_at->format('d/m/Y') }}
+                                                <br />
+                                            </td>
+                                            <td style="width:13%">
+                                                {{-- <a href="{{ url('InfoTender/show/' . $data->id_infoTender) }}"
+                                                        class="btn btn-icon btn-primary btn-update">
+                                                        <span class="tf-icons bx bx-edit-alt"></span>
+                                                    </a> --}}
+                                                <a href="{{ url('DetailPengadaan/' . $data->id_infoTender) }}"
+                                                    class="btn btn-info text-white">
+                                                    Detail
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                             </form>
                         </table>
                     </div>
@@ -61,7 +102,7 @@
         @if (Auth::check())
             <!-- Log -->
             <div class="col-md-6 col-lg-4 order-2 mb-4 ">
-                <div class="card h-100 overflow-hidden" style="max-height: 500px">
+                <div class="card h-100 overflow-hidden" style="max-height: 600px">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5 class="card-title m-0 me-2">Riwayat Aktivitas</h5>
                     </div>

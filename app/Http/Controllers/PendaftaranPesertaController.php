@@ -14,18 +14,65 @@ use Illuminate\Support\Facades\Redirect;
 
 class PendaftaranPesertaController extends Controller
 {
-    public function index()
+
+    public function listPengadaan()
     {
-        $infoTender = InfoTender::orderBy('id_infoTender', 'DESC')->limit(1)->get();
-        $pendaftaranUser = PendaftaranUser::where('id_users', Auth()->user()->id_users)->get();
-        $approveUser = PendaftaranUser::select('approve')->where('id_users', Auth()->user()->id_users)->get();
-        // return response()->json($approveUser);
-        return view('PendaftaranPeserta.index', compact('infoTender', 'pendaftaranUser', 'approveUser'))->with([
+        $infoTender = InfoTender::orderBy('id_infoTender', 'DESC')->paginate(10);
+        // return response()->json($infoTender);
+        return view('ListPengadaan.index', compact('infoTender'))->with([
             'title' => 'Daftar Sebagai Peserta',
         ]);
     }
+    public function show($id_infoPengadaan)
+    {
+        $infoTender = InfoTender::select('nama_infoTender', 'id_infoTender')->where('id_infoTender', $id_infoPengadaan)->first();
+        return view('PendaftaranPeserta.formPendaftaran', compact('infoTender'))->with([
+            'title' => 'Form Pendaftaran'
+        ]);
+    }
 
-    public function store(Request $request)
+    public function store(Request $request, $id_infoPengadaan)
+    {
+        try {
+            $dokumenTender = $request->file('dokumen_perusahaan');
+
+            $pendaftaran = new PendaftaranUser();
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => 'Upload Dokumen',
+                'deskripsi2' => ' Telah Melakukan Tambah Dokumen',
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
+            ]);
+            $pendaftaran->id_infoTender = $id_infoPengadaan;
+            $pendaftaran->id_users = Auth()->user()->id_users;
+            $pendaftaran->nama_perusahaan = $request->nama_perusahaan;
+            $pendaftaran->alamat_perusahaan = $request->alamat_perusahaan;
+            $pendaftaran->tahun_berdiri = $request->tahun_berdiri;
+            $pendaftaran->nama_kontak = $request->nama_kontak;
+            $pendaftaran->harga_penawaran = $request->harga_penawaran;
+            $pendaftaran->telp_perusahaan = $request->telp_perusahaan;
+            $pendaftaran->email_perusahaan = $request->email_perusahaan;
+            if ($dokumenTender != null || $dokumenTender != '') {
+                $dokumenTender->storeAs('public/dokumenTender/', $dokumenTender->hashName());
+                $pendaftaran->dokumen_perusahaan = $dokumenTender->hashName();
+            }
+            $pendaftaran->save();
+
+            if ($pendaftaran) {
+                Alert::success('Berhasil', 'Data  Berhasil Disimpan');
+                return Redirect::back();
+            } else {
+                Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
+                return Redirect::back();
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
+            return Redirect::back();
+        }
+    }
+    public function update(Request $request, $id_infoPengadaan)
     {
         try {
             $dokumenTender = $request->file('dokumen_perusahaan');
@@ -81,15 +128,16 @@ class PendaftaranPesertaController extends Controller
     public function userView(Request $request)
     {
         if ($request->filled('search')) {
-            $pendaftaranUser = PendaftaranUser::with('user')->where('nama_perusahaan', 'like', "%" . $request->search . "%")
+            $infoPengadaan = PendaftaranUser::with('user')->where('nama_perusahaan', 'like', "%" . $request->search . "%")
                 ->orWhere('nama_kontak', 'like', "%" . $request->search . "%")
                 ->orWhere('email_perusahaan', 'like', "%" . $request->search . "%")
                 ->paginate(10);
         } else {
-            $pendaftaranUser = PendaftaranUser::with('user')->orderBy('id_pendaftaran_users', 'DESC')->paginate(10);
-            // return response()->json($approveUser);
+            $infoPengadaan = InfoTender::orderBy('status', 'asc')
+                ->orderBy('id_infoTender', 'desc')->paginate(10);
+            // return response()->json($infoPengadaan);
         }
-        return view('PermintaanPeserta.index', compact('pendaftaranUser'))->with([
+        return view('PermintaanPeserta.index', compact('infoPengadaan'))->with([
             'title' => 'List Peserta',
         ]);
     }

@@ -23,10 +23,9 @@
                 Tambah {{ $title }}
             </a>
             <div class="float-end me-4">
-                <form action="Perusahaan" method="GET">
+                <form action="InfoTender" method="GET">
                     <div class="input-group input-group-merge">
-
-                        <input type="text" class="form-control" placeholder="Cari Nama Perusahaan"
+                        <input type="text" class="form-control" placeholder="Cari Nama Pengadaan"
                             aria-label="Cari Nama User" aria-describedby="basic-addon-search31" name="search"
                             style='width:260px'>
                         <button type="Submit" class="btn btn-primary"><i class='bx bx-search-alt-2'></i>
@@ -75,11 +74,11 @@
                                 </td>
                                 <td>{{ $data->updated_at->format('d/m/Y') }}
                                     <br />
-                                    Jam : {{ $data->updated_at->format('h.i') }}
+                                    {{-- Jam : {{ $data->updated_at->format('h.i') }} --}}
                                 </td>
                                 <td>{{ $data->created_at->format('d/m/Y') }}
                                     <br />
-                                    Jam : {{ $data->created_at->format('h.i') }}
+                                    {{-- Jam : {{ $data->created_at->format('h.i') }} --}}
                                 </td>
                                 <td style="width:13%">
                                     <a href="{{ url('InfoTender/show/' . $data->id_infoTender) }}"
@@ -119,7 +118,4 @@
         });
     </script>
 @endsection
-@include('InfoTender.modal')
-@include('InfoTender.modalUpdate')
-
 @include('InfoTender.js')

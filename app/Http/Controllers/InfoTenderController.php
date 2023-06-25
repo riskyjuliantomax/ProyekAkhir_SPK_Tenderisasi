@@ -10,17 +10,31 @@ use Exception;
 
 class InfoTenderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $infoTender = InfoTender::orderBy('id_infoTender', 'DESC')->paginate(10);
+        if ($request->filled('search')) {
+            $infoTender = InfoTender::where('nama_infotender', 'like', "%" . $request->search . "%")
+                ->orderBy('id_infoTender', 'DESC')->paginate(10);
+        } else {
+            $infoTender = InfoTender::orderBy('id_infoTender', 'DESC')->paginate(10);
+        }
         // return response()->json($infoTender);
         return view('InfoTender.index', compact('infoTender'))->with([
-            'title' => 'Info Tender'
+            'title' => 'Info Tender',
         ]);
     }
 
     public function store(Request $request)
     {
+        request()->validate([
+            'nama' => 'required',
+            'harga' => 'required',
+            'syarat' => 'required',
+        ], [
+            'nama.required' => 'Form Nama  Harus Diisi',
+            'harga.required' => 'Form Harga Harus Diisi',
+            'syarat.required' => 'Form Syarat Harus Diisi',
+        ]);
         try {
             RiwayatAktivitas::create([
                 'id_users' => auth()->user()->id_users,
@@ -56,6 +70,15 @@ class InfoTenderController extends Controller
     }
     public function update(Request $request, $id_infoTender)
     {
+        request()->validate([
+            'nama' => 'required',
+            'harga' => 'required',
+            'syarat' => 'required',
+        ], [
+            'nama.required' => 'Form Nama  Harus Diisi',
+            'harga.required' => 'Form Harga Harus Diisi',
+            'syarat.required' => 'Form Syarat Harus Diisi',
+        ]);
         try {
 
             $infoTender = InfoTender::find($id_infoTender);

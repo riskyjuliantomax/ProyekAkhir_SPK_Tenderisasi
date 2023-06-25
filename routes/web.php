@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CripsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DetailPengadaanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoTenderController;
 use App\Http\Controllers\KriteriaController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\PendaftaranPesertaController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\RiwayatPendaftaranController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -32,9 +34,15 @@ Route::get('Dashboard', [DashboardController::class, 'index'])->name('Dashboard.
 Route::get('/home', [HomeController::class, 'index'])->name('home.user');
 
 Route::middleware(['auth', 'user_role:user'])->group(function () {
-    Route::get('PendaftaranPeserta', [PendaftaranPesertaController::class, 'index']);
-    Route::post('PendaftaranPeserta', [PendaftaranPesertaController::class, 'store']);
-    Route::put('PendaftaranPeserta/Update', [PendaftaranPesertaController::class, 'update']);
+    //List Pengadaan
+    Route::get('ListPengadaan', [PendaftaranPesertaController::class, 'listPengadaan']);
+    //Pendaftaran Peserta
+    Route::get('PendaftaranPeserta/{id_infoPengadaan}', [PendaftaranPesertaController::class, 'show']);
+    Route::post('PendaftaranPeserta/{id_infoPengadaan}', [PendaftaranPesertaController::class, 'store']);
+    //Detail
+    Route::get('DetailPengadaan/{id_infoPengadaan}', [DetailPengadaanController::class, 'index']);
+    Route::get('RiwayatPendaftaran', [RiwayatPendaftaranController::class, 'index']);
+    Route::get('RiwayatPendaftaran/{id_infoPengadaan}', [RiwayatPendaftaranController::class, 'show']);
 });
 Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     //Info

@@ -1,5 +1,6 @@
 @extends('template.master')
 @section('content')
+    {{ Breadcrumbs::render('listpengadaan') }}
     <div class="flex-grow-1 ">
         <h4 class="fw-bold mb-4">
             <span class="text-base fw-light">Info Tentang Tender</span>

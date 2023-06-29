@@ -83,9 +83,9 @@
                     <thead>
                         <tr>
                             <th style="width:7%">No</th>
-                            <th>Nama Kriteria</th>
-                            <th>Attribut</th>
-                            <th>Bobot</th>
+                            <th>@sortablelink('nama_kriteria', 'Nama Kriteria')</th>
+                            <th>@sortablelink('attribut', 'Attribut')</th>
+                            <th>@sortablelink('bobot', 'Bobot')</th>
                             <th style="width:15%"></th>
                         </tr>
                     </thead>

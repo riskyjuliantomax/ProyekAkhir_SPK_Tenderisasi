@@ -13,10 +13,10 @@ class InfoTenderController extends Controller
     public function index(Request $request)
     {
         if ($request->filled('search')) {
-            $infoTender = InfoTender::where('nama_infotender', 'like', "%" . $request->search . "%")
+            $infoTender = InfoTender::sortable()->where('nama_infotender', 'like', "%" . $request->search . "%")
                 ->orderBy('id_infoTender', 'DESC')->paginate(10);
         } else {
-            $infoTender = InfoTender::orderBy('id_infoTender', 'DESC')->paginate(10);
+            $infoTender = InfoTender::sortable()->orderBy('id_infoTender', 'desc')->paginate(10);
         }
         // return response()->json($infoTender);
         return view('InfoTender.index', compact('infoTender'))->with([

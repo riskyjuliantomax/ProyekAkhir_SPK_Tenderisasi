@@ -22,13 +22,13 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->filled('search')) {
-            $user = User::where('nama', 'like', "%" . $request->search . "%")
+            $user = User::sortable()->where('nama', 'like', "%" . $request->search . "%")
                 ->orWhere('email', 'like', "%" . $request->search)
                 ->orWhere('role', 'like', "%" . $request->search)
                 ->orWhere('nip', 'like', "%" . $request->search)
                 ->paginate(10);
         } else {
-            $user = User::orderBy('id_users', 'desc')->paginate(10);
+            $user = User::sortable()->orderBy('id_users', 'desc')->paginate(10);
         }
         return view('User.index', compact('user'))
             ->with(['title' => 'User']);

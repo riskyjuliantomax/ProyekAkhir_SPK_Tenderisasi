@@ -23,6 +23,18 @@
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
+        @if (Auth()->user() == null || Auth()->user()->role == 'user')
+            <li
+                class="menu-item {{ request()->Is('ListPengadaan') ? 'active' : '' }}
+            {{ request()->Is('DetailPengadaan/*') ? 'active' : '' }}
+            {{ request()->Is('PendaftaranPeserta/*') ? 'active' : '' }}
+            ">
+                <a href="{{ url('ListPengadaan') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <div data-i18n="Analytics">List Pengadaan</div>
+                </a>
+            </li>
+        @endif
         @if (Auth::check())
             @include('template.sidebarAuth')
         @endif

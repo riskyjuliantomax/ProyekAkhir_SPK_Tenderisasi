@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Dashboard;
 use App\Models\InfoTender;
 use App\Models\Kriteria;
+use App\Models\Notifikasi;
+use App\Models\PendaftaranUser;
 use App\Models\Penilaian;
 use App\Models\Perusahaan;
 use App\Models\RiwayatAktivitas;
@@ -20,11 +22,13 @@ class DashboardController extends Controller
     public function index()
     {
         $title = 'Dashboard Tenderisasi';
-        $kriteria = Kriteria::orderBy('nama_kriteria', 'ASC')->get();
-        $alternatif = Perusahaan::with('penilaian.crips')->get();
-        $penilaian = Penilaian::with('crips', 'alternatif')->get();
-        $infoTender = InfoTender::orderBy('status', 'desc')->orderBy('id_infoTender', 'desc')->paginate(5);
+        $infoTender = InfoTender::orderBy('status', 'asc')->orderBy('id_infoTender', 'desc')->paginate(5);
+        $countPengadaan = InfoTender::select('id_infoTender')->where('status', '0')->get();
+        $countPengadaanSelesai = InfoTender::select('id_infoTender')->where('status', '!=', '0')->get();
+        $countPeserta = PendaftaranUser::select('id_pendaftaran_users')->where('approve', '0')->get();
+        $countPesertaSelesai = PendaftaranUser::select('id_pendaftaran_users')->where('approve', '!=', '0')->get();
         if (Auth::check()) {
+            $notifikasi = Notifikasi::where('id_users', Auth()->user()->id_users)->get();
             if (Auth()->user()->role == 'pokja' || Auth()->user()->role == 'admin') {
                 $riwayat_aktivitas = RiwayatAktivitas::where('role', auth()->user()->role)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->limit(20)->get();
             }
@@ -33,58 +37,11 @@ class DashboardController extends Controller
             }
         }
 
-        if (count($penilaian) > 0) {
-            foreach ($kriteria as $key => $value) {
-                foreach ($penilaian as $key_1 => $value_1) {
-                    if ($value->id_kriteria == $value_1->crips->id_kriteria) {
-                        if ($value->attribut == 'benefit') {
-                            $minMax[$value->id_kriteria][] = $value_1->crips->nilai;
-                        } elseif ($value->attribut == 'cost') {
-                            $minMax[$value->id_kriteria][] = $value_1->crips->nilai;
-                        }
-                    }
-                }
-            }
-            //Normalisasi
-            foreach ($penilaian as $key_1 => $value_1) {
-                foreach ($kriteria as $key => $value) {
-                    if ($value->id_kriteria == $value_1->crips->id_kriteria) {
-                        if ($value->attribut == 'benefit') {
-                            $normalisasi[$value_1->alternatif->nama_perusahaan][$value->id_kriteria] = $value_1->crips->nilai / max($minMax[$value->id_kriteria]);
-                        } elseif ($value->attribut == 'cost') {
-                            $normalisasi[$value_1->alternatif->nama_perusahaan][$value->id_kriteria] = min($minMax[$value->id_kriteria]) / $value_1->crips->nilai;
-                        }
-                    }
-                }
-            }
-            //Perangkingan
-            foreach ($normalisasi as $key => $value) {
-                foreach ($kriteria as $key_1 => $value_1) {
-                    $rank[$key][] = $value[$value_1->id_kriteria] * $value_1->bobot;
-                }
-            }
-            foreach ($normalisasi as $key => $value) {
-                $normalisasi[$key][] = array_sum($rank[$key]);
-            }
-            $ranking = $normalisasi;
-            arsort($ranking);
 
-
-            if (Auth::check()) {
-                return view('Dashboard.index', compact('kriteria', 'alternatif', 'normalisasi', 'ranking', 'penilaian', 'riwayat_aktivitas', 'infoTender'))->with([
-                    'title' => $title
-                ]);
-            } else {
-                return view('Dashboard.index', compact('kriteria', 'alternatif', 'normalisasi', 'ranking', 'penilaian', 'infoTender'))->with([
-                    'title' => $title
-                ]);
-            }
+        if (Auth::check()) {
+            return view('Dashboard.index', compact('riwayat_aktivitas', 'infoTender', 'countPengadaan', 'countPengadaanSelesai', 'countPeserta', 'countPesertaSelesai', 'notifikasi'))->with(['title' => $title]);
         } else {
-            if (Auth::check()) {
-                return view('Dashboard.index', compact('kriteria', 'penilaian', 'riwayat_aktivitas', 'infoTender'))->with(['title' => $title]);
-            } else {
-                return view('Dashboard.index', compact('kriteria', 'penilaian', 'infoTender'))->with(['title' => $title]);
-            }
+            return view('Dashboard.index', compact('infoTender', 'countPengadaan', 'countPengadaanSelesai', 'countPeserta', 'countPesertaSelesai'))->with(['title' => $title]);
         }
     }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Kriteria extends Model
 {
@@ -14,7 +15,8 @@ class Kriteria extends Model
     protected $fillable = [
         'id_kriteria', 'nama_kriteria', 'bobot', 'attribut'
     ];
-
+    use Sortable;
+    public $sortable = ['id_kriteria', 'nama_kriteria', 'bobot', 'attribut'];
     public function Crips()
     {
         return $this->hasMany(Crips::class, 'id_kriteria', 'id_kriteria');

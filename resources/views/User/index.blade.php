@@ -48,12 +48,12 @@
                     <thead>
                         <tr>
                             <th style="width:7%">No</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>NIP</th>
-                            <th>Role</th>
-                            <th>Terakhir Login</th>
-                            <th>Terakhir Logout</th>
+                            <th>@sortablelink('nama', 'Nama')</th>
+                            <th>@sortablelink('email', 'Email')</th>
+                            <th>@sortablelink('nip', 'Nip')</th>
+                            <th>@sortablelink('role', 'Role')</th>
+                            <th>@sortablelink('last_login', 'Terakhir Login')</th>
+                            <th>@sortablelink('last_logout', 'Terakhir Logout')</th>
                         </tr>
                     </thead>
                     <tbody>

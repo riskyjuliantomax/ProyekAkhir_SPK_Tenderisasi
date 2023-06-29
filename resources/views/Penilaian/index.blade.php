@@ -1,6 +1,5 @@
 @extends('template.master')
 @section('content')
-    {{ Breadcrumbs::render('penilaian') }}
     {{-- Check for error and session --}}
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible">
@@ -13,73 +12,80 @@
             </ul>
         </div>
     @endif
+    <a href="{{ url('Penilaian') }}" class="btn btn-primary mb-3">Kembali</a>
     {{-- End Check --}}
     <div class="card">
-        <div class="card">
-            <h5 class="card-header">{{ $title }}</h5>
-            <div class="table-responsive  text-nowrap">
-                <table class="table" style="overflow-x:scroll">
-                    <form action="{{ url('Penilaian') }}" method="POST" class="ms-4 mt-1">
+        <h5 class="card-header">{{ $title }}</h5>
+        <div class="table-responsive  text-nowrap">
+            <table class="table" style="overflow-x:scroll">
+                <form action="{{ url('Penilaian/' . $id_infoTender->id_infoTender) }}" method="POST" class="ms-4 mt-1">
+                    @if ($id_infoTender->status == 2)
+                        <a href="{{ url('Penilaian/LihatHasil/' . $id_infoTender->id_infoTender) }}"
+                            class="btn btn-success me-3 mb-2 float-end">Lihat Hasil</a>
+                    @else
                         <input type="submit" value="Simpan" class="btn btn-primary me-3 mb-2 float-end" />
-                        <caption>
-                            @csrf
-                            <label class="ms-3">List {{ $title }}</label>
-                            <div class="float-end me-3">
-                                {{-- {{ $perusahaan->onEachSide(3)->links() }} --}}
-                            </div>
-                        </caption>
-                        <thead>
+                    @endif
+                    <caption>
+                        @csrf
+                        <label class="ms-3">List {{ $title }}</label>
+                        <div class="float-end me-3">
+                            {{-- {{ $perusahaan->onEachSide(3)->links() }} --}}
+                        </div>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <input type="hidden" name="id_infoTender" value="{{ $id_infoTender->id_infoTender }}" />
+                            <th style="width:7%">No</th>
+                            <th style="width: 30%">Nama Perusahaan</th>
+                            @foreach ($kriteria as $dataKriteria)
+                                <th>
+                                    {{ $dataKriteria->nama_kriteria }}
+                                </th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($perusahaan as $index => $valt)
                             <tr>
-                                <th style="width:7%">No</th>
-                                <th style="width: 30%">Nama Perusahaan</th>
-                                @foreach ($kriteria as $dataKriteria)
-                                    <th>
-                                        {{ $dataKriteria->nama_kriteria }}
-                                    </th>
-                                @endforeach
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $valt->nama_perusahaan }}</td>
+                                @if (count($valt->penilaian) > 0)
+                                    @foreach ($kriteria as $key => $value)
+                                        <td>
+                                            <select name="id_crips[{{ $valt->id_perusahaan }}][]" class="form-select"
+                                                @if ($id_infoTender->status == 2) disabled @endif>
+                                                @foreach ($value->crips as $k_1 => $v_1)
+                                                    <option
+                                                        value="{{ $v_1->id_crips }}"{{ $v_1->id_crips == $valt->penilaian[$key]->id_crips ? 'selected' : '' }}>
+                                                        {{ $v_1->nama_crips }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+                                        </td>
+                                    @endforeach
+                                @else
+                                    @foreach ($kriteria as $key => $value)
+                                        <td>
+                                            <select name="id_crips[{{ $valt->id_perusahaan }}][]" class="form-select"
+                                                @if ($id_infoTender->status == 2) disabled @endif>>
+                                                @foreach ($value->crips as $k_1 => $v_1)
+                                                    <option value="{{ $v_1->id_crips }}">{{ $v_1->nama_crips }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+                                        </td>
+                                    @endforeach
+                                @endif
                             </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($perusahaan as $index => $valt)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $valt->nama_perusahaan }}</td>
-                                    @if (count($valt->penilaian) > 0)
-                                        @foreach ($kriteria as $key => $value)
-                                            <td>
-                                                <select name="id_crips[{{ $valt->id_perusahaan }}][]" class="form-select">
-                                                    @foreach ($value->crips as $k_1 => $v_1)
-                                                        <option
-                                                            value="{{ $v_1->id_crips }}"{{ $v_1->id_crips == $valt->penilaian[$key]->id_crips ? 'selected' : '' }}>
-                                                            {{ $v_1->nama_crips }}
-                                                        </option>
-                                                    @endforeach
-
-                                                </select>
-                                            </td>
-                                        @endforeach
-                                    @else
-                                        @foreach ($kriteria as $key => $value)
-                                            <td>
-                                                <select name="id_crips[{{ $valt->id_perusahaan }}][]" class="form-select">
-                                                    @foreach ($value->crips as $k_1 => $v_1)
-                                                        <option value="{{ $v_1->id_crips }}">{{ $v_1->nama_crips }}
-                                                        </option>
-                                                    @endforeach
-
-                                                </select>
-                                            </td>
-                                        @endforeach
-                                    @endif
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td>Tidak ada Data</td>
-                                </tr>
-                            @endforelse
-                    </form>
-                </table>
-            </div>
+                        @empty
+                            <tr>
+                                <td>Tidak ada Data</td>
+                            </tr>
+                        @endforelse
+                </form>
+            </table>
         </div>
     </div>
 

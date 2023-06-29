@@ -19,10 +19,10 @@ class KriteriaController extends Controller
     public function index(Request $request)
     {
         if ($request->filled('search')) {
-            $kriteria =  Kriteria::where('nama_kriteria', 'like', "%" . $request->search . "%")->paginate(10);
+            $kriteria =  Kriteria::sortable()->where('nama_kriteria', 'like', "%" . $request->search . "%")->paginate(10);
             $title = 'Mencari Kriteria';
         } else {
-            $kriteria = Kriteria::orderBy('id_kriteria', 'desc')->paginate(10);
+            $kriteria = Kriteria::sortable()->orderBy('id_kriteria', 'desc')->paginate(10);
             $title = 'Kriteria';
         }
         return view('kriteria/index', compact('kriteria', 'title'));
@@ -123,8 +123,8 @@ class KriteriaController extends Controller
     public function show($id_kriteria, Request $request)
     {
 
-        $data['crips'] = Crips::where('id_kriteria', $id_kriteria)->get();
-        $data['kriteria'] = Kriteria::findOrFail($id_kriteria);
+        $data['crips'] = Crips::sortable()->where('id_kriteria', $id_kriteria)->get();
+        $data['kriteria'] = Kriteria::sortable()->findOrFail($id_kriteria);
         return view('Crips.index', compact('data'))->with([
             'title' => 'Crips',
         ]);

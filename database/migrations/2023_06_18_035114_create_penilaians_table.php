@@ -15,9 +15,11 @@ return new class extends Migration
             $table->bigIncrements('id_penilaian');
             $table->unsignedBigInteger('id_perusahaan')->nullable();
             $table->unsignedBigInteger('id_crips')->nullable();
+            $table->unsignedBigInteger('id_infoTender')->nullable();
             $table->timestamps();
             $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->onDelete('cascade');
             $table->foreign('id_crips')->references('id_crips')->on('crips')->onDelete('cascade');
+            $table->foreign('id_infoTender')->references('id_infoTender')->on('info_tenders')->onDelete('cascade');
         });
     }
 

@@ -8,22 +8,47 @@
             </div>
         @endif
     </div>
+    @if (Auth::check())
+        @include('Dashboard.alertDashboard')
+    @endif
+
 
     <div class="row">
         <div class="col-lg-12 mb-4 order-0">
-            <div class="card">
-                <div class="d-flex align-items-end row">
-                    <div class="col-sm-12">
-                        {{-- Card Welcome --}}
-                        <div class="card-body">
-                            <h3 class="card-title text-primary text-center mt-2">Selamat Datang Di Sistem Pendukung
-                                Keputusan</h3>
-                            <h5 class="mb-3 text-center">
-                                Pemilihan Pemenangan Tender
-                            </h5>
+            <div class="d-flex align-items-end row">
+                <div class="col-sm-3">
+                    <div class="card px-3 py-2 bg-warning">
+                        <h5 class="mt-2 text-white fw-bold">Total Pengadaan Barang</h5>
+                        <div>
+                            <label class="mt-2 text-white h2 ms-2">{{ count($countPengadaan) }}</label>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="card px-3 py-2 bg-success">
+                        <h5 class="mt-2 text-white fw-bold">Total Pengadaan Barang Selesai</h5>
+                        <div>
+                            <label class="mt-2 text-white h2 ms-2">{{ count($countPengadaanSelesai) }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card px-3 py-2 bg-dark">
+                        <h5 class="mt-2 text-white fw-bold">Total Peserta Sedang Partisipasi</h5>
+                        <div>
+                            <label class="mt-2 text-white h2 ms-2">{{ count($countPeserta) }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card px-3 py-2 bg-primary">
+                        <h5 class="mt-2 text-white fw-bold">Total Peserta Selesai</h5>
+                        <div>
+                            <label class="mt-2 text-white fw-bold h2 ms-2">{{ count($countPesertaSelesai) }}</label>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -63,13 +88,13 @@
                                                 {{ ucFirst($data->nama_infoTender) }}</td>
                                             <td>{{ number_format($data->harga_infoTender) }}</td>
                                             <td>
-                                                @if ($data->approve == 0)
+                                                @if ($data->status == 0)
                                                     <small><span class="ms-2 badge bg-info">Lagi Proses</span></small>
                                                 @endif
-                                                @if ($data->approve == 1)
+                                                @if ($data->status == 1)
                                                     <small><span class="ms-2 badge bg-danger">Gagal</span></small>
                                                 @endif
-                                                @if ($data->approve == 2)
+                                                @if ($data->status == 2)
                                                     <small><span class="ms-2 badge bg-success">Selesai</span></small>
                                                 @endif
                                             </td>

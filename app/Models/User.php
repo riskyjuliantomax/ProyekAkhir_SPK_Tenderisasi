@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserAlamat;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Kyslik\ColumnSortable\Sortable;
 
 class User extends Authenticatable
 {
@@ -35,7 +36,21 @@ class User extends Authenticatable
         'last_logout'
 
     ];
-    public $sortable = ['id_users', 'nama', 'email', 'role'];
+    use Sortable;
+    public $sortable = [
+        'nama',
+        'email',
+        'tgl_lahir',
+        'tempat_lahir',
+        'img_profile',
+        'role',
+        'no_hp',
+        'tentang',
+        'created_at',
+        'updated_at',
+        'last_login',
+        'last_logout',
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *

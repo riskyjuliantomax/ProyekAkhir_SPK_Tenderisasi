@@ -47,11 +47,11 @@
                     <thead>
                         <tr>
                             <th style="width:7%">No</th>
-                            <th>Nama Pengadaan</th>
-                            <th>Harga</th>
-                            <th>Status</th>
-                            <th>Tanggal/Waktu<br /> Update</th>
-                            <th>Tanggal/Waktu<br /> DiBuat</th>
+                            <th>@sortablelink('nama_infoTender', 'Nama Pengadaan')</th>
+                            <th>@sortablelink('harga_infoTender', 'Harga')</th>
+                            <th>@sortablelink('status', 'Status')</th>
+                            <th>@sortablelink('updated_at', 'Tanggal Update')</th>
+                            <th>@sortablelink('created_at', 'Tanggal Dibuat')</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,15 +60,15 @@
                                 <input type="hidden" class="id_infoTender" value="{{ $data->id_infoTender }}" />
                                 <td> {{ $infoTender->firstItem() + $index }} </td>
                                 <td>{{ ucFirst($data->nama_infoTender) }}</td>
-                                <td>{{ number_format($data->harga_infoTender) }}</td>
+                                <td>Rp. {{ number_format($data->harga_infoTender) }}</td>
                                 <td>
-                                    @if ($data->approve == 0)
+                                    @if ($data->status == 0)
                                         <small><span class="ms-2 badge bg-info">Lagi Proses</span></small>
                                     @endif
-                                    @if ($data->approve == 1)
+                                    @if ($data->status == 1)
                                         <small><span class="ms-2 badge bg-danger">Gagal</span></small>
                                     @endif
-                                    @if ($data->approve == 2)
+                                    @if ($data->status == 2)
                                         <small><span class="ms-2 badge bg-success">Selesai</span></small>
                                     @endif
                                 </td>

@@ -18,9 +18,9 @@
         <!-- Button trigger modal -->
         <div class="ms-4 mt-3 mb-1">
             <div class="float-end me-4">
-                <form action="PermintaanPeserta" method="GET">
+                <form action="PengadaanBerjalan" method="GET">
                     <div class="input-group input-group-merge">
-                        <input type="text" class="form-control" placeholder="Cari Nama Perusahaan"
+                        <input type="text" class="form-control" placeholder="Cari Nama Pengadaan"
                             aria-label="Cari Nama User" aria-describedby="basic-addon-search31" name="search"
                             style='width:260px'>
                         <button type="Submit" class="btn btn-primary"><i class='bx bx-search-alt-2'></i>
@@ -43,10 +43,11 @@
                         <thead>
                             <tr>
                                 <th style="width:7%">No</th>
-                                <th>Nama Pengadaan</th>
-                                <th>Harga</th>
-                                <th>Tanggal Buat</th>
-                                <th>Status</th>
+                                <th>@sortablelink('nama_infoTender', 'Nama Pengadaan')</th>
+                                <th>Partisipasi</th>
+                                <th>@sortablelink('harga_infoTender', 'Harga')</th>
+                                <th>@sortablelink('created_at', 'Tanggal Buat')</th>
+                                <th>@sortablelink('status', 'Status')</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>
@@ -57,21 +58,22 @@
                                         value="{{ $data->id_pendaftaran_users }}" /> --}}
                                     <td> {{ $infoPengadaan->firstItem() + $index }} </td>
                                     <td>{{ ucFirst($data->nama_infoTender) }}</td>
-                                    <td>{{ ucFirst($data->harga_infoTender) }}</td>
+                                    <td class="text-center">{{ count($data->peserta) }}</td>
+                                    <td>Rp. {{ number_format($data->harga_infoTender) }}</td>
                                     <td>{{ ucFirst($data->created_at) }}</td>
                                     <td>
-                                        @if ($data->approve == 0)
+                                        @if ($data->status == 0)
                                             Lagi Proses
                                         @endif
-                                        @if ($data->approve == 1)
-                                            Tidak Terima
+                                        @if ($data->status == 1)
+                                            Gagal
                                         @endif
-                                        @if ($data->approve == 2)
-                                            Di Terima
+                                        @if ($data->status == 2)
+                                            Selesai
                                         @endif
                                     </td>
                                     <td style="width:13%">
-                                        <a href="{{ url('PermintaanPeserta/Detail/' . $data->id_infoTender) }}"
+                                        <a href="{{ url('PengadaanBerjalan/Detail/' . $data->id_infoTender) }}"
                                             class="btn btn-icon btn-info">
                                             <span class="tf-icons bx bx-detail"></span>
                                         </a>

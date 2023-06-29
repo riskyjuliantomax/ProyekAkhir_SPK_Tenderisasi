@@ -19,28 +19,23 @@
             <div data-i18n="Analytics">Kriteria</div>
         </a>
     </li>
-    <li class="menu-item {{ request()->Is('PermintaanPeserta') ? 'active' : '' }}">
-        <a href="{{ url('PermintaanPeserta') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-user"></i>
-            <div data-i18n="Analytics">Permintaaan Peserta </div>
+    <li
+        class="menu-item {{ request()->Is('PengadaanBerjalan') ? 'active' : '' }}
+    {{ request()->Is('PengadaanBerjalan/*') ? 'active' : '' }}
+    ">
+        <a href="{{ route('permintaanPeserta.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-briefcase"></i>
+            <div data-i18n="Analytics">Peserta Pengadaan </div>
         </a>
-    </li>
-    <li class="menu-item {{ request()->Is('Perusahaan') ? 'active' : '' }}">
-        <a href="{{ url('Perusahaan') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-building"></i>
-            <div data-i18n="Analytics">Peserta Tender</div>
-        </a>
-    </li>
-    <li class="menu-item {{ request()->Is('Penilaian') ? 'active' : '' }}">
+        </>
+    <li
+        class="menu-item
+    {{ request()->Is('Penilaian') ? 'active' : '' }}
+    {{ request()->Is('Penilaian/*') ? 'active' : '' }}
+        ">
         <a href="{{ url('Penilaian') }}" class="menu-link">
-            <i class='menu-icon bx bx-file-blank'></i>
+            <i class="menu-icon tf-icons bx bx-file-blank"></i>
             <div data-i18n="Analytics">Penilaian</div>
-        </a>
-    </li>
-    <li class="menu-item {{ request()->Is('Perhitungan') ? 'active' : '' }}">
-        <a href="{{ url('Perhitungan') }}" class="menu-link">
-            <i class="menu-icon bx bx-calculator"></i>
-            <div data-i18n="Analytics">Perhitungan</div>
         </a>
     </li>
 @endif
@@ -56,17 +51,9 @@
 {{-- Role User --}}
 @if (Auth()->user()->role == 'user')
     <li
-        class="menu-item {{ request()->Is('ListPengadaan') ? 'active' : '' }}
-        {{ request()->Is('DetailPengadaan/*') ? 'active' : '' }}
-        {{ request()->Is('PendaftaranPeserta/*') ? 'active' : '' }}
-        ">
-        <a href="{{ url('ListPengadaan') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-user"></i>
-            <div data-i18n="Analytics">List Pengadaan</div>
-        </a>
-    </li>
-    <li class="menu-item
+        class="menu-item
     {{ request()->is('RiwayatPendaftaran') ? 'active' : '' }}
+    {{ request()->is('RiwayatPendaftaran/*') ? 'active' : '' }}
     ">
         <a href="{{ url('RiwayatPendaftaran') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-paperclip"></i>
@@ -74,3 +61,4 @@
         </a>
     </li>
 @endif
+

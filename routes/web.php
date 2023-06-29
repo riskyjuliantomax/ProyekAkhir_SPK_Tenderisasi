@@ -8,6 +8,7 @@ use App\Http\Controllers\InfoTenderController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PendaftaranPesertaController;
+use App\Http\Controllers\PengadaanBerjalanController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\PerusahaanController;
@@ -32,17 +33,21 @@ Route::post('sesi/login', [SessionController::class, 'login'])->name('sesi.login
 Route::get('sesi/logout', [SessionController::class, 'logout']);
 Route::get('Dashboard', [DashboardController::class, 'index'])->name('Dashboard.index');
 Route::get('/home', [HomeController::class, 'index'])->name('home.user');
+//List Pengadaan
+Route::get('ListPengadaan', [PendaftaranPesertaController::class, 'listPengadaan']);
+//Detail
+Route::get('DetailPengadaan/{id_infoPengadaan}', [DetailPengadaanController::class, 'index']);
+Route::get('DetailPengadaan/LihatHasil/{id_infoPengadaan}', [DetailPengadaanController::class, 'lihatHasil']);
 
 Route::middleware(['auth', 'user_role:user'])->group(function () {
-    //List Pengadaan
-    Route::get('ListPengadaan', [PendaftaranPesertaController::class, 'listPengadaan']);
+
     //Pendaftaran Peserta
     Route::get('PendaftaranPeserta/{id_infoPengadaan}', [PendaftaranPesertaController::class, 'show']);
     Route::post('PendaftaranPeserta/{id_infoPengadaan}', [PendaftaranPesertaController::class, 'store']);
-    //Detail
-    Route::get('DetailPengadaan/{id_infoPengadaan}', [DetailPengadaanController::class, 'index']);
     Route::get('RiwayatPendaftaran', [RiwayatPendaftaranController::class, 'index']);
     Route::get('RiwayatPendaftaran/{id_infoPengadaan}', [RiwayatPendaftaranController::class, 'show']);
+    Route::get('RiwayatPendaftaran/Edit/{id_infoPengadaan}', [RiwayatPendaftaranController::class, 'showUpdate']);
+    Route::post('RiwayatPendaftaran/Update/{id_infoPengadaan}', [RiwayatPendaftaranController::class, 'update']);
 });
 Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     //Info
@@ -53,8 +58,10 @@ Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     Route::put('InfoTender/update/{id_infoTender}', [InfoTenderController::class, 'update'])->name('InfoTender.update');
     Route::delete('InfoTender/delete/{id_infoTender}', [InfoTenderController::class, 'delete'])->name('InfoTender.delete');
     // PermintaanPeserta
-    Route::get('PermintaanPeserta', [PendaftaranPesertaController::class, 'userView'])->name('permintaanPeserta.index');
-    Route::post('PermintaanPeserta', [PendaftaranPesertaController::class, 'updateApprove']);
+    Route::get('PengadaanBerjalan', [PendaftaranPesertaController::class, 'pengadaanIndex'])->name('permintaanPeserta.index');
+    Route::get('PengadaanBerjalan/Detail/{id_infoTender}', [PengadaanBerjalanController::class, 'index']);
+    Route::get('PengadaanBerjalan/Detail/Peserta/{id_pendaftaran}', [PengadaanBerjalanController::class, 'indexPeserta']);
+    Route::post('PengadaanBerjalan/UpdatePeserta/{id_infoTender}', [PengadaanBerjalanController::class, 'updateApprove'])->name('PermintaPeserta.updatePeserta');
     //Peserta
     Route::get('Perusahaan', [PerusahaanController::class, 'index'])->name('Perusahaan.index');
     Route::post('Perusahaan', [PerusahaanController::class, 'store'])->name('Perusahaan.store');
@@ -73,12 +80,12 @@ Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     Route::get('Kriteria/Crips/edit/{id_crips}', [CripsController::class, 'edit']);
     Route::put('Kriteria/Crips/update/{id_crips}', [CripsController::class, 'update']);
     //Penilaian
-    Route::get('Penilaian', [PenilaianController::class, 'index'])->name('Penilaian.index');
-    Route::post('Penilaian', [PenilaianController::class, 'store'])->name('Penilaian.store');
+    Route::get('Penilaian', [PenilaianController::class, 'indexListPengadaan'])->name('Penilaian.indexListPengadaan');
+    Route::get('Penilaian/Detail/{id_infoTender}', [PenilaianController::class, 'index'])->name('Penilaian.index');
+    Route::post('Penilaian/{id_infoTender}', [PenilaianController::class, 'store'])->name('Penilaian.store');
     //Perhitungan
     Route::get('Perhitungan', [PerhitunganController::class, 'index'])->name('Perhitungan.index');
-    // View PDF
-    Route::get('ViewPDF/{id}', [PageController::class, 'viewDokumenPerusahaan']);
+    Route::get('Penilaian/LihatHasil/{id_infoTender}', [PenilaianController::class, 'lihatHasil'])->name('Perhitungan.hasil');
 });
 
 Route::middleware(['auth', 'user_role:admin'])->group(function () {
@@ -94,4 +101,6 @@ Route::get('/405', [DashboardController::class, 'Error405'])->name('Dashboard.Er
 Route::group(['middleware' =>  'auth',], function () {
     Route::get('Profile', [UserController::class, 'profile'])->name('User.profile');
     Route::post('/Profile/Update', [UserController::class, 'profile_update'])->name('Profile.update');
+    // View PDF
+    Route::get('ViewPDF/{id}', [PageController::class, 'viewDokumenPerusahaan']);
 });

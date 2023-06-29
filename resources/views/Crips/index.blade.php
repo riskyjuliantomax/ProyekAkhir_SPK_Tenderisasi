@@ -73,8 +73,8 @@
                     <thead>
                         <tr>
                             <th style="width:7%">No</th>
-                            <th>Nama Crips</th>
-                            <th>nilai</th>
+                            <th>@sortablelink('nama_crips', 'Nama Crips')</th>
+                            <th>@sortablelink('nilai', 'Nilai')</th>
                             <th style="width:15%"></th>
                         </tr>
                     </thead>

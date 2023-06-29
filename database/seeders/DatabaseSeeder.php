@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Crips;
+use App\Models\Kriteria;
 use App\Models\KriteriaCost;
 use App\Models\User;
 use App\Models\UserAlamat;
@@ -84,5 +86,144 @@ class DatabaseSeeder extends Seeder
         UserAlamat::create([
             'id_users' => $userId,
         ]);
+        $userId = User::insertGetId([
+            'nama' => 'User2',
+            'email' => 'user2@gmail.com',
+            'nip' => '002012',
+            'role' => 0,
+            'password' => Hash::make('user2@gmail.com'),
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+        UserAlamat::create([
+            'id_users' => $userId,
+        ]);
+
+        $kriteriaId = Kriteria::insertGetId([
+            'nama_kriteria' => 'Administrasi',
+            'bobot' => 0.30,
+            'attribut' => 'benefit',
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+
+        $dataCrips = [
+            [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Sangat Bagus',
+                'nilai' => 5,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Bagus',
+                'nilai' => 4,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Kurang',
+                'nilai' => 3,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Sangat Kurang',
+                'nilai' => 2,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Tidak Ada',
+                'nilai' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
+            ]
+        ];
+        Crips::insert($dataCrips);
+
+        $kriteriaId = Kriteria::insertGetId([
+            'nama_kriteria' => 'Teknis',
+            'bobot' => 0.45,
+            'attribut' => 'benefit',
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+        $dataCrips = [
+            [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Sangat Bagus',
+                'nilai' => 5,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Bagus',
+                'nilai' => 4,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Kurang',
+                'nilai' => 3,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Sangat Kurang',
+                'nilai' => 2,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Tidak Ada',
+                'nilai' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
+            ]
+        ];
+        Crips::insert($dataCrips);
+
+        $kriteriaId = Kriteria::insertGetId([
+            'nama_kriteria' => 'Harga',
+            'bobot' => 0.25,
+            'attribut' => 'benefit',
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+        $dataCrips = [
+            [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Sesuai',
+                'nilai' => 5,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Lebih Rendah Dari Harga Awalan',
+                'nilai' => 4,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Lebih Tinggi Dari Harga Awalan',
+                'nilai' => 3,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Harga Tidak Masuk Akal',
+                'nilai' => 2,
+                'created_at' => $now,
+                'updated_at' => $now
+            ], [
+                'id_kriteria' => $kriteriaId,
+                'nama_crips' => 'Harga Tidak Valid',
+                'nilai' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
+            ]
+        ];
+        Crips::insert($dataCrips);
     }
 }

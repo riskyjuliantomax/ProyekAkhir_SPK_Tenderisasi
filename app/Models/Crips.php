@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Crips extends Model
 {
@@ -12,6 +13,9 @@ class Crips extends Model
     protected $table = "crips";
     protected $primaryKey = "id_crips";
     protected $guarded = [];
+
+    use Sortable;
+    protected $sortable = ['nama_crips', 'nilai'];
 
     public function Kriteria()
     {

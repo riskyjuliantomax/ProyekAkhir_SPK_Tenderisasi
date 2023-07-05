@@ -34,13 +34,13 @@
                                     <td>{{ ucFirst($data->nama_infoTender) }}</td>
                                     <td>{{ number_format($data->harga_infoTender) }}</td>
                                     <td>
-                                        @if ($data->approve == 0)
+                                        @if ($data->status == 0)
                                             <small><span class="ms-2 badge bg-info">Lagi Proses</span></small>
                                         @endif
-                                        @if ($data->approve == 1)
+                                        @if ($data->status == 1)
                                             <small><span class="ms-2 badge bg-danger">Gagal</span></small>
                                         @endif
-                                        @if ($data->approve == 2)
+                                        @if ($data->status == 2)
                                             <small><span class="ms-2 badge bg-success">Selesai</span></small>
                                         @endif
                                     </td>

@@ -61,32 +61,57 @@
                                 <td colspan="2">{{ $pengadaan->harga_penawaran }}</td>
                             </tr>
                             <tr>
-                                <td class="fw-bold bg-lighter">Nama Kontak</td>
+                                <td class="fw-bold bg-lighter">NPWP Perusahaan</td>
                                 <td class="fw-bold bg-lighter">Nomor Telepon</td>
                                 <td class="fw-bold bg-lighter">Email</td>
                                 <td class="fw-bold bg-lighter">Tanggal Pengajuan</td>
                             </tr>
                             <tr>
-                                <td>{{ $pengadaan->nama_kontak }}</td>
+                                <td>{{ $pengadaan->npwp_perusahaan }}</td>
                                 <td>{{ $pengadaan->telp_perusahaan }}</td>
                                 <td>{{ $pengadaan->email_perusahaan }}</td>
                                 <td>{{ $pengadaan->created_at->format('d/m/Y') }}</td>
                             </tr>
                             <tr>
-                                <td class="fw-bold bg-lighter">Lampiran</td>
+                                <td class="fw-bold bg-lighter">Lampiran Dokumen Legalitas</td>
                                 <td>
-                                    @if (!$pengadaan->dokumen_perusahaan)
+                                    @if (!$pengadaan->dokumen_legalitas)
                                         Tidak Dilampirkan
                                     @else
                                         <a class="overflow-hidden"
-                                            href="{{ url('ViewPDF/' . $pengadaan->id_pendaftaran_users) }}"target="_blank">
-                                            {{ $pengadaan->dokumen_perusahaan }}
+                                            href="{{ url('ViewPDF/' . $pengadaan->dokumen_legalitas) }}"target="_blank">
+                                            Lihat Dokumen Legalitas
                                         </a>
                                     @endif
                                 </td>
                             </tr>
                             <tr>
+                                <td class="fw-bold bg-lighter">Lampiran Dokumen Penawaran</td>
+                                <td>
+                                    @if (!$pengadaan->dokumen_penawaran)
+                                        Tidak Dilampirkan
+                                    @else
+                                        <a class="overflow-hidden"
+                                            href="{{ url('ViewPDF/' . $pengadaan->dokumen_penawaran) }}"target="_blank">
+                                            Lihat Dokumen Penawaran
+                                        </a>
+                                    @endif
+                                </td>
                             </tr>
+                            <tr>
+                                <td class="fw-bold bg-lighter">Lampiran Dokume Akta Perusahaan</td>
+                                <td>
+                                    @if (!$pengadaan->dokumen_akta)
+                                        Tidak Dilampirkan
+                                    @else
+                                        <a class="overflow-hidden"
+                                            href="{{ url('ViewPDF/' . $pengadaan->dokumen_akta) }}"target="_blank">
+                                            Lihat Dokumen Akta Perusahaan
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+
                         </tbody>
                     </table>
 

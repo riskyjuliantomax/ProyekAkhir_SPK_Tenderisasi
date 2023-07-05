@@ -47,7 +47,7 @@ Route::middleware(['auth', 'user_role:user'])->group(function () {
     Route::get('RiwayatPendaftaran', [RiwayatPendaftaranController::class, 'index']);
     Route::get('RiwayatPendaftaran/{id_infoPengadaan}', [RiwayatPendaftaranController::class, 'show']);
     Route::get('RiwayatPendaftaran/Edit/{id_infoPengadaan}', [RiwayatPendaftaranController::class, 'showUpdate']);
-    Route::post('RiwayatPendaftaran/Update/{id_infoPengadaan}', [RiwayatPendaftaranController::class, 'update']);
+    Route::post('RiwayatPendaftaran/Update/{id_infoPengadaan}', [PendaftaranPesertaController::class, 'update']);
 });
 Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     //Info
@@ -102,5 +102,5 @@ Route::group(['middleware' =>  'auth',], function () {
     Route::get('Profile', [UserController::class, 'profile'])->name('User.profile');
     Route::post('/Profile/Update', [UserController::class, 'profile_update'])->name('Profile.update');
     // View PDF
-    Route::get('ViewPDF/{id}', [PageController::class, 'viewDokumenPerusahaan']);
+    Route::get('ViewPDF/{hashNamePDF}', [PageController::class, 'viewDokumenPerusahaan']);
 });

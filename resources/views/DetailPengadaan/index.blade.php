@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <td class="col-md-2">Harga</td>
-                            <td class="col-md-10">{{ $pengadaan->harga_infoTender }}</td>
+                            <td class="col-md-10">{{ number_format($pengadaan->harga_infoTender) }}</td>
                         </tr>
                         <tr>
                             <td class="col-md-2" style="vertical-align: top">Syarat</td>

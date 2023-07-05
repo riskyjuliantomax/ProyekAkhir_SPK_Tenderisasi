@@ -17,7 +17,11 @@ class PengadaanBerjalanController extends Controller
     public function index($id_infoTender)
     {
         $infoTender = InfoTender::with('peserta')->where('id_infoTender', $id_infoTender)->first();
-        $peserta = PendaftaranUser::sortable()->where('id_infoTender', $id_infoTender)->orderBy('id_pendaftaran_users', 'desc')->get();
+        $peserta = PendaftaranUser::sortable()
+            ->where('pendaftaran_users.id_infoTender', $id_infoTender)->orderBy('id_pendaftaran_users', 'desc')
+            ->join('info_tenders', 'info_tenders.id_infoTender', 'pendaftaran_users.id_infoTender',)
+            ->select('pendaftaran_users.*', DB::raw('pendaftaran_users.harga_penawaran - info_tenders.harga_infoTender as selisihHarga'))
+            ->get();
         // return response()->json($infoTender);
         return view('PengadaanBerjalan.DetailPengadaanBerjalan', compact('infoTender', 'peserta'))
             ->with([
@@ -26,7 +30,7 @@ class PengadaanBerjalanController extends Controller
     }
     public function indexPeserta($id_pendaftaran)
     {
-        $pesertaPengadaan = PendaftaranUser::with('user')->find($id_pendaftaran);
+        $pesertaPengadaan = PendaftaranUser::with('user', 'infoTender')->find($id_pendaftaran);
         // return response()->json($pesertaPengadaan);
         return view('PengadaanBerjalan.DetailPengadaanBerjalanPeserta', compact('pesertaPengadaan'));
     }
@@ -34,30 +38,34 @@ class PengadaanBerjalanController extends Controller
     public function updateApprove(Request $request, $id_infoTender)
     {
         try {
-
+            // $daftar = PendaftaranUser::find($request->id_pendaftaran_users);
             // $perusahaan = Perusahaan::where('id_pendaftaran_users', $request->id_pendaftaran_users)->first();
-            // return response()->json($perusahaan);
+            // return response()->json($daftar);
 
             DB::transaction(function () use ($request, $id_infoTender) {
                 $daftar = PendaftaranUser::find($request->id_pendaftaran_users);
                 $daftar->approve = $request->approve;
                 $daftar->save();
 
+
                 $perusahaan = Perusahaan::where('id_pendaftaran_users', $request->id_pendaftaran_users)->first();
                 // echo $id_infoTender;
-                if ($request->approve == 2 && $perusahaan == null || $perusahaan == '') {
+                // return response()->json($perusahaan);
+                if ($request->approve == 2 && $perusahaan == null) {
+                    echo $daftar->npwp_perusahaan;
                     Perusahaan::create([
                         'id_users' => $daftar->id_users,
                         'id_infoTender' => $id_infoTender,
                         'id_pendaftaran_users' => $daftar->id_pendaftaran_users,
                         'nama_perusahaan' => $daftar->nama_perusahaan,
                         'alamat_perusahaan' => $daftar->alamat_perusahaan,
-                        'tahun_berdiri' => $daftar->tahun_berdiri,
-                        'nama_kontak' => $daftar->nama_kontak,
+                        'npwp_perusahaan' => $daftar->npwp_perusahaan,
                         'harga_penawaran' => $daftar->harga_penawaran,
-                        'dokumen_perusahaan' => $daftar->dokumen_penawaran,
                         'telp_perusahaan' => $daftar->telp_perusahaan,
                         'email_perusahaan' => $daftar->email_perusahaan,
+                        'dokumen_legalitas' => $daftar->dokumen_legalitas,
+                        'dokumen_penawaran' => $daftar->dokumen_penawaran,
+                        'dokumen_akta' => $daftar->dokumen_akta,
                     ]);
                     RiwayatAktivitas::create([
                         'id_users' => auth()->user()->id_users,
@@ -66,8 +74,7 @@ class PengadaanBerjalanController extends Controller
                         'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                         'role' => auth()->user()->role,
                     ]);
-                }
-                if ($request->approve == 1 || $request->approve == 0 && $perusahaan) {
+                } elseif ($request->approve != 2 && $perusahaan) {
                     $perusahaan->delete();
                     RiwayatAktivitas::create([
                         'id_users' => auth()->user()->id_users,

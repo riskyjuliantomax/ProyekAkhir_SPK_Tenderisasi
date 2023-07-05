@@ -12,9 +12,7 @@ class Perusahaan extends Model
 
     protected $table = "perusahaan";
     protected $primaryKey = "id_perusahaan";
-    protected $fillable = [
-        'id_perusahaan', 'id_infoTender', 'id_pendaftaran_users', 'nama_perusahaan', 'alamat_perusahaan', 'email_perusahaan', 'telp_perusahaan', 'id_users', 'tahun_berdiri', 'nama_kontak', 'harga_penawaran', 'dokumen_penawaran'
-    ];
+    protected $guarded = [];
 
     public function Penilaian()
     {

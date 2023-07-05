@@ -27,4 +27,11 @@ class PendaftaranUser extends Model
     {
         return $this->hasOne(InfoTender::class, 'id_infoTender', 'id_infoTender');
     }
+
+    // public function getSelisihPenawaranAttribute()
+    // {
+    //     // Sum log records of type I (add)
+    //     // and substract the sum of all log records of type ) (sub)
+    //     return $this->PendaftaranUser()->where('type', 'I')->sum('amount') - $this->paymentsLog()->where('type', 'O')->sum('amount');
+    // }
 }

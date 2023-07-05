@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function viewDokumenPerusahaan($id)
+    public function viewDokumenPerusahaan($hashNamePDF)
     {
-        $data = PendaftaranUser::find($id);
-        return view('PermintaanPeserta.viewPdf', compact('data'));
+        return view('PermintaanPeserta.viewPdf', compact('hashNamePDF'));
     }
 }

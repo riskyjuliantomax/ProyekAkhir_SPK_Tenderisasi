@@ -74,9 +74,10 @@
                                     <tr>
                                         <th>No</th>
                                         <th>@sortablelink('nama_perusahaan', 'Nama Perushaaan')</th>
-                                        <th>@sortablelink('nama_kontak', 'Nama Berkontak')</th>
+                                        <th>@sortablelink('selisihHarga', 'Selisih Harga')</th>
                                         <th>@sortablelink('harga_penawaran', 'Harga Penawaran')</th>
-                                        <th>@sortablelink('tahun_berdiri', 'Tahun Berdiri')</th>
+                                        <th>@sortablelink('email_perusahaan', 'Email')</th>
+                                        <th>@sortablelink('telp_perusahaan', 'Telp')</th>
                                         <th>@sortablelink('created_at', 'Tanggal Pengajuan')</th>
                                         <th>@sortablelink('approve', 'Status')</th>
                                         <th>Aksi
@@ -87,9 +88,10 @@
                                         <tr>
                                             <td>{{ 1 + $index }}</td>
                                             <td>{{ $data->nama_perusahaan }}</td>
-                                            <td>{{ $data->nama_kontak }}</td>
+                                            <td>{{ number_format($data->selisihHarga) }}</td>
                                             <td>Rp. {{ number_format($data->harga_penawaran) }}</td>
-                                            <td>{{ $data->tahun_berdiri }}</td>
+                                            <td>{{ $data->email_perusahaan }}</td>
+                                            <td>{{ $data->telp_perusahaan }}</td>
                                             <td>{{ $data->created_at->format('d/m/y') }}</td>
                                             <td>
                                                 @if ($data->approve == 0)

@@ -28,7 +28,8 @@ class DashboardController extends Controller
         $countPeserta = PendaftaranUser::select('id_pendaftaran_users')->where('approve', '0')->get();
         $countPesertaSelesai = PendaftaranUser::select('id_pendaftaran_users')->where('approve', '!=', '0')->get();
         if (Auth::check()) {
-            $notifikasi = Notifikasi::where('id_users', Auth()->user()->id_users)->get();
+            $notifikasi = Notifikasi::where('id_users', Auth()->user()->id_users)
+                ->where('baca', 0)->get();
             if (Auth()->user()->role == 'pokja' || Auth()->user()->role == 'admin') {
                 $riwayat_aktivitas = RiwayatAktivitas::where('role', auth()->user()->role)->with('User')->orderBy('id_riwayat_aktivitas', 'desc')->limit(20)->get();
             }

@@ -38,13 +38,16 @@
                 @endphp
                 @foreach ($ranking as $key => $value)
                     <tr>
-                        <td>{{ $key }}</td>
+                        <td @if ($key == $pengadaan->nama_perusahaan) class="bg-success text-white fw-bold" @endif>
+                            {{ $key }}
+                        </td>
                         @foreach ($value as $key_1 => $value_1)
-                            <td>
+                            <td @if ($key == $pengadaan->nama_perusahaan) class="bg-success text-white fw-bold" @endif>
                                 {{ number_format($value_1, 2) }}
                             </td>
                         @endforeach
-                        <td>{{ $no++ }}</td>
+                        <td @if ($key == $pengadaan->nama_perusahaan) class="bg-success text-white fw-bold" @endif>
+                            {{ $no++ }}</td>
                     </tr>
                 @endforeach
         </form>

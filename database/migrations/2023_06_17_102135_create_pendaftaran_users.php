@@ -19,10 +19,11 @@ return new class extends Migration
             $table->foreign('id_infoTender')->references('id_infoTender')->on('info_tenders')->onDelete('cascade');
             $table->string('nama_perusahaan');
             $table->string('alamat_perusahaan');
-            $table->year('tahun_berdiri');
-            $table->string('nama_kontak');
+            $table->string('npwp_perusahaan');
             $table->bigInteger('harga_penawaran');
-            $table->string('dokumen_perusahaan')->nullable();
+            $table->string('dokumen_legalitas')->nullable();
+            $table->string('dokumen_akta')->nullable();
+            $table->string('dokumen_penawaran')->nullable();
             $table->string('telp_perusahaan')->nullable();
             $table->string('email_perusahaan')->nullable();
             $table->smallInteger('approve')->default(0);

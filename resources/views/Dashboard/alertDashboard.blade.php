@@ -1,4 +1,4 @@
-@if (count($notifikasi) == 0)
+@if (count($notifikasi) > 0)
     <div class="alert alert-success alert-dismissible">
         <ul>
             @foreach ($notifikasi as $notif)

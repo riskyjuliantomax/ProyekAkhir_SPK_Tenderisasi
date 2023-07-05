@@ -57,18 +57,24 @@ class PendaftaranPesertaController extends Controller
         request()->validate([
             'nama_perusahaan' => 'required',
             'alamat_perusahaan' => 'required',
-            'tahun_berdiri' => 'required',
             'harga_penawaran' => 'required',
-            'nama_kontak' => 'required',
+            'npwp_perusahaan' => 'required',
+            'dokumen_penawaran' => 'required',
+            'dokumen_legalitas' => 'required',
+            'dokumen_akta' => 'required',
         ], [
             'nama_perusahaan.required' => 'Form Nama Perusahaan Harus Diisi',
             'alamat_perusahaan.required' => 'Form Alamat Harus Diisi',
-            'tahun_berdiri.required' => 'Form Tahun Berdiri Perusahaan Harus Diisi',
             'harga_penawaran.required' => 'Form Harga Penawaran Harus Diisi',
-            'nama_kontak.required' => 'Form Nama Yang Bisa Dikontak Harus Diisi',
+            'npwp_perusahaan.required' => 'Form NPWP Perusahaan Harus Diisi',
+            'dokumen_penawaran.required' => 'Dokumen Penawaran Harus Di Upload',
+            'dokumen_legalitas.required' => 'Dokumen Administrasi Harus Di Upload',
+            'dokumen_akta.required' => 'Dokumen Akta Perusahaan Harus Di Upload'
         ]);
         try {
-            $dokumenTender = $request->file('dokumen_perusahaan');
+            $dokumen_penawaran = $request->file('dokumen_penawaran');
+            $dokumen_legalitas = $request->file('dokumen_legalitas');
+            $dokumen_akta = $request->file('dokumen_akta');
             $checkDaftar = PendaftaranUser::where('nama_perusahaan', $request->nama_perusahaan)
                 ->where('id_users', '!=', Auth()->user()->id_users)
                 ->first();
@@ -80,6 +86,7 @@ class PendaftaranPesertaController extends Controller
                 ]);
             } else {
                 $pendaftaran = new PendaftaranUser();
+
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
                     'deskripsi' => 'Upload Dokumen',
@@ -87,18 +94,26 @@ class PendaftaranPesertaController extends Controller
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
+
                 $pendaftaran->id_infoTender = $id_infoPengadaan;
                 $pendaftaran->id_users = Auth()->user()->id_users;
                 $pendaftaran->nama_perusahaan = $request->nama_perusahaan;
+                $pendaftaran->npwp_perusahaan = $request->npwp_perusahaan;
                 $pendaftaran->alamat_perusahaan = $request->alamat_perusahaan;
-                $pendaftaran->tahun_berdiri = $request->tahun_berdiri;
-                $pendaftaran->nama_kontak = $request->nama_kontak;
                 $pendaftaran->harga_penawaran = $request->harga_penawaran;
                 $pendaftaran->telp_perusahaan = $request->telp_perusahaan;
                 $pendaftaran->email_perusahaan = $request->email_perusahaan;
-                if ($dokumenTender != null || $dokumenTender != '') {
-                    $dokumenTender->storeAs('public/dokumenTender/', $dokumenTender->hashName());
-                    $pendaftaran->dokumen_perusahaan = $dokumenTender->hashName();
+
+                if ($dokumen_penawaran != '' && $dokumen_legalitas != '' && $dokumen_akta != '') {
+                    //upload Dokumen Penawaran
+                    $dokumen_penawaran->storeAs('public/dokumenPeserta/', $dokumen_penawaran->hashName());
+                    $pendaftaran->dokumen_penawaran = $dokumen_penawaran->hashName();
+                    //upload Dokumen Akta
+                    $dokumen_legalitas->storeAs('public/dokumenPeserta/', $dokumen_legalitas->hashName());
+                    $pendaftaran->dokumen_legalitas = $dokumen_legalitas->hashName();
+                    //upload Dokumen Legalitas
+                    $dokumen_akta->storeAs('public/dokumenPeserta/', $dokumen_akta->hashName());
+                    $pendaftaran->dokumen_akta = $dokumen_akta->hashName();
                 }
                 $pendaftaran->save();
 
@@ -116,13 +131,23 @@ class PendaftaranPesertaController extends Controller
             return Redirect('ListPengadaan');
         }
     }
-    public function update(Request $request, $id_infoPengadaan)
+    public function update(Request $request, $id_pendaftaranUser)
     {
         try {
-            $dokumenTender = $request->file('dokumen_perusahaan');
-            $dataPendaftaran = PendaftaranUser::with('user')->where('id_users', Auth()->user()->id_users)->get();
-            if (count($dataPendaftaran) > 0) {
-                $pendaftaran = PendaftaranUser::find($request->id_pendaftaran_user);
+            $dokumen_penawaran = $request->file('dokumen_penawaran');
+            $dokumen_legalitas = $request->file('dokumen_legalitas');
+            $dokumen_akta = $request->file('dokumen_akta');
+            $checkDaftar = PendaftaranUser::where('nama_perusahaan', $request->nama_perusahaan)
+                ->where('id_users', '!=', Auth()->user()->id_users)
+                ->first();
+            if ($checkDaftar) {
+                return redirect('RiwayatPendaftaran/Edit/' . $id_pendaftaranUser)->with([
+                    'title' => 'Form Pendaftaran'
+                ])->withErrors([
+                    'Nama Perusahaan Sudah Diambil oleh User Lain'
+                ]);
+            } else {
+                $pendaftaran = PendaftaranUser::find($id_pendaftaranUser);
                 RiwayatAktivitas::create([
                     'id_users' => auth()->user()->id_users,
                     'deskripsi' => 'Update Dokumen',
@@ -130,37 +155,37 @@ class PendaftaranPesertaController extends Controller
                     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
                     'role' => auth()->user()->role,
                 ]);
-            } else {
-                $pendaftaran = new PendaftaranUser();
-                RiwayatAktivitas::create([
-                    'id_users' => auth()->user()->id_users,
-                    'deskripsi' => 'Upload Dokumen',
-                    'deskripsi2' => ' Telah Melakukan Tambah Dokumen',
-                    'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
-                    'role' => auth()->user()->role,
-                ]);
-            }
-            $pendaftaran->id_users = Auth()->user()->id_users;
-            $pendaftaran->nama_perusahaan = $request->nama_perusahaan;
-            $pendaftaran->alamat_perusahaan = $request->alamat_perusahaan;
-            $pendaftaran->tahun_berdiri = $request->tahun_berdiri;
-            $pendaftaran->nama_kontak = $request->nama_kontak;
-            $pendaftaran->harga_penawaran = $request->harga_penawaran;
+                $pendaftaran->nama_perusahaan = $request->nama_perusahaan;
+                $pendaftaran->npwp_perusahaan = $request->npwp_perusahaan;
+                $pendaftaran->alamat_perusahaan = $request->alamat_perusahaan;
+                $pendaftaran->harga_penawaran = $request->harga_penawaran;
+                $pendaftaran->telp_perusahaan = $request->telp_perusahaan;
+                $pendaftaran->email_perusahaan = $request->email_perusahaan;
+                $time = \Carbon\Carbon::now()->toDateTimeString();
+                if ($dokumen_penawaran != '') {
+                    //upload Dokumen Penawaran
+                    $dokumen_penawaran->storeAs('public/dokumenPeserta/', $dokumen_penawaran->hashName());
+                    $pendaftaran->dokumen_penawaran = $dokumen_penawaran->hashName();
+                }
+                if ($dokumen_legalitas != '') {
+                    //upload Dokumen Akta
+                    $dokumen_legalitas->storeAs('public/dokumenPeserta/', $dokumen_legalitas->hashName());
+                    $pendaftaran->dokumen_legalitas = $dokumen_legalitas->hashName();
+                }
+                if ($dokumen_akta != '') {
+                    //upload Dokumen Legalitas
+                    $dokumen_akta->storeAs('public/dokumenPeserta/', $dokumen_akta->hashName());
+                    $pendaftaran->dokumen_akta = $dokumen_akta->hashName();
+                }
+                $pendaftaran->save();
 
-            $pendaftaran->telp_perusahaan = $request->telp_perusahaan;
-            $pendaftaran->email_perusahaan = $request->email_perusahaan;
-            if ($dokumenTender != null || $dokumenTender != '') {
-                $dokumenTender->storeAs('public/dokumenTender/', $dokumenTender->hashName());
-                $pendaftaran->dokumen_perusahaan = $dokumenTender->hashName();
-            }
-            $pendaftaran->save();
-
-            if ($pendaftaran) {
-                Alert::success('Berhasil', 'Data  Berhasil Disimpan');
-                return Redirect('ListPengadaan');
-            } else {
-                Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
-                return Redirect('ListPengadaan');
+                if ($pendaftaran) {
+                    Alert::success('Berhasil', 'Data  Berhasil Disimpan');
+                    return Redirect('RiwayatPendaftaran/Edit/' . $id_pendaftaranUser);
+                } else {
+                    Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
+                    return Redirect('RiwayatPendaftaran/Edit/' . $id_pendaftaranUser);
+                }
             }
         } catch (Exception $e) {
             error_log($e);

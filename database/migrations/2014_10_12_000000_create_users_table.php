@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('tempat_lahir')->nullable();
             $table->string('img_profile')->nullable();
             $table->enum('kelamin', ['', 'laki-laki', 'perempuan'])->nullable();
+            //Role 0 = User, 1 = Pokja, 2 = Admin
             $table->tinyInteger('role')->default(0);
             $table->dateTime('last_login')->nullable();
             $table->dateTime('last_logout')->nullable();
-            //Role 0 = User, 1 = Pokja, 2 = Admin
             $table->rememberToken();
             $table->timestamps();
         });

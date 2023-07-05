@@ -32,7 +32,7 @@
 
 <body style="margin:0px;padding:0px;overflow:hidden">
     {{-- {{ $data->dokumen_perusahaan }} --}}
-    <iframe src="{{ asset('storage/dokumenTender/' . $data->dokumen_perusahaan) }}">
+    <iframe src="{{ asset('storage/dokumenPeserta/' . $hashNamePDF) }}">
 </body>
 
 </html>

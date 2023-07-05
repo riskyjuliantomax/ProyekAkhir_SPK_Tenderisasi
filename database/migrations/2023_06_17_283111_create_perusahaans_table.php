@@ -21,10 +21,11 @@ return new class extends Migration
             $table->foreign('id_pendaftaran_users')->references('id_pendaftaran_users')->on('pendaftaran_users')->onDelete('cascade');
             $table->string('nama_perusahaan');
             $table->string('alamat_perusahaan');
-            $table->year('tahun_berdiri');
-            $table->string('nama_kontak')->nullable();
-            $table->bigInteger('harga_penawaran')->nullable();
-            $table->string('dokumen_perusahaan')->nullable();
+            $table->string('npwp_perusahaan');
+            $table->bigInteger('harga_penawaran');
+            $table->string('dokumen_legalitas')->nullable();
+            $table->string('dokumen_akta')->nullable();
+            $table->string('dokumen_penawaran')->nullable();
             $table->string('telp_perusahaan')->nullable();
             $table->string('email_perusahaan')->nullable();
             $table->timestamps();

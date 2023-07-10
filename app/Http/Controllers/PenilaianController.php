@@ -66,9 +66,9 @@ class PenilaianController extends Controller
      */
     public function store(Request $request, $id_infoTender)
     {
-        $idUsers = Perusahaan::join('info_tenders', 'info_tenders.id_infoTender', '=', 'perusahaan.id_infoTender')
+        $idUsers = Perusahaan::join('info_tenders', 'info_tenders.id_infoTender', '=', 'perusahaan_dokumen.id_infoTender')
             ->select('id_users', 'info_tenders.nama_infoTender', 'info_tenders.id_infoTender')
-            ->where('perusahaan.id_infoTender', $id_infoTender)
+            ->where('perusahaan_dokumen.id_infoTender', $id_infoTender)
             ->get();
         // return response()->json($idUsers);
         foreach ($idUsers as $dataId) {
@@ -120,7 +120,7 @@ class PenilaianController extends Controller
         if (count($penilaian) == 0) {
             return redirect('Penilaian/Detail/' . $id_infoTender);
         }
-
+        // Menentukan nilai min/max
         foreach ($kriteria as $key => $value) {
             foreach ($penilaian as $key_1 => $value_1) {
                 if ($value->id_kriteria == $value_1->crips->id_kriteria) {
@@ -132,7 +132,7 @@ class PenilaianController extends Controller
                 }
             }
         }
-        // //Normalisasi
+        //Normalisasi
         foreach ($penilaian as $key_1 => $value_1) {
             foreach ($kriteria as $key => $value) {
                 if ($value->id_kriteria == $value_1->crips->id_kriteria) {
@@ -145,7 +145,7 @@ class PenilaianController extends Controller
             }
         }
 
-        // //Perangkingan
+        //Perangkingan
         foreach ($normalisasi as $key => $value) {
             foreach ($kriteria as $key_1 => $value_1) {
                 $rank[$key][] = $value[$value_1->id_kriteria] * $value_1->bobot;
@@ -157,8 +157,8 @@ class PenilaianController extends Controller
         }
         $ranking = $normalisasi;
         arsort($ranking);
-        // // return response()->json($ranking);
-        // //Return view dengan passing data
+        // return response()->json($ranking);
+        //Return view dengan passing data
         return view('Penilaian.hasil_perhitungan', compact('kriteria', 'alternatif', 'normalisasi', 'ranking'))->with([
             'title' => 'Perhitungan'
         ]);

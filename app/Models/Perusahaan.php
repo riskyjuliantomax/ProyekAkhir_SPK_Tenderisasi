@@ -10,7 +10,7 @@ class Perusahaan extends Model
 {
     use HasFactory;
 
-    protected $table = "perusahaan";
+    protected $table = "perusahaan_dokumen";
     protected $primaryKey = "id_perusahaan";
     protected $guarded = [];
 

@@ -49,9 +49,20 @@
                     </div>
                     <div class="modal-footer">
                         {{-- <button type="reset" class="btn btn-outline-danger">
-                    Reset
-                </button> --}}
+                            Reset
+                        </button> --}}
                         <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="ms-4 me-4">
+                        <h5 class="fw-bold"> Petunjuk Kriteria </h5>
+                        <ul class="list-unstyled" style="text-align: justify;">
+                            <li class="mb-1"><b>Kriteria </b>adalah attribut yang digunakan untuk mengevaluasi berbagai
+                                peserta pengadaan barang</li>
+                            <li class="mb-1">Kriteria juga diberikan <b>bobot</b> dengan total <b>100%</b>
+                            </li>
+                            <li>Contoh :<b> Kriteria A</b> diberikan bobot 40%, maka sisa 60% digunakan untuk kriteria lain
+                            </li>
+                        </ul>
                     </div>
                 </form>
             </div>
@@ -86,7 +97,7 @@
                             <th>@sortablelink('nama_kriteria', 'Nama Kriteria')</th>
                             <th>@sortablelink('attribut', 'Attribut')</th>
                             <th>@sortablelink('bobot', 'Bobot')</th>
-                            <th style="width:15%"></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

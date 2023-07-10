@@ -6,7 +6,7 @@
         ">
         <a href="{{ url('InfoTender') }}" class="menu-link">
             <i class='menu-icon bx bx-info-circle'></i>
-            <div data-i18n="Analytics">Info Tender</div>
+            <div data-i18n="Analytics">Pengadaan Barang</div>
         </a>
     </li>
     <li
@@ -61,4 +61,3 @@
         </a>
     </li>
 @endif
-

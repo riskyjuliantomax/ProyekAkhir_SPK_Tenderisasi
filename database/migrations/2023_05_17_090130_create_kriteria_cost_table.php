@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kriteria_cost', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama', 50);
         });
     }
 

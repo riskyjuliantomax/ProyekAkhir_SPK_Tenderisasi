@@ -19,7 +19,7 @@ class PerhitunganController extends Controller
         if (count($penilaian) == 0) {
             return redirect(route('Penilaian.index'));
         }
-
+        //Menentukan nilai min dan max
         foreach ($kriteria as $key => $value) {
             foreach ($penilaian as $key_1 => $value_1) {
                 if ($value->id_kriteria == $value_1->crips->id_kriteria) {
@@ -54,6 +54,7 @@ class PerhitunganController extends Controller
         }
         $ranking = $normalisasi;
         arsort($ranking);
+
         // return response()->json($ranking);
         //Return view dengan passing data
         return view('Perhitungan.index', compact('kriteria', 'alternatif', 'normalisasi', 'ranking'))->with([

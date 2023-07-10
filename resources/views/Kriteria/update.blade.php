@@ -49,6 +49,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="ms-4 me-4">
+                        <h5 class="fw-bold"> Petunjuk Kriteria </h5>
+                        <ul class="list-unstyled" style="text-align: justify;">
+                            <li class="mb-1"><b>Kriteria </b> Memiliki 2 Attribut yaitu, Benefit<b> (Keuntungan) </b> Cost
+                                <b>(Biaya)</b>
+                            </li>
+                            <li><b>Benefit (Keuntungan)</b> merujuk pada hasil positif atau manfaat yang diharapkan dari
+                                menerapkan suatu alternatif. Benefit <b>(Keuntungan)</b> dapat berupa Keuntungan finansial
+                                seperti
+                                peningkatan pendapatan atau pengurangan biaya, keuntungan non-finansial seperti peningkatan
+                                produktivitas, kepuasan pelanggan
+                            </li>
+                            <li class="mb-1"><b>Cost (Biaya)</b> mengacu pada jumlah uang atau sumber daya yang diperlukan
+                                untuk
+                                melaksanakan atau menerapkan suatu alternatif <b>(Peserta)</b>. Cost (Biaya) bisa
+                                mencakup biaya
+                                langsung, seperti biaya produksi atau akuisisi, biaya operasional
+                            </li>
+                        </ul>
+                    </div>
                     <div class="modal-footer">
                         {{-- <button type="reset" class="btn btn-outline-danger">
                     Reset

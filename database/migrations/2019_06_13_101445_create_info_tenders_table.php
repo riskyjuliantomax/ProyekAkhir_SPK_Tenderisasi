@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('info_tenders', function (Blueprint $table) {
             $table->bigIncrements('id_infoTender');
-            $table->string('nama_infoTender');
+            $table->string('nama_infoTender', 100);
             $table->bigInteger('harga_infoTender');
             $table->longText('syarat_infoTender');
             // $table->date('tanggal_selesai');

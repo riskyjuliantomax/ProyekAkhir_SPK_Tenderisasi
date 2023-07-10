@@ -18,7 +18,7 @@ return new class extends Migration
             $table->longText('deskripsi');
             $table->longText('deskripsi2')->nullable();
             $table->longText('deskripsi3')->nullable();
-            $table->string('role');
+            $table->string('role', 15);
             $table->dateTime('waktu');
         });
     }

@@ -48,7 +48,7 @@
                                     </tr>
                                     <tr>
                                         <td class="col-md-2">Harga</td>
-                                        <td class="col-md-10">{{ $infoTender->harga_infoTender }}</td>
+                                        <td class="col-md-10">{{ number_format($infoTender->harga_infoTender) }}</td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2" style="vertical-align: top">Syarat</td>
@@ -74,7 +74,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>@sortablelink('nama_perusahaan', 'Nama Perushaaan')</th>
-                                        <th>@sortablelink('selisihHarga', 'Selisih Harga')</th>
+                                        <th>Selisih Harga</th>
                                         <th>@sortablelink('harga_penawaran', 'Harga Penawaran')</th>
                                         <th>@sortablelink('email_perusahaan', 'Email')</th>
                                         <th>@sortablelink('telp_perusahaan', 'Telp')</th>

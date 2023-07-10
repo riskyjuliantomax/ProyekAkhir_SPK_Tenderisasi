@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_crips');
             $table->unsignedBigInteger('id_kriteria');
             $table->foreign('id_kriteria')->references('id_kriteria')->on('kriteria')->onDelete('cascade');
-            $table->string('nama_crips');
+            $table->string('nama_crips', 50);
             $table->float('nilai');
             $table->timestamps();
         });

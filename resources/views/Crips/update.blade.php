@@ -43,6 +43,22 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
+                    <div class="mx-4">
+                        <h5>Petunjuk Crips</h5>
+                        <ul class="list-unstyled" style="text-align: justify;">
+                            <li>Crips adalah nilai dari suatu attribut kriteria, ada beberapa <b>aturan</b> untuk Crips
+                                Yaitu :</li>
+                            <li>1. Penamaan Crips dibuat berdasarkan kebutuhan dari pokja</li>
+                            <li>2. Pemberian nilai crips harus berupa angka </li>
+                            <li>3. nilai crips diberikan disesuaikan dengan attribut kriteria,
+                                apabila attribut kriteria <b>benefit</b>, nilai crips diberikan paling tinggi adalah
+                                terbaik<br />
+                                sebaliknya, apabila attribut kriteria <b>cost</b>, nilai crips diberikan paling rendah
+                                adalah
+                                terbaik
+                            </li>
+                        </ul>
+                    </div>
                 </form>
             </div>
         </div>

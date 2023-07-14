@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('kecamatan', 50)->nullable();
             $table->string('kota', 50)->nullable();
             $table->string('kodepos', 20)->nullable();
-            $table->string('alamat', 50)->nullable();
+            $table->longText('alamat')->nullable();
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

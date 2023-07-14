@@ -20,7 +20,7 @@ class PengadaanBerjalanController extends Controller
         $peserta = PendaftaranUser::sortable()
             ->where('pendaftaran_users.id_infoTender', $id_infoTender)->orderBy('id_pendaftaran_users', 'desc')
             ->join('info_tenders', 'info_tenders.id_infoTender', 'pendaftaran_users.id_infoTender',)
-            ->select('pendaftaran_users.*', DB::raw('pendaftaran_users.harga_penawaran - info_tenders.harga_infoTender as selisihHarga'))
+            ->select('pendaftaran_users.*', 'info_tenders.harga_infoTender', DB::raw('pendaftaran_users.harga_penawaran - info_tenders.harga_infoTender as selisihHarga'))
             ->get();
         // return response()->json($infoTender);
         return view('PengadaanBerjalan.DetailPengadaanBerjalan', compact('infoTender', 'peserta'))

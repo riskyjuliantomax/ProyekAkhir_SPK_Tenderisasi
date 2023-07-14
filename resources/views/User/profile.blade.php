@@ -2,7 +2,7 @@
 @section('content')
     @foreach ($user as $data)
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4">
+            <h4 class="fw-bold mb-3">
                 <span class="text-muted fw-light">Pengaturan Akun/</span> Akun
             </h4>
             <form action="{{ url('/Profile/Update/') }}" enctype="multipart/form-data" method="POST">
@@ -127,7 +127,7 @@
                             </div>
                             <!-- /Account -->
                         </div>
-                        <div class="card">
+                        {{-- <div class="card">
                             <h5 class="card-header">Ganti Password</h5>
                             <div class="card-body">
                                 <div id="formAccountDeactivation" onsubmit="return false">
@@ -135,7 +135,7 @@
                                         Password</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </form>

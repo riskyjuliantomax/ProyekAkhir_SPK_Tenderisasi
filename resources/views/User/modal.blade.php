@@ -82,7 +82,7 @@
                             <div class="row">
                                 <div class="col mb-3">
                                     <label for="emailBackdrop" class="form-label">No Handphone</label>
-                                    <input type="number" id="no_hp" name="no_hp" class="form-control"
+                                    <input type="text" id="no_hp" name="no_hp" class="form-control"
                                         placeholder="08********" value="{{ old('no_hp') }}" />
                                 </div>
                                 <div class="col mb-3">

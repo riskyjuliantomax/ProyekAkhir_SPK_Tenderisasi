@@ -25,8 +25,7 @@
             <div class="float-end me-4">
                 <form action="User" method="GET">
                     <div class="input-group input-group-merge">
-
-                        <input type="text" class="form-control" placeholder="Cari Nama User / Email / NIP"
+                        <input type="text" class="form-control" placeholder="Cari Nama User / Email "
                             aria-label="Cari Nama User" aria-describedby="basic-addon-search31" name="search"
                             id="search" style='width:260px' value="{{ old('search') }}">
                         <button type="Submit" class="btn btn-primary"><i class='bx bx-search-alt-2'></i>
@@ -50,7 +49,6 @@
                             <th style="width:7%">No</th>
                             <th>@sortablelink('nama', 'Nama')</th>
                             <th>@sortablelink('email', 'Email')</th>
-                            <th>@sortablelink('nip', 'Nip')</th>
                             <th>@sortablelink('role', 'Role')</th>
                             <th>@sortablelink('last_login', 'Terakhir Login')</th>
                             <th>@sortablelink('last_logout', 'Terakhir Logout')</th>
@@ -63,7 +61,6 @@
                                 <td> {{ $user->firstItem() + $index }} </td>
                                 <td>{{ ucFirst($data->nama) }}</td>
                                 <td>{{ $data->email }}</td>
-                                <td>{{ ucFirst($data->nip) }}</td>
                                 <td>{{ ucFirst($data->role) }}</td>
                                 <td>
                                     @if ($data->last_login != null)

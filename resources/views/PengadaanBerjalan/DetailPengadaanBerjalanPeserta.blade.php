@@ -67,7 +67,7 @@
                 <div class="col-md-6">
                     <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Alamat
                         Perusahaan</label>
-                    <textarea class="form-control" rows="4" style="resize: none;">{{ $pesertaPengadaan->alamat_perusahaan }}</textarea>
+                    <textarea class="form-control" rows="4" style="resize: none; background: white" readonly>{{ $pesertaPengadaan->alamat_perusahaan }}</textarea>
                 </div>
             </div>
             <hr />

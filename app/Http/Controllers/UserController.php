@@ -40,12 +40,10 @@ class UserController extends Controller
             'nama' => 'required',
             'email' => 'required',
             'password' => 'required|min:5',
-            'nip' => 'required'
         ], [
             'nama.required' => 'Form Nama Harus Diisi',
             'email.required' => 'Form Email Harus Diisi',
             'password.required' => 'Form Password Harus Diisi',
-            'nip.required' => 'Form Nip Harus Diisi',
             'password.min' => 'Password Minimal 5 Huruf'
         ]);
 
@@ -126,11 +124,9 @@ class UserController extends Controller
         request()->validate([
             'nama' => 'required',
             'email' => 'required',
-            'nip' => 'required'
         ], [
             'nama.required' => 'Form Nama Harus Diisi',
             'email.required' => 'Form Email Harus Diisi',
-            'nip.required' => 'Form Nip Harus Diisi',
         ]);
 
         try {

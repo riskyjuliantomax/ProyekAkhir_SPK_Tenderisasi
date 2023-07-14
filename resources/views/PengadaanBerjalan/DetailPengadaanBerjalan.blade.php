@@ -88,7 +88,15 @@
                                         <tr>
                                             <td>{{ 1 + $index }}</td>
                                             <td>{{ $data->nama_perusahaan }}</td>
-                                            <td>{{ number_format($data->selisihHarga) }}</td>
+                                            @if ($data->harga_penawaran <= $data->harga_infoTender)
+                                                <td class="text-success">
+                                                    {{ number_format($data->selisihHarga) }}
+                                                </td>
+                                            @elseif ($data->harga_penawaran > $data->harga_infoTender)
+                                                <td class="text-danger">
+                                                    + {{ number_format($data->selisihHarga) }}
+                                                </td>
+                                            @endif
                                             <td>Rp. {{ number_format($data->harga_penawaran) }}</td>
                                             <td>{{ $data->email_perusahaan }}</td>
                                             <td>{{ $data->telp_perusahaan }}</td>

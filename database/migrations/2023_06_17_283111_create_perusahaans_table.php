@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pendaftaran_users');
             $table->foreign('id_pendaftaran_users')->references('id_pendaftaran_users')->on('pendaftaran_users')->onDelete('cascade');
             $table->string('nama_perusahaan', 50);
-            $table->string('alamat_perusahaan', 50);
+            $table->longText('alamat_perusahaan');
             $table->string('npwp_perusahaan', 30);
             $table->bigInteger('harga_penawaran');
             $table->string('dokumen_legalitas')->nullable();

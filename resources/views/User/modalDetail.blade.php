@@ -13,6 +13,9 @@
                         @if ($data->img_profile != '' || $data->img_profile != null)
                             <img src="{{ asset('storage/photoProfileUser/' . $data->img_profile) }}" width="120"
                                 height="120" class=" rounded-circle p-2 b float-end">
+                        @else
+                            <img src="{{ asset('assets/img/default_user.jpg') }}" width="120" height="120"
+                                class=" rounded-circle p-2 b float-end">
                         @endif
                     </div>
                 </div>
@@ -97,6 +100,52 @@
                             </div>
                         </div>
                     </div>
+                    @if ($data->role == 'user')
+                        <hr />
+                        <h5 class="modal-title mb-3" id="modalTitle">Detail Perusahaan</h5>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Nama
+                                    Perusahaan
+                                </label>
+                                <div>
+                                    <label>{{ ucFirst($data->userPerusahaan->nama_perusahaan) }}</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Npwp
+                                    Perusahaan</label>
+                                <div>
+                                    <label>{{ $data->userPerusahaan->npwp_perusahaan }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Telp
+                                    Perusahaan
+                                </label>
+                                <div>
+                                    <label>{{ $data->userPerusahaan->telp_perusahaan }}</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Email
+                                    Perusahaan</label>
+                                <div>
+                                    <label>{{ $data->userPerusahaan->email_perusahaan }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Alamat
+                                    Perusahaan</label>
+                                <textarea class="form-control bg-white" rows="3" disabled>{{ $data->userPerusahaan->alamat_perusahaan }} </textarea>
+                            </div>
+                        </div>
+                    @endif
+
                     <hr />
                     <h5 class="modal-title mb-3" id="modalTitle">Detail Alamat User</h5>
                     </label>
@@ -141,7 +190,8 @@
                             </div>
                         </div>
                         <div class="col">
-                            <label for="html5-text-input" class=" col-form-label text-light fw-semibold">kodepos</label>
+                            <label for="html5-text-input"
+                                class=" col-form-label text-light fw-semibold">kodepos</label>
                             <div>
                                 <label>{{ $data->userAlamat->kodepos }}</label>
                             </div>
@@ -149,7 +199,8 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col">
-                            <label for="html5-text-input" class=" col-form-label text-light fw-semibold">Alamat</label>
+                            <label for="html5-text-input"
+                                class=" col-form-label text-light fw-semibold">Alamat</label>
                             <textarea class="form-control bg-white" rows="3" disabled>{{ $data->userAlamat->alamat }} </textarea>
                         </div>
                     </div>

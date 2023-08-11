@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Alert;
 use App\Models\RiwayatAktivitas;
 use App\Models\UserAlamat;
+use App\Models\UserPerusahaan;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -40,13 +41,25 @@ class UserController extends Controller
             'nama' => 'required',
             'email' => 'required',
             'password' => 'required|min:5',
+            'nip' => 'required'
         ], [
             'nama.required' => 'Form Nama Harus Diisi',
             'email.required' => 'Form Email Harus Diisi',
             'password.required' => 'Form Password Harus Diisi',
-            'password.min' => 'Password Minimal 5 Huruf'
+            'password.min' => 'Password Minimal 5 Huruf',
+            'nip.required' => 'Form NIP Harus Diisi'
         ]);
-
+        if ($request->role == 0) {
+            request()->validate([
+                'nama_perusahaan' => 'required',
+                'npwp_perusahaan' => 'required',
+                'email_perusahaan' => 'required',
+            ], [
+                'nama_perusahaan.required' => 'Form Nama Perusahaan Harus Diisi',
+                'npwp_perusahaan.required' => 'Form NPWP Perusahaan Harus Diisi',
+                'email_perusahaan.required' => 'Form Email Perusahaan Harus Diisi',
+            ]);
+        }
         try {
             DB::transaction(function () use ($request) {
                 $now =  \Carbon\Carbon::now()->toDateTimeString();
@@ -100,6 +113,17 @@ class UserController extends Controller
                         'alamat' => $request->alamat
                     ]);
                 }
+
+                if ($request->role == 0) {
+                    UserPerusahaan::create([
+                        'id_users' => $userId,
+                        'nama_perusahaan' => $request->nama_perusahaan,
+                        'npwp_perusahaan' => $request->npwp_perusahaan,
+                        'telp_perusahaan' => $request->telp_perusahaan,
+                        'email_perusahaan' => $request->email_perusahaan,
+                        'alamat_perusahaan' => $request->alamat_perusahaan
+                    ]);
+                }
             });
 
             RiwayatAktivitas::create([
@@ -128,7 +152,17 @@ class UserController extends Controller
             'nama.required' => 'Form Nama Harus Diisi',
             'email.required' => 'Form Email Harus Diisi',
         ]);
-
+        if ($request->role == 0) {
+            request()->validate([
+                'nama_perusahaan' => 'required',
+                'npwp_perusahaan' => 'required',
+                'email_perusahaan' => 'required',
+            ], [
+                'nama_perusahaan.required' => 'Form Nama Perusahaan Harus Diisi',
+                'npwp_perusahaan.required' => 'Form NPWP Perusahaan Harus Diisi',
+                'email_perusahaan.required' => 'Form Email Perusahaan Harus Diisi',
+            ]);
+        }
         try {
             $timeupdate = \Carbon\Carbon::now()->toDateTimeString();
             //Cari user berdasarkan Id
@@ -166,6 +200,16 @@ class UserController extends Controller
                 'kodepos' => $request->kodepos,
                 'alamat' => $request->alamat
             ]);
+            if ($request->role == 0) {
+                $userPerusahaan = UserPerusahaan::find($request->id_userPerusahaan);
+                $userPerusahaan->Update([
+                    'nama_perusahaan' => $request->nama_perusahaan,
+                    'npwp_perusahaan' => $request->npwp_perusahaan,
+                    'telp_perusahaan' => $request->telp_perusahaan,
+                    'email_perusahaan' => $request->email_perusahaan,
+                    'alamat_perusahaan' => $request->alamat_perusahaan
+                ]);
+            }
             RiwayatAktivitas::create([
                 'id_users' => auth()->user()->id_users,
                 'deskripsi' =>  ' Update User ',

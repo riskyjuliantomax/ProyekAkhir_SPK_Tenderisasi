@@ -69,6 +69,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserAlamat::class, 'id_users', 'id_users');
     }
+    public function userPerusahaan()
+    {
+        return $this->belongsTo(UserPerusahaan::class, 'id_users', 'id_users');
+    }
 
     protected function role(): Attribute
     {

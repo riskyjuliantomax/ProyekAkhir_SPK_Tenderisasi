@@ -132,6 +132,7 @@ class PenilaianController extends Controller
                 }
             }
         }
+
         //Normalisasi
         foreach ($penilaian as $key_1 => $value_1) {
             foreach ($kriteria as $key => $value) {
@@ -157,8 +158,8 @@ class PenilaianController extends Controller
         }
         $ranking = $normalisasi;
         arsort($ranking);
-        // return response()->json($ranking);
-        //Return view dengan passing data
+
+        // Return view dengan passing data
         return view('Penilaian.hasil_perhitungan', compact('kriteria', 'alternatif', 'normalisasi', 'ranking'))->with([
             'title' => 'Perhitungan'
         ]);

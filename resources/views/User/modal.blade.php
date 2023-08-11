@@ -15,12 +15,17 @@
                         <li class="nav-item">
                             <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
                                 data-bs-target="#navs-pills-user" aria-controls="navs-pills-user"
-                                aria-selected="true">User</button>
+                                aria-selected="true">User <span class="text-red-500">*</span></button>
                         </li>
                         <li class="nav-item">
                             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
                                 data-bs-target="#navs-pills-alamat" aria-controls="navs-pills-alamat"
-                                aria-selected="false">Alamat</button>
+                                aria-selected="false">Alamat <span class="text-red-500">*</span></button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                data-bs-target="#navs-pills-perusahaan" aria-controls="navs-pills-perusahaan"
+                                aria-selected="false">Perusahaan</button>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -54,26 +59,12 @@
                             <div class="row">
                                 <div class="col mb-3">
                                     <label for="emailBackdrop" class="form-label">Tanggal Lahir
-                                        {{-- <span class="badge badge-center rounded-pill bg-primary ms-1"
-                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                            data-bs-html="true" title=""
-                                            data-bs-original-title="<span>Perusahaan diisi tanggal berdirinya</span>"><i
-                                                class='bx bx-question-mark'>
-                                            </i>
-                                        </span> --}}
                                     </label>
                                     <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control"
                                         value="{{ old('tanggal_lahir') }}" />
                                 </div>
                                 <div class="col mb-33">
                                     <label for="emailBackdrop" class="form-label">Tempat Lahir
-                                        {{-- <span class="badge badge-center rounded-pill bg-primary ms-1"
-                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                            data-bs-html="true" title=""
-                                            data-bs-original-title="<span>Perusahaan diisi tempat berdirinya</span>"><i
-                                                class='bx bx-question-mark'>
-                                            </i>
-                                        </span> --}}
                                     </label>
                                     <input type="text" id="tempat_lahir" name="tempat_lahir" class="form-control"
                                         placeholder="Sesuai KTP" value="{{ old('tempat_lahir') }}" />
@@ -87,13 +78,6 @@
                                 </div>
                                 <div class="col mb-3">
                                     <label for="dobBackdrop" class="form-label">Kelamin
-                                        {{-- <span class="badge badge-center rounded-pill bg-primary ms-1"
-                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                            data-bs-html="true" title=""
-                                            data-bs-original-title="<span>Kosongi Jika Perusahaan</span>"><i
-                                                class='bx bx-question-mark'>
-                                            </i>
-                                        </span> --}}
                                     </label>
                                     <select id="kelamin" name="kelamin" class="form-select">
                                         <option value="" {{ old('kelamin') == '' ? 'selected' : '' }}>
@@ -131,7 +115,7 @@
 
                         </div>
                         <div class="tab-pane fade" id="navs-pills-alamat" role="tabpanel">
-                            <p> Alamat Perusahaan atau Personal
+                            <p> Alamat Personal </p>
                             <div class="row">
                                 <div class="col mb-3">
                                     <label for="nameBackdrop" class="form-label">Provinsi </label>
@@ -172,10 +156,43 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="navs-pills-perusahaan" role="tabpanel">
+                            <p>Form Ini Diisi Apabila Role Sebagai User Sebagai Vendor</p>
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="nameBackdrop" class="form-label">Nama Perusahaan </label>
+                                    <input type="text" id="nama_perusahaan" name="nama_perusahaan"
+                                        class="form-control" value="{{ old('nama_perusahaan') }}" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="nameBackdrop" class="form-label">NPWP Perusahaan</label>
+                                    <input type="text" id="npwp_perusahaan" name="npwp_perusahaan"
+                                        class="form-control" value="{{ old('npwp_perusahaan') }}" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="nameBackdrop" class="form-label">Nomor Telepon Perusahaan </label>
+                                    <input type="number" id="telp_perusahaan" name="telp_perusahaan"
+                                        class="form-control" value="{{ old('telp_perusahaan') }}" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="nameBackdrop" class="form-label">Email Perusahaan </label>
+                                    <input type="email" id="email_perusahaan" name="email_perusahaan"
+                                        class="form-control" value="{{ old('email_perusahaan') }}" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="nameBackdrop" class="form-label">Alamat Perusahaan</label>
+                                    <textarea class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" rows="3">{{ old('alamat_perusahaan') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
 
             </div>
             <div class="modal-footer">
@@ -219,6 +236,14 @@
                                     data-bs-target="#navs-pills-edit-alamat{{ $data->id_users }}"
                                     aria-controls="navs-pills-alamat" aria-selected="false">Alamat</button>
                             </li>
+                            @if ($data->role === 'user')
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-pills-edit-perusahaan{{ $data->id_users }}"
+                                        aria-controls="navs-pills-perusahaan"
+                                        aria-selected="false">Perusahaan</button>
+                                </li>
+                            @endif
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade active show" id="navs-pills-edit-user{{ $data->id_users }}"
@@ -375,10 +400,53 @@
                                     </div>
                                 </div>
                             </div>
+                            @if ($data->role === 'user')
+                                <div class="tab-pane fade" id="navs-pills-edit-perusahaan{{ $data->id_users }}"
+                                    role="tabpanel">
+                                    <p>Form Ini Diisi Apabila Role Sebagai User Sebagai Vendor</p>
+                                    <input type="hidden" name="id_userPerusahaan"
+                                        value="{{ $data->userPerusahaan->id_users_perusahaan }}" />
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="nameBackdrop" class="form-label">Nama Perusahaan </label>
+                                            <input type="text" id="nama_perusahaan" name="nama_perusahaan"
+                                                class="form-control"
+                                                value="{{ $data->userPerusahaan->nama_perusahaan }}" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="nameBackdrop" class="form-label">NPWP Perusahaan</label>
+                                            <input type="text" id="npwp_perusahaan" name="npwp_perusahaan"
+                                                class="form-control"
+                                                value="{{ $data->userPerusahaan->npwp_perusahaan }}" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 mb-3">
+                                            <label for="nameBackdrop" class="form-label">Nomor Telepon Perusahaan
+                                            </label>
+                                            <input type="number" id="telp_perusahaan" name="telp_perusahaan"
+                                                class="form-control"
+                                                value="{{ $data->userPerusahaan->telp_perusahaan }}" />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 mb-3">
+                                            <label for="nameBackdrop" class="form-label">Email Perusahaan </label>
+                                            <input type="email" id="email_perusahaan" name="email_perusahaan"
+                                                class="form-control"
+                                                value="{{ $data->userPerusahaan->email_perusahaan }}" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="nameBackdrop" class="form-label">Alamat Perusahaan</label>
+                                            <textarea class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" rows="3">{{ $data->userPerusahaan->alamat_perusahaan }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
-
-
 
                 </div>
                 <div class="modal-footer">

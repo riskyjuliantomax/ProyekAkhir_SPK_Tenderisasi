@@ -17,7 +17,11 @@
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item {{ request()->Is('Dashboard') ? 'active' : '' }}">
+        <li
+            class="menu-item
+        {{ request()->Is('Dashboard') ? 'active' : '' }}
+        {{ request()->Is('/') ? 'active' : '' }}
+        ">
             <a href="{{ url('Dashboard') }}" class="menu-link">
                 <i class='menu-icon bx bx-doughnut-chart'></i>
                 <div data-i18n="Analytics">Dashboard</div>

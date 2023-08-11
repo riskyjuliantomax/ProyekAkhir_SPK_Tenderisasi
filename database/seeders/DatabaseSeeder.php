@@ -99,52 +99,10 @@ class DatabaseSeeder extends Seeder
             'id_users' => $userId,
         ]);
 
-        $kriteriaId = Kriteria::insertGetId([
-            'nama_kriteria' => 'Administrasi',
-            'bobot' => 0.30,
-            'attribut' => 'benefit',
-            'created_at' => $now,
-            'updated_at' => $now
-        ]);
-
-        $dataCrips = [
-            [
-                'id_kriteria' => $kriteriaId,
-                'nama_crips' => 'Sangat Bagus',
-                'nilai' => 5,
-                'created_at' => $now,
-                'updated_at' => $now
-            ], [
-                'id_kriteria' => $kriteriaId,
-                'nama_crips' => 'Bagus',
-                'nilai' => 4,
-                'created_at' => $now,
-                'updated_at' => $now
-            ], [
-                'id_kriteria' => $kriteriaId,
-                'nama_crips' => 'Kurang',
-                'nilai' => 3,
-                'created_at' => $now,
-                'updated_at' => $now
-            ], [
-                'id_kriteria' => $kriteriaId,
-                'nama_crips' => 'Sangat Kurang',
-                'nilai' => 2,
-                'created_at' => $now,
-                'updated_at' => $now
-            ], [
-                'id_kriteria' => $kriteriaId,
-                'nama_crips' => 'Tidak Ada',
-                'nilai' => 1,
-                'created_at' => $now,
-                'updated_at' => $now
-            ]
-        ];
-        Crips::insert($dataCrips);
 
         $kriteriaId = Kriteria::insertGetId([
             'nama_kriteria' => 'Teknis',
-            'bobot' => 0.45,
+            'bobot' => 0.6,
             'attribut' => 'benefit',
             'created_at' => $now,
             'updated_at' => $now
@@ -186,7 +144,7 @@ class DatabaseSeeder extends Seeder
 
         $kriteriaId = Kriteria::insertGetId([
             'nama_kriteria' => 'Harga',
-            'bobot' => 0.25,
+            'bobot' => 0.4,
             'attribut' => 'benefit',
             'created_at' => $now,
             'updated_at' => $now

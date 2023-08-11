@@ -15,7 +15,7 @@ class PendaftaranUser extends Model
     use Sortable;
     public $sortable = [
         'id_users', 'id_infoTender', 'nama_perusahaan', 'alamat_perusahaan', 'tahun_berdiri', 'nama_kontak', 'harga_penawaran',
-        'telp_perusahaan', 'email_perusahaan'
+        'telp_perusahaan', 'email_perusahaan', 'approve'
     ];
 
     public function user()

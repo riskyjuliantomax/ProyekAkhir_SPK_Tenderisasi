@@ -40,7 +40,6 @@ Route::get('DetailPengadaan/{id_infoPengadaan}', [DetailPengadaanController::cla
 Route::get('DetailPengadaan/LihatHasil/{id_infoPengadaan}', [DetailPengadaanController::class, 'lihatHasil']);
 
 Route::middleware(['auth', 'user_role:user'])->group(function () {
-
     //Pendaftaran Peserta
     Route::get('PendaftaranPeserta/{id_infoPengadaan}', [PendaftaranPesertaController::class, 'show']);
     Route::post('PendaftaranPeserta/{id_infoPengadaan}', [PendaftaranPesertaController::class, 'store']);
@@ -96,7 +95,6 @@ Route::middleware(['auth', 'user_role:admin'])->group(function () {
     Route::put('User/{id_user}', [UserController::class, 'update'])->name('User.update');
 });
 Route::get('/405', [DashboardController::class, 'Error405'])->name('Dashboard.Error405');
-
 //Proteksi profile menggunakan Middleware Auth
 Route::group(['middleware' =>  'auth',], function () {
     Route::get('Profile', [UserController::class, 'profile'])->name('User.profile');

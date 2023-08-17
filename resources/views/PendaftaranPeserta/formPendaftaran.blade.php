@@ -47,6 +47,16 @@
                                             .PDF</small></label>
                                     <input type="file" class="form-control" name="dokumen_legalitas"
                                         id="dokumen_legalitas" accept="application/pdf" />
+                                    <label for="dokumen_legalitas" class="form-label">
+                                        Lampiran Terdiri Dari :
+                                        <ul>
+                                            <li>Surat Kuasa</li>
+                                            <li>Surat Pengantar</li>
+                                            <li>Surat Pernyataan Minat</li>
+                                            <li>Surat Pernyataan </li>
+                                            <li>Isian Formulir Administrasi</li>
+                                        </ul>
+                                    </label>
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="dokumen_penawaran" class="form-label">Dokumen Penawaran <small
@@ -54,6 +64,8 @@
                                             .PDF</small></label>
                                     <input type="file" class="form-control" name="dokumen_penawaran"
                                         id="dokumen_penawaran" accept="application/pdf" />
+                                    <a href="{{ url('Download/lampiranPenawaran') }}">Download Template</a>
+
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="dokumen_akta" class="form-label">Dokumen Akta Perusahaan <small
@@ -61,6 +73,13 @@
                                             .PDF</small></label>
                                     <input type="file" class="form-control" name="dokumen_akta" id="dokumen_akta"
                                         accept="application/pdf" />
+                                    <label for="dokumen_legalitas" class="form-label">
+                                        Lampiran Terdiri Dari :
+                                        <ul>
+                                            <li>Surat Pakta Integritas</li>
+                                            <li>Surat Organisasi Proyek Personil Dan Program Kerja</li>
+                                        </ul>
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3 mt-3">

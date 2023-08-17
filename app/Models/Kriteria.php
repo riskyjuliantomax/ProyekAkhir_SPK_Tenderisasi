@@ -13,10 +13,11 @@ class Kriteria extends Model
     protected $table = "kriteria";
     protected $primaryKey = "id_kriteria";
     protected $fillable = [
-        'id_kriteria', 'nama_kriteria', 'bobot', 'attribut'
+        'id_kriteria', 'nama_kriteria', 'bobot', 'attribut', 'lock_kriteria'
     ];
     use Sortable;
     public $sortable = ['id_kriteria', 'nama_kriteria', 'bobot', 'attribut'];
+
     public function Crips()
     {
         return $this->hasMany(Crips::class, 'id_kriteria', 'id_kriteria');

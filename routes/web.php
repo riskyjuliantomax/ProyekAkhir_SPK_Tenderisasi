@@ -71,6 +71,7 @@ Route::middleware(['auth', 'user_role:pokja'])->group(function () {
     Route::post('Kriteria', [KriteriaController::class, 'store'])->name('Kriteria.store');
     Route::get('Kriteria/edit/{id_kriteria}', [KriteriaController::class, 'edit'])->name('Kriteria.edit');
     Route::put('Kriteria/update/{id_kriteria}', [KriteriaController::class, 'update'])->name('Kriteria.update');
+    Route::get('Kriteria/lock', [KriteriaController::class, 'lock'])->name('kriteria.lock');
     Route::delete('Kriteria/delete/{id_kriteria}', [KriteriaController::class, 'delete']);
     //Crips
     Route::get('Kriteria/Crips/{id_kriteria}', [KriteriaController::class, 'show'])->name('Crips.show');
@@ -101,4 +102,5 @@ Route::group(['middleware' =>  'auth',], function () {
     Route::post('/Profile/Update', [UserController::class, 'profile_update'])->name('Profile.update');
     // View PDF
     Route::get('ViewPDF/{hashNamePDF}', [PageController::class, 'viewDokumenPerusahaan']);
+    Route::get('Download/{filename}', [PageController::class, 'download']);
 });

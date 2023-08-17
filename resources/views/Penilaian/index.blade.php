@@ -73,16 +73,19 @@
                                                     <option value="{{ $v_1->id_crips }}">{{ $v_1->nama_crips }}
                                                     </option>
                                                 @endforeach
-
                                             </select>
                                         </td>
                                     @endforeach
                                 @endif
                             </tr>
                         @empty
-                            <tr>
-                                <td>Tidak ada Data</td>
-                            </tr>
+                            <div class="ps-3">
+                                Tidak Ada Ikuti Peserta Silakan <a
+                                    href="{{ url('PengadaanBerjalan/Detail/' . $id_infoTender->id_infoTender) }}"
+                                    class="btn btn-primary"> Kembali
+                                    Ke Pengadaan Barang
+                                </a>
+                            </div>
                         @endforelse
                 </form>
             </table>

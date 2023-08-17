@@ -23,42 +23,54 @@ class PenilaianController extends Controller
      */
     public function indexListPengadaan(Request $request)
     {
-        if ($request->filled('search')) {
-            $pengadaan =  InfoTender::where('nama_infoTender', 'like', "%" . $request->search . "%")
-                ->orderBy('status', 'asc')->paginate(10);
-            $title = 'Mencari Penilaian';
-        } else {
-            $pengadaan = InfoTender::sortable()->with('pesertaAcc')
-                ->orderBy('status', 'asc')->orderBy('id_infoTender', 'desc')
-                ->paginate(10);
-            $title = 'Penilaian';
+        $lockKriteria = Kriteria::select('lock_kriteria')->groupBy('lock_kriteria')->first();
+        if ($lockKriteria->lock_kriteria == 1) {
+            if ($request->filled('search')) {
+                $pengadaan =  InfoTender::where('nama_infoTender', 'like', "%" . $request->search . "%")
+                    ->orderBy('status', 'asc')->paginate(10);
+                $title = 'Mencari Penilaian';
+            } else {
+                $pengadaan = InfoTender::sortable()->with('pesertaAcc')
+                    ->orderBy('status', 'asc')->orderBy('id_infoTender', 'desc')
+                    ->paginate(10);
+                $title = 'Penilaian';
+            }
+            // return response()->json($pengadaan);
+            return view(
+                'Penilaian.listPengadaan',
+                // Return Value
+                compact('pengadaan')
+            )->with([
+                'title' => $title,
+            ]);
         }
-
-
-        // return response()->json($pengadaan);
-        return view(
-            'Penilaian.listPengadaan',
-            // Return Value
-            compact('pengadaan')
-        )->with([
-            'title' => $title,
-        ]);
+        if ($lockKriteria->lock_kriteria == 0) {
+            Alert::info('Info', 'Tidak Bisa Melakukan Penilaian Karena Kriteria Belum Dikunci');
+            return redirect()->route('Kriteria.index');
+        }
     }
     public function index($id_infoTender)
     {
-        // Query Database
-        $perusahaan = Perusahaan::with('penilaian.crips')->where('id_infoTender', $id_infoTender)->get();
-        $id_infoTender = InfoTender::select('id_infoTender', 'status')->where('id_infoTender', $id_infoTender)->first();
-        $kriteria = Kriteria::with('Crips')->orderBy('nama_kriteria', 'asc')->get();
-        // return response()->json($perusahaan);
-        // Return View
-        return view(
-            'Penilaian.index',
-            // Return Value
-            compact('perusahaan', 'kriteria', 'id_infoTender')
-        )->with([
-            'title' => 'Penilaian',
-        ]);
+        $lockKriteria = Kriteria::select('lock_kriteria')->groupBy('lock_kriteria')->first();
+        if ($lockKriteria->lock_kriteria == 1) {
+            // Query Database
+            $perusahaan = Perusahaan::with('penilaian.crips')->where('id_infoTender', $id_infoTender)->get();
+            $id_infoTender = InfoTender::select('id_infoTender', 'status')->where('id_infoTender', $id_infoTender)->first();
+            $kriteria = Kriteria::with('Crips')->orderBy('nama_kriteria', 'asc')->get();
+            // return response()->json($perusahaan);
+            // Return View
+            return view(
+                'Penilaian.index',
+                // Return Value
+                compact('perusahaan', 'kriteria', 'id_infoTender')
+            )->with([
+                'title' => 'Penilaian',
+            ]);
+        }
+        if ($lockKriteria->lock_kriteria == 0) {
+            Alert::info('Info', 'Tidak Bisa Melakukan Penilaian Karena Kriteria Belum Dikunci');
+            return redirect()->route('Kriteria.index');
+        }
     }
 
     /**

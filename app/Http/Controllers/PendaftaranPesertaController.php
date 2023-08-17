@@ -67,53 +67,53 @@ class PendaftaranPesertaController extends Controller
             'dokumen_akta.required' => 'Dokumen Akta Perusahaan Harus Di Upload'
         ]);
         try {
-            // $dokumen_penawaran = $request->file('dokumen_penawaran');
-            // $dokumen_legalitas = $request->file('dokumen_legalitas');
-            // $dokumen_akta = $request->file('dokumen_akta');
+            $dokumen_penawaran = $request->file('dokumen_penawaran');
+            $dokumen_legalitas = $request->file('dokumen_legalitas');
+            $dokumen_akta = $request->file('dokumen_akta');
             $pendaftaran = new PendaftaranUser();
 
-            // RiwayatAktivitas::create([
-            //     'id_users' => auth()->user()->id_users,
-            //     'deskripsi' => 'Upload Dokumen',
-            //     'deskripsi2' => ' Telah Melakukan Tambah Dokumen',
-            //     'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
-            //     'role' => auth()->user()->role,
-            // ]);
+            RiwayatAktivitas::create([
+                'id_users' => auth()->user()->id_users,
+                'deskripsi' => 'Upload Dokumen',
+                'deskripsi2' => ' Telah Melakukan Tambah Dokumen',
+                'waktu' => \Carbon\Carbon::now()->toDateTimeString(),
+                'role' => auth()->user()->role,
+            ]);
 
             $pendaftaran->id_infoTender = $id_infoPengadaan;
             $pendaftaran->id_users = Auth()->user()->id_users;
             // Get Data Perusahaan User
             $userPerusahaan = UserPerusahaan::where('id_users', Auth()->user()->id_users)->first();
-            // $pendaftaran->nama_perusahaan = $request->nama_perusahaan;
-            // $pendaftaran->npwp_perusahaan = $request->npwp_perusahaan;
-            // $pendaftaran->alamat_perusahaan = $request->alamat_perusahaan;
-            // $pendaftaran->telp_perusahaan = $request->telp_perusahaan;
-            // $pendaftaran->email_perusahaan = $request->email_perusahaan;
+            $pendaftaran->nama_perusahaan = $userPerusahaan->nama_perusahaan;
+            $pendaftaran->npwp_perusahaan = $userPerusahaan->npwp_perusahaan;
+            $pendaftaran->alamat_perusahaan = $userPerusahaan->alamat_perusahaan;
+            $pendaftaran->telp_perusahaan = $userPerusahaan->telp_perusahaan;
+            $pendaftaran->email_perusahaan = $userPerusahaan->email_perusahaan;
             // End Get Data Perusahaan User
 
-            // $pendaftaran->harga_penawaran = $request->harga_penawaran;
+            $pendaftaran->harga_penawaran = $request->harga_penawaran;
 
             // Check Kelengkapan Dokumentasi
-            // if ($dokumen_penawaran != '' && $dokumen_legalitas != '' && $dokumen_akta != '') {
-            //     //upload Dokumen Penawaran
-            //     $dokumen_penawaran->storeAs('public/dokumenPeserta/', $dokumen_penawaran->hashName());
-            //     $pendaftaran->dokumen_penawaran = $dokumen_penawaran->hashName();
-            //     //upload Dokumen Akta
-            //     $dokumen_legalitas->storeAs('public/dokumenPeserta/', $dokumen_legalitas->hashName());
-            //     $pendaftaran->dokumen_legalitas = $dokumen_legalitas->hashName();
-            //     //upload Dokumen Legalitas
-            //     $dokumen_akta->storeAs('public/dokumenPeserta/', $dokumen_akta->hashName());
-            //     $pendaftaran->dokumen_akta = $dokumen_akta->hashName();
-            // }
-            // $pendaftaran->save();
+            if ($dokumen_penawaran != '' && $dokumen_legalitas != '' && $dokumen_akta != '') {
+                //upload Dokumen Penawaran
+                $dokumen_penawaran->storeAs('public/dokumenPeserta/', $dokumen_penawaran->hashName());
+                $pendaftaran->dokumen_penawaran = $dokumen_penawaran->hashName();
+                //upload Dokumen Akta
+                $dokumen_legalitas->storeAs('public/dokumenPeserta/', $dokumen_legalitas->hashName());
+                $pendaftaran->dokumen_legalitas = $dokumen_legalitas->hashName();
+                //upload Dokumen Legalitas
+                $dokumen_akta->storeAs('public/dokumenPeserta/', $dokumen_akta->hashName());
+                $pendaftaran->dokumen_akta = $dokumen_akta->hashName();
+            }
+            $pendaftaran->save();
 
-            // if ($pendaftaran) {
-            //     Alert::success('Berhasil', 'Data  Berhasil Disimpan');
-            //     return Redirect('ListPengadaan');
-            // } else {
-            //     Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
-            //     return Redirect('ListPengadaan');
-            // }
+            if ($pendaftaran) {
+                Alert::success('Berhasil', 'Data  Berhasil Disimpan');
+                return Redirect('ListPengadaan');
+            } else {
+                Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');
+                return Redirect('ListPengadaan');
+            }
         } catch (Exception $e) {
             error_log($e);
             Alert::error('Gagal', 'Data Tidak Berhasil Disimpan');

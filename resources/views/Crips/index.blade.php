@@ -26,26 +26,43 @@
                     <input type="hidden" value="{{ $data['kriteria']->id_kriteria }}" name="id_kriteria" />
                     <div class="modal-body">
                         <div class="row">
+                            @if ($data['lock_kriteria']->lock_kriteria == 1)
+                                <div class="text-danger"> Kriteria Sedang Di Kunci, Tidak Bisa Ubah Crips. </div>
+                            @endif
                             <div class="col mb-3">
                                 <label for="nameBackdrop" class="form-label">Nama Crips</label>
-                                <input type="text" id="nama_crips" name="nama_crips" class="form-control"
-                                    value="{{ old('nama_crips') }}" />
+                                @if ($data['lock_kriteria']->lock_kriteria == 0)
+                                    <input type="text" id="nama_crips" name="nama_crips" class="form-control"
+                                        value="{{ old('nama_crips') }}" />
+                                @elseif ($data['lock_kriteria']->lock_kriteria == 1)
+                                    <input type="text" id="nama_crips" name="nama_crips" class="form-control"
+                                        value="{{ old('nama_crips') }}" disabled />
+                                @endif
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-0">
                                 <label for="emailBackdrop" class="form-label">Nilai</label>
-                                <input type="number" id="nilai" name="nilai" class="form-control"
-                                    placeholder="Masuki Berupa Angka" value="{{ old('nilai') }}" />
+                                @if ($data['lock_kriteria']->lock_kriteria == 0)
+                                    <input type="number" id="nilai" name="nilai" class="form-control"
+                                        placeholder="Masuki Berupa Angka" value="{{ old('nilai') }}" />
+                                @elseif ($data['lock_kriteria']->lock_kriteria == 1)
+                                    <input type="number" id="nilai" name="nilai" class="form-control"
+                                        placeholder="Masuki Berupa Angka" value="{{ old('nilai') }}" disabled />
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        @if ($data['lock_kriteria']->lock_kriteria == 0)
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        @endif
                     </div>
                     <div class="mx-4">
                         <h5>Petunjuk Crips</h5>
                         <ul class="list-unstyled" style="text-align: justify;">
+                            <li><b class="text-danger">Dipastikan Crips Harus Ada 5 Dan Semua Penamaan Harus Tepat
+                                    Dahulu!!</b></li>
                             <li>Crips adalah nilai dari suatu attribut kriteria, ada beberapa <b>aturan</b> untuk Crips
                                 Yaitu :</li>
                             <li>1. Penamaan Crips dibuat berdasarkan kebutuhan dari pokja</li>
@@ -95,22 +112,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data['crips'] as $index => $data)
+                        @foreach ($data['crips'] as $index => $datas)
                             <tr>
                                 <input type="hidden" id="id_crips" name="id_crips" class="id_crips"
-                                    value="{{ $data->id_crips }}" />
+                                    value="{{ $datas->id_crips }}" />
                                 <td> {{ 1 + $index }} </td>
-                                <td>{{ ucfirst($data->nama_crips) }}
+                                <td>{{ ucfirst($datas->nama_crips) }}
                                 </td>
-                                <td>{{ $data->nilai }}</td>
+                                <td>{{ $datas->nilai }}</td>
                                 <td style="width:20%">
-                                    <a href="{{ url('/Kriteria/Crips/edit/' . $data->id_crips) }}"
-                                        class="btn btn-icon btn-primary">
-                                        <span class="tf-icons bx bx-edit-alt"></span>
-                                    </a>
-                                    <button type="button" class="btn btn-icon btn-danger btn-delete">
-                                        <span class="tf-icons bx bx-trash-alt"></span>
-                                    </button>
+                                    @if ($data['lock_kriteria']->lock_kriteria == 0)
+                                        <a href="{{ url('/Kriteria/Crips/edit/' . $datas->id_crips) }}"
+                                            class="btn btn-icon btn-primary">
+                                            <span class="tf-icons bx bx-edit-alt"></span>
+                                        </a>
+                                        <button type="button" class="btn btn-icon btn-danger btn-delete">
+                                            <span class="tf-icons bx bx-trash-alt"></span>
+                                        </button>
+                                    @elseif ($data['lock_kriteria']->lock_kriteria == 1)
+                                        <a href="" class="btn btn-icon btn-gray">
+                                            <span class="tf-icons bx bx-edit-alt"></span>
+                                        </a>
+                                        <button type="button" class="btn btn-icon btn-gray">
+                                            <span class="tf-icons bx bx-trash-alt"></span>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

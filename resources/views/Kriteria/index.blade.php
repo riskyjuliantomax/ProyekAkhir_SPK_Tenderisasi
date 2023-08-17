@@ -22,18 +22,32 @@
                 <form action="{{ url('Kriteria') }}" method="post">
                     @csrf
                     <div class="modal-body">
+                        @if ($lockKriteria->lock_kriteria == 1)
+                            <div class="text-danger">Kriteria Sedang Di Kunci, Tidak Bisa Melakukan Tambah, Edit Dan
+                                Hapus</div>
+                        @endif
                         <div class="row">
                             <div class="col mb-3">
                                 <label for="nameBackdrop" class="form-label">Nama Kriteria</label>
-                                <input type="text" id="nama_kriteria" name="nama_kriteria" class="form-control"
-                                    value="{{ old('nama_kriteria') }}" />
+                                @if ($lockKriteria->lock_kriteria == 0)
+                                    <input type="text" id="nama_kriteria" name="nama_kriteria" class="form-control"
+                                        value="{{ old('nama_kriteria') }}" />
+                                @elseif($lockKriteria->lock_kriteria == 1)
+                                    <input type="text" id="nama_kriteria" name="nama_kriteria" class="form-control"
+                                        value="{{ old('nama_kriteria') }}" disabled />
+                                @endif
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-0">
                                 <label for="emailBackdrop" class="form-label">Bobot (%)</label>
-                                <input type="number" id="bobot" name="bobot" class="form-control" placeholder="1-100"
-                                    value="{{ old('bobot') }}" />
+                                @if ($lockKriteria->lock_kriteria == 0)
+                                    <input type="number" id="bobot" name="bobot" class="form-control"
+                                        placeholder="1-100" value="{{ old('bobot') }}" />
+                                @elseif($lockKriteria->lock_kriteria == 1)
+                                    <input type="number" id="bobot" name="bobot" class="form-control"
+                                        placeholder="1-100" value="{{ old('bobot') }}" disabled />
+                                @endif
                             </div>
                             {{-- <div class="col mb-0">
                         <label for="dobBackdrop" class="form-label">Attribut</label>
@@ -51,7 +65,9 @@
                         {{-- <button type="reset" class="btn btn-outline-danger">
                             Reset
                         </button> --}}
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        @if ($lockKriteria->lock_kriteria == 0)
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        @endif
                     </div>
                     <div class="ms-4 me-4">
                         <h5 class="fw-bold"> Petunjuk Kriteria </h5>
@@ -70,7 +86,7 @@
         <div class="card col-8">
             <!-- Button trigger modal -->
             <div class="ms-2 mt-3">
-                <div class="float-end me-3">
+                <div class="float-end ">
                     <form action="Kriteria" method="GET">
                         <div class="input-group input-group-merge">
                             <input type="text" class="form-control" placeholder="Cari Nama Kriteria"
@@ -82,7 +98,18 @@
                     </form>
                 </div>
             </div>
-            <h5 class="ms-3">{{ $title }}</h5>
+            <div class="row">
+                <h5 class="col-6">{{ $title }}</h5>
+                <div class="col-6">
+                    @if ($lockKriteria->lock_kriteria == 0)
+                        <a href="{{ url('Kriteria/lock') }}" class="btn btn-danger float-end"><i
+                                class='bx bx-lock-open-alt'></i></a>
+                    @elseif ($lockKriteria->lock_kriteria == 1)
+                        <a href="{{ url('Kriteria/lock') }}" class="btn btn-danger float-end" style="opacity: 0.5"><i
+                                class='bx bx-lock-alt'></i></a>
+                    @endif
+                </div>
+            </div>
             <div class="table-responsive text-nowrap">
                 <table class="table">
                     <caption class="ms-4 mt-1">
@@ -97,6 +124,7 @@
                             <th>@sortablelink('nama_kriteria', 'Nama Kriteria')</th>
                             <th>@sortablelink('attribut', 'Attribut')</th>
                             <th>@sortablelink('bobot', 'Bobot')</th>
+                            <th>Status Crips</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -116,18 +144,38 @@
                                     @endif
                                 </td>
                                 <td>{{ $data->bobot * 100 }}%</td>
+                                <td>
+                                    @if ($data->crips_count == 5)
+                                        <span class="badge bg-success">Terpenuhi</span>
+                                    @endif
+                                    @if ($data->crips_count != 5)
+                                        <span class="badge bg-danger">Belum Terpenuhi</span>
+                                    @endif
+                                </td>
                                 <td style="width:20%">
                                     <a href="{{ url('Kriteria/Crips/' . $data->id_kriteria) }}"
                                         class="btn btn-icon btn-info">
                                         <span class="tf-icons bx bx-book"></span>
                                     </a>
-                                    <a href="{{ url('Kriteria/edit/' . $data->id_kriteria) }}"
-                                        class="btn btn-icon btn-primary">
-                                        <span class="tf-icons bx bx-edit-alt"></span>
-                                    </a>
-                                    <button type="button" class="btn btn-icon btn-danger btn-delete">
-                                        <span class="tf-icons bx bx-trash-alt"></span>
-                                    </button>
+                                    @if ($data->lock_kriteria == 0)
+                                        <a href="{{ url('Kriteria/edit/' . $data->id_kriteria) }}"
+                                            class="btn btn-icon btn-primary">
+                                            <span class="tf-icons bx bx-edit-alt"></span>
+                                        </a>
+                                        <button type="button" class="btn btn-icon btn-danger btn-delete">
+                                            <span class="tf-icons bx bx-trash-alt"></span>
+                                        </button>
+                                    @elseif ($data->lock_kriteria == 1)
+                                        {{-- <a class="btn btn-icon btn-gray" disabled>
+                                            <span class="tf-icons bx bx-book"></span>
+                                        </a> --}}
+                                        <a class="btn btn-icon btn-gray">
+                                            <span class="tf-icons bx bx-edit-alt" disabled></span>
+                                        </a>
+                                        <button type="button" class="btn btn-icon btn-gray">
+                                            <span class="tf-icons bx bx-trash-alt" disabled></span>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
